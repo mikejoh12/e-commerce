@@ -14,9 +14,6 @@ CREATE TABLE "users" (
   "user_role" varchar(100)
 );
 
-INSERT INTO users (email, first_name, last_name, address1, postcode, city, country, user_role)
-VALUES  ('joe123@gmail.com', 'Joe', 'Smith', '123 Grand Ave', '75123', 'Chicago', 'USA', 'customer');
-
 CREATE TABLE "order_products" (
   "order_id" int,
   "product_id" int,

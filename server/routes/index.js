@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/products', products.getAllProducts)
 
 router.get('/users', users.getAllUsers)
+router.post('/users', users.postUser)
 
 router.get('/carts', carts.getAllCarts)
 

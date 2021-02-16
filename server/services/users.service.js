@@ -1,4 +1,4 @@
-const { getUsersDb } = require('../db')
+const { getUsersDb, createUserDb } = require('../db')
 
 /*
   * if you need to make calls to additional tables, data stores (Redis, for example), 
@@ -12,6 +12,15 @@ const getUsers = async () => {
   }
 }
 
+const createUser = async (user) => {
+  try {
+    return await createUserDb(user)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
 module.exports = {
-  getUsers
+  getUsers,
+  createUser
 }

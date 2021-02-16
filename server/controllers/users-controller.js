@@ -1,23 +1,41 @@
 const { usersService } = require('../services')
+const { getUsers, createUser } = usersService
 
-const { getUsers } = usersService
-
-/*
- * call other imported services, or same service but different functions here if you need to
-*/
 const getAllUsers = async (req, res, next) => {
-    try {
-      const users = await getUsers()
-      // other service call (or same service, different function can go here)
-      // i.e. - await generateBlogpostPreview()
-      res.status(200).json(users)
-      next()
-    } catch(e) {
-      console.log(e.message)
-      res.sendStatus(500) && next(e)
-    }
+  try {
+    const users = await getUsers()
+    res.status(200).json(users)
+    next()
+  } catch(e) {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
   }
+}
+
+const postUser = async (req, res, next) => {
+  const { email, first_name, last_name, address1, address2, postcode, city, country } = req.body
+  const user = {
+    email,
+    first_name,
+    last_name,
+    address1,
+    address2,
+    postcode,
+    city,
+    country,
+    user_role: 'customer'
+  }
+  try {
+    await createUser(user)
+    res.sendStatus(201)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
 
 module.exports = {
-    getAllUsers
+    getAllUsers,
+    postUser
 }
