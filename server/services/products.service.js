@@ -1,4 +1,4 @@
-const { fetchProductsDb, fetchProductByIdDb } = require('../db')
+const { fetchProductsDb, fetchProductByIdDb, createProductDb, modifyProductDb, removeProductDb } = require('../db')
 
 const fetchProducts = async () => {
   try {
@@ -16,7 +16,34 @@ const fetchProductById = async (id) => {
   }
 }
 
+const createProduct = async (product) => {
+  try {
+    return await createProductDb(product)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
+const modifyProduct = async (id) => {
+  try {
+    return await modifyProductDb(id)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
+const removeProduct = async (id) => {
+  try {
+    return await removeProductDb(id)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
 module.exports = {
   fetchProducts,
-  fetchProductById
+  fetchProductById,
+  createProduct,
+  modifyProduct,
+  removeProduct
 }

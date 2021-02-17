@@ -1,6 +1,6 @@
 const { productsService } = require('../services')
 
-const { fetchProducts, fetchProductById, createProduct } = productsService
+const { fetchProducts, fetchProductById, createProduct, modifyProduct, removeProduct } = productsService
 
 const getAllProducts = async (req, res, next) => {
     try {
@@ -45,8 +45,45 @@ const postProduct = async (req, res, next) => {
   }
 }
 
+//putProduct can update all info except id
+const putProduct = async (req, res, next) => {
+  const { id } = req.params
+  const { name, price, description, category, image_url, status } = req.body
+  const product = {
+    id,
+    name,
+    price,
+    description,
+    category,
+    image_url,
+    status
+  }
+  try {
+    await modifyProduct(product)
+    res.sendStatus(200)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
+const deleteProduct = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    const deleted = await removeProduct(id)
+    res.status(200).json(deleted)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
-    postProduct
+    postProduct,
+    putProduct,
+    deleteProduct
 }

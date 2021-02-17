@@ -17,6 +17,42 @@ const fetchProductByIdDb = async (id) => {
     console.log(err.stack)
   }
 }
+
+const createProductDb = async ({ name, price, description, category, image_url, status }) => {
+  const text = `INSERT INTO products(name, price, description, category, image_url, status)
+                VALUES($1, $2, $3, $4, $5, $6) RETURNING *`
+  const values = [name, price, description, category, image_url, status]
+  try {
+    const res = await pool.query(text, values)
+    console.log(res.rows[0])
+    return res.rows
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
+const modifyProductDb = async ({ id, name, price, description, category, image_url, status }) => {
+  const text = `UPDATE products SET name=$2, price=$3, description=$4, category=$5, image_url=$6, status=$7
+    WHERE id = $1 RETURNING *`
+  const values = [id, name, price, description, category, image_url, status]
+  try {
+    const res = await pool.query(text, values)
+    console.log(res.rows[0])
+    return res.rows
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
+const removeProductDb = async (id) => {
+  try {
+    const res = await pool.query('DELETE FROM products WHERE id = $1', [id])
+    return res.rows
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
   module.exports = {
-    fetchProductsDb, fetchProductByIdDb
+    fetchProductsDb, fetchProductByIdDb, createProductDb, modifyProductDb, removeProductDb
   }

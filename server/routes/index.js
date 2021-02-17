@@ -7,6 +7,8 @@ const router = express.Router()
 router.get('/products', products.getAllProducts)
     .get('/products/:id', products.getProductById)
     .post('/products', products.postProduct)
+    .put('/products/:id', products.putProduct)
+    .delete('/products/:id', products.deleteProduct)
 
     .get('/users', users.getAllUsers)
     .get('/users/:id', users.getUserById)

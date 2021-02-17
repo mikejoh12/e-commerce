@@ -28,17 +28,17 @@ const createUser = async (user) => {
   }
 }
 
-const modifyUser = async (user) => {
+const modifyUser = async (id) => {
   try {
-    return await modifyUserDb(user)
+    return await modifyUserDb(id)
   } catch(e) {
     throw new Error(e.message)
   }
 }
 
-const removeUser = async (user) => {
+const removeUser = async (id) => {
   try {
-    return await removeUserDb(user)
+    return await removeUserDb(id)
   } catch(e) {
     throw new Error(e.message)
   }
