@@ -1,15 +1,10 @@
 const { productsService } = require('../services')
 
-const { getProducts } = productsService
+const { fetchProducts, fetchProductById, createProduct } = productsService
 
-/*
- * call other imported services, or same service but different functions here if you need to
-*/
 const getAllProducts = async (req, res, next) => {
     try {
-      const products = await getProducts()
-      // other service call (or same service, different function can go here)
-      // i.e. - await generateBlogpostPreview()
+      const products = await fetchProducts()
       res.status(200).json(products)
       next()
     } catch(e) {
@@ -18,6 +13,40 @@ const getAllProducts = async (req, res, next) => {
     }
   }
 
+const getProductById = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    const product = await fetchProductById(id)
+    res.status(200).json(product)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
+const postProduct = async (req, res, next) => {
+  const { name, price, description, category, image_url, status } = req.body
+  const product = {
+    name,
+    price,
+    description,
+    category,
+    image_url,
+    status
+  }
+  try {
+    await createProduct(product)
+    res.sendStatus(201)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
 module.exports = {
-    getAllProducts
+    getAllProducts,
+    getProductById,
+    postProduct
 }
