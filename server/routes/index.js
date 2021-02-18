@@ -17,7 +17,12 @@ router.get('/products', products.getAllProducts)
     .delete('/users/:id', users.deleteUser)
 
     .get('/carts', carts.getAllCarts)
+    .get('/carts/:userId', carts.getCartById)
+    .post('/carts', carts.postCart)
+    .put('/carts/:userId', carts.putCart)
+    .delete('/carts/:userId', carts.deleteCart)
 
     .get('/orders', orders.getAllOrders)
+
 
 module.exports = router

@@ -1,15 +1,10 @@
 const { cartsService } = require('../services')
 
-const { getCarts } = cartsService
+const { fetchCarts, fetchCartById, createCart, modifyCart, removeCart } = cartsService
 
-/*
- * call other imported services, or same service but different functions here if you need to
-*/
 const getAllCarts = async (req, res, next) => {
     try {
-      const carts = await getCarts()
-      // other service call (or same service, different function can go here)
-      // i.e. - await generateBlogpostPreview()
+      const carts = await fetchCarts()
       res.status(200).json(carts)
       next()
     } catch(e) {
@@ -18,6 +13,59 @@ const getAllCarts = async (req, res, next) => {
     }
   }
 
+const getCartById = async (req, res, next) => {
+  const { userId } = req.params
+  try {
+    const cart = await fetchCartById(userId)
+    res.status(200).json(cart)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
+const postCart = async (req, res, next) => {
+  const { user_id } = req.body
+  try {
+    await createCart(user_id)
+    res.sendStatus(201)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
+const putCart = async (req, res, next) => {
+  const { userId } = req.params
+  //TODO - Add cart updating logic
+  try {
+    const newCart = await modifyCart(userId)
+    res.status(200).json(newCart)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
+const deleteCart = async (req, res, next) => {
+  const { userId } = req.params
+  try {
+    const deleted = await removeCart(userId)
+    res.status(200).json(deleted)
+    next()
+  } catch(e)  {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
 module.exports = {
-    getAllCarts
+    getAllCarts,
+    getCartById,
+    postCart,
+    putCart,
+    deleteCart
 }
