@@ -16,13 +16,17 @@ router.get('/products', products.getAllProducts)
     .put('/users/:id', users.putUser)
     .delete('/users/:id', users.deleteUser)
 
-    .get('/carts', carts.getAllCarts)
-    .get('/carts/:userId', carts.getCartById)
-    .post('/carts', carts.postCart)
-    .put('/carts/:userId', carts.putCart)
-    .delete('/carts/:userId', carts.deleteCart)
+    .get('/carts', carts.getAllCarts) //Gets all products in all carts
+    .get('/carts/:cartId', carts.getCartById) //Gets all products in a cart
+    .post('/carts', carts.postCart) //Adds a shopping cart for a user
+    .post('/carts/:cartId/add', carts.postProductInCart) //Adds a new product to a cart
+    .put('/carts/:cartId', carts.putCart) //Changes quantity of a product in a cart
+    .delete('/carts/:cartId', carts.deleteCart) //Deletes a product from a cart
 
-    .get('/orders', orders.getAllOrders)
+    .get('/orders', orders.getAllOrders) //Gets all orders and related users
+    .get('/orders/:orderId', orders.getOrderById) //Gets one order
+    .post('/orders/:userId', orders.postOrder) //Adds a new empty order for a user
+    
 
 
 module.exports = router

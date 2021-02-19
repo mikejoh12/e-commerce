@@ -1,4 +1,4 @@
-const { fetchCartsDb, fetchCartByIdDb, createCartDb, modifyCartDb, removeCartDb } = require('../db')
+const { fetchCartsDb, fetchCartByIdDb, createCartDb, createProductInCartDb, modifyCartDb, removeCartDb } = require('../db')
 
 const fetchCarts = async () => {
   try {
@@ -8,9 +8,9 @@ const fetchCarts = async () => {
   }
 }
 
-const fetchCartById = async (userId) => {
+const fetchCartById = async (cartId) => {
   try {
-    return await fetchCartByIdDb(userId)
+    return await fetchCartByIdDb(cartId)
   } catch(e) {
     throw new Error(e.message)
   }
@@ -24,21 +24,29 @@ const createCart = async (userId) => {
   }
 }
 
-const modifyCart = async (userId) => {
+const createProductInCart = async(cartProduct) => {
   try {
-    return await modifyCartDb(userId)
+    return await createProductInCartDb(cartProduct)
   } catch(e) {
     throw new Error(e.message)
   }
 }
 
-const removeCart = async (userId) => {
+const modifyCart = async (updateCartProduct) => {
   try {
-    return await removeCartDb(userId)
+    return await modifyCartDb(updateCartProduct)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
+const removeCart = async (removeCartProduct) => {
+  try {
+    return await removeCartDb(removeCartProduct)
   } catch(e) {
     throw new Error(e.message)
   }
 }
 module.exports = {
-  fetchCarts, fetchCartById, createCart, modifyCart, removeCart
+  fetchCarts, fetchCartById, createCart, createProductInCart, modifyCart, removeCart
 }

@@ -61,3 +61,7 @@ ALTER TABLE "carts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 ALTER TABLE "cart_products" ADD FOREIGN KEY ("cart_id") REFERENCES "carts" ("id");
 
 ALTER TABLE "cart_products" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+
+ALTER TABLE cart_products ADD PRIMARY KEY (cart_id, product_id);
+
+ALTER TABLE order_products ADD PRIMARY KEY (order_id, product_id);
