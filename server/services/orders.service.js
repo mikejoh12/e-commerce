@@ -1,4 +1,4 @@
-const { fetchOrdersDb, fetchOrderByIdDb, createOrderDb } = require('../db')
+const { fetchOrdersDb, fetchOrderByIdDb, fetchOrdersByUserDb, createOrderDb, createProductInOrderDb } = require('../db')
 
 /*
   * if you need to make calls to additional tables, data stores (Redis, for example), 
@@ -20,6 +20,14 @@ const fetchOrderById = async (orderId) => {
   }
 }
 
+const fetchOrdersByUser = async (userId) => {
+  try {
+    return await fetchOrdersByUserDb(userId)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
 const createOrder = async (userId) => {
   try {
     return await createOrderDb(userId)
@@ -28,6 +36,14 @@ const createOrder = async (userId) => {
   }
 }
 
+const createProductInOrder = async (orderProduct) => {
+  try {
+    return await createProductInOrderDb(orderProduct)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
 module.exports = {
-  fetchOrders, fetchOrderById, createOrder
+  fetchOrders, fetchOrderById, fetchOrdersByUser, createOrder, createProductInOrder
 }

@@ -23,9 +23,13 @@ router.get('/products', products.getAllProducts)
     .put('/carts/:cartId', carts.putCart) //Changes quantity of a product in a cart
     .delete('/carts/:cartId', carts.deleteCart) //Deletes a product from a cart
 
+    //.post('/carts/:cartId/checkout', carts.checkout) //Checks out a cart and places an order
+
     .get('/orders', orders.getAllOrders) //Gets all orders and related users
     .get('/orders/:orderId', orders.getOrderById) //Gets one order
+    .get('/orders/user/:userId', orders.getOrdersByUser) //Gets all orders by user
     .post('/orders/:userId', orders.postOrder) //Adds a new empty order for a user
+    .post('/orders/:orderId/add', orders.postProductInOrder) //Adds one product to an order
     
 
 
