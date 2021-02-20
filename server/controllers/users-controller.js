@@ -1,5 +1,5 @@
 const { usersService } = require('../services')
-const { fetchAllUsers, fetchUserById, createUser, modifyUser, removeUser } = usersService
+const { fetchAllUsers, fetchUserById, modifyUser, removeUser } = usersService
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -17,29 +17,6 @@ const getUserById = async (req, res, next) => {
   try {
     const user = await fetchUserById(id)
     res.status(200).json(user)
-    next()
-  } catch(e)  {
-    console.log(e.message)
-    res.sendStatus(500) && next(e)
-  }
-}
-
-const postUser = async (req, res, next) => {
-  const { email, first_name, last_name, address1, address2, postcode, city, country } = req.body
-  const user = {
-    email,
-    first_name,
-    last_name,
-    address1,
-    address2,
-    postcode,
-    city,
-    country,
-    user_role
-  }
-  try {
-    await createUser(user)
-    res.sendStatus(201)
     next()
   } catch(e)  {
     console.log(e.message)
@@ -89,7 +66,6 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
     getAllUsers,
     getUserById,
-    postUser,
     putUser,
     deleteUser
 }

@@ -4,11 +4,14 @@ const app = express()
 const morgan = require('morgan')
 const routes = require('./routes')
 const config = require('./config')
+const passport = require('passport')
+require('./config/passport')
 
 app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 app.use(cors())
 app.use(morgan('dev'))
+app.use(passport.initialize())
 
 app.get('/', (req, res) => res.send('App is working'))
 

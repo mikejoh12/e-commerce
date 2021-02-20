@@ -1,9 +1,5 @@
-const { fetchUsersDb, fetchUserByIdDb, createUserDb, modifyUserDb, removeUserDb } = require('../db')
+const { fetchUsersDb, fetchUserByIdDb, fetchUserByEmailDb, createUserDb, modifyUserDb, removeUserDb } = require('../db')
 
-/*
-  * if you need to make calls to additional tables, data stores (Redis, for example), 
-  * or call an external endpoint as part of creating the blogpost, add them to this service
-*/
 const fetchAllUsers = async () => {
   try {
     return await fetchUsersDb()
@@ -15,6 +11,14 @@ const fetchAllUsers = async () => {
 const fetchUserById = async (id) => {
   try {
     return await fetchUserByIdDb(id)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
+const fetchUserByEmail = async (email) => {
+  try {
+    return await fetchUserByEmailDb(email)
   } catch(e) {
     throw new Error(e.message)
   }
@@ -47,6 +51,7 @@ const removeUser = async (id) => {
 module.exports = {
   fetchAllUsers,
   fetchUserById,
+  fetchUserByEmail,
   createUser,
   modifyUser,
   removeUser

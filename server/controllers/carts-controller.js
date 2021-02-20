@@ -1,6 +1,6 @@
-const { cartsService } = require('../services')
-
+const { cartsService, ordersService } = require('../services')
 const { fetchCarts, fetchCartById, createCart, createProductInCart, modifyCart, removeCart } = cartsService
+const { createOrder, createProductInOrder } = ordersService
 
 const getAllCarts = async (req, res, next) => {
     try {
@@ -90,11 +90,44 @@ const deleteCart = async (req, res, next) => {
   }
 }
 
+const checkoutCart = async (req, res, next) => {
+  const { cartId } = req.params
+  const { user_id } = req.body
+  try {
+    const cart = await fetchCartById(cartId)
+    console.log(cart)
+    if (!cart.length) {
+      res.status(500).send('Cart is empty')
+      next()
+    }
+    const orderId = await createOrder(user_id)
+    //Move all cart items to order
+    cart.forEach(item => {
+      createProductInOrder({
+        order_id: orderId,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        price: item.price
+      })
+      removeCart({
+        cart_id: cartId,
+        product_id: item.product_id
+      })
+    })
+    res.status(201).send(`Order placed. Order id: ${orderId}`)
+    next()
+  } catch(e) {
+    console.log(e.message)
+    res.sendStatus(500) && next(e)
+  }
+}
+
 module.exports = {
     getAllCarts,
     getCartById,
     postCart,
     postProductInCart,
     putCart,
-    deleteCart
+    deleteCart,
+    checkoutCart
 }

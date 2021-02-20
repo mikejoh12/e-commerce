@@ -44,7 +44,7 @@ const createOrderDb = async (userId) => {
   try {
     const res = await pool.query(text, values)
     console.log(res.rows[0])
-    return res.rows
+    return res.rows[0].id
   } catch (err) {
     console.log(err.stack)
   }

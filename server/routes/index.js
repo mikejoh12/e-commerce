@@ -1,18 +1,22 @@
 const express = require('express')
+const passport = require('passport')
 
-const { products, users, carts, orders } = require('../controllers')
+const { auth, products, users, carts, orders } = require('../controllers')
 
 const router = express.Router()
 
-router.get('/products', products.getAllProducts)
+router
+    .post('/auth/signup', auth.signupUser) //Adds a user
+    .post('/auth/login', auth.loginUser)
+    
+    .get('/products', products.getAllProducts) //Add query string for category
     .get('/products/:id', products.getProductById)
     .post('/products', products.postProduct)
     .put('/products/:id', products.putProduct)
     .delete('/products/:id', products.deleteProduct)
 
-    .get('/users', users.getAllUsers)
+    .get('/users', passport.authenticate('jwt', {session: false}), users.getAllUsers)
     .get('/users/:id', users.getUserById)
-    .post('/users', users.postUser)
     .put('/users/:id', users.putUser)
     .delete('/users/:id', users.deleteUser)
 
@@ -23,7 +27,7 @@ router.get('/products', products.getAllProducts)
     .put('/carts/:cartId', carts.putCart) //Changes quantity of a product in a cart
     .delete('/carts/:cartId', carts.deleteCart) //Deletes a product from a cart
 
-    //.post('/carts/:cartId/checkout', carts.checkout) //Checks out a cart and places an order
+    .post('/carts/:cartId/checkout', carts.checkoutCart) //Checks out a cart and places an order
 
     .get('/orders', orders.getAllOrders) //Gets all orders and related users
     .get('/orders/:orderId', orders.getOrderById) //Gets one order
@@ -31,6 +35,4 @@ router.get('/products', products.getAllProducts)
     .post('/orders/:userId', orders.postOrder) //Adds a new empty order for a user
     .post('/orders/:orderId/add', orders.postProductInOrder) //Adds one product to an order
     
-
-
 module.exports = router
