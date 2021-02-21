@@ -34,12 +34,21 @@ passport.use(
 }
 ))
 
+//Checks the A_JWT cookie
 passport.use(
     'jwt-customer',
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+        jwtFromRequest: ExtractJWT.fromExtractors([
+          (req) => {
+            let token = null;
+            if (req && req.cookies)
+            {
+                token = req.cookies['A_JWT'];
+            }
+            return token;
+        }])
       },
       async (token, done) => {
         try {
@@ -51,12 +60,21 @@ passport.use(
     )
   );
 
+  //Checks the A_JWT cookie and if a user has user_role = admin
   passport.use(
     'jwt-admin',
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+        jwtFromRequest: ExtractJWT.fromExtractors([
+          (req) => {
+            let token = null;
+            if (req && req.cookies)
+            {
+                token = req.cookies['A_JWT'];
+            }
+            return token;
+        }])
       },
       async (token, done) => {
         if (token.user.role !== 'admin') { //Reject if not admin
