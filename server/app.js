@@ -1,4 +1,5 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
@@ -10,6 +11,7 @@ require('./config/passport')
 app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 app.use(cors())
+app.use(cookieParser())
 app.use(morgan('dev'))
 app.use(passport.initialize())
 

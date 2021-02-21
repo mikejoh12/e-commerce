@@ -48,8 +48,14 @@ const loginUser = async (req, res, next) => {
 
             const body = { id: user.id, email: user.email, role: user.user_role};
             const token = jwt.sign({ user: body }, 'TOP_SECRET');
-
-            return res.json({ token });
+            res.cookie('A_JWT', token, {
+              maxAge: 60 * 60 * 1000, // 1 hour
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production'? true: false,
+              sameSite: true, //Change if hosting client site with different provider
+            })
+            
+            return res.status(200).send(`Login successful. Token: ${token}`);
           }
         );
       } catch (error) {
