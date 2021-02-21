@@ -35,13 +35,33 @@ passport.use(
 ))
 
 passport.use(
-    'jwt',
+    'jwt-customer',
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
         jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
       },
       async (token, done) => {
+        try {
+          return done(null, token.user);
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
+
+  passport.use(
+    'jwt-admin',
+    new JWTstrategy(
+      {
+        secretOrKey: 'TOP_SECRET',
+        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+      },
+      async (token, done) => {
+        if (token.user.role !== 'admin') { //Reject if not admin
+          return done(null, false)
+        }
         try {
           return done(null, token.user);
         } catch (error) {

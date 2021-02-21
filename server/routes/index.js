@@ -7,20 +7,21 @@ const router = express.Router()
 
 router
     .post('/auth/signup', auth.signupUser) //Adds a user
-    .post('/auth/login', auth.loginUser)
+    .post('/auth/login', auth.loginUser) //Logs user in and sends a JWT back
     
-    .get('/products', products.getAllProducts) //Add query string for category
+    .get('/products', products.getAllProducts)
     .get('/products/:id', products.getProductById)
-    .post('/products', products.postProduct)
-    .put('/products/:id', products.putProduct)
-    .delete('/products/:id', products.deleteProduct)
+    .post('/products', passport.authenticate('jwt-admin', {session: false}), products.postProduct)
+    .put('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.putProduct)
+    .delete('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.deleteProduct)
 
-    .get('/users', passport.authenticate('jwt', {session: false}), users.getAllUsers)
-    .get('/users/:id', users.getUserById)
-    .put('/users/:id', users.putUser)
-    .delete('/users/:id', users.deleteUser)
+    .get('/users', passport.authenticate('jwt-admin', {session: false}), users.getAllUsers)
+    .get('/users/:id', passport.authenticate('jwt-admin', {session: false}), users.getUserById)
+    .put('/users/:id', users.putUser) //TODO So only user can update self
+    .delete('/users/:id', passport.authenticate('jwt-admin', {session: false}), users.deleteUser)
 
-    .get('/carts', carts.getAllCarts) //Gets all products in all carts
+    //TODO Limit cart operations to cart owned by user unless admin
+    .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
     .get('/carts/:cartId', carts.getCartById) //Gets all products in a cart
     .post('/carts', carts.postCart) //Adds a shopping cart for a user
     .post('/carts/:cartId/add', carts.postProductInCart) //Adds a new product to a cart
@@ -29,7 +30,8 @@ router
 
     .post('/carts/:cartId/checkout', carts.checkoutCart) //Checks out a cart and places an order
 
-    .get('/orders', orders.getAllOrders) //Gets all orders and related users
+    //TODO Limit order operations to orders by self unless admin
+    .get('/orders', passport.authenticate('jwt-admin', {session: false}), orders.getAllOrders) //Gets all orders and related users
     .get('/orders/:orderId', orders.getOrderById) //Gets one order
     .get('/orders/user/:userId', orders.getOrdersByUser) //Gets all orders by user
     .post('/orders/:userId', orders.postOrder) //Adds a new empty order for a user
