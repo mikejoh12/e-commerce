@@ -16,7 +16,6 @@ passport.use(
     async (email, password, done) => {
     try {
         const user = await usersService.fetchUserByEmail(email);
-        console.log(user)
         if (!user) {
         return done(null, false, { message: 'User not found' });
         }

@@ -20,7 +20,7 @@ const fetchCartByIdDb = async (userId) => {
       ` SELECT * FROM carts
         INNER JOIN cart_products ON carts.id = cart_products.cart_id
         INNER JOIN products ON cart_products.product_id = products.id
-        WHERE user.id = $1`, [userId])
+        WHERE user_id = $1`, [userId])
     return res.rows
   } catch (err) {
     console.log(err.stack)
@@ -59,12 +59,11 @@ const modifyCartDb = async ({cart_id, product_id, quantity}) => {
   console.log(`Cart id: ${cart_id} Product_id: ${product_id} Qty ${quantity}`)
   const text = `UPDATE cart_products
                 SET quantity = $3
-                WHERE cart_id = $1 AND product_id = $2`
+                WHERE cart_id = $1 AND product_id = $2 RETURNING *`
   const values = [cart_id, product_id, quantity]
   try {
     const res = await pool.query(text, values)
-    console.log(res.rows[0])
-    return res.rows
+    return res.rows[0]
   } catch (err) {
     console.log(err.stack)
   }
@@ -74,7 +73,7 @@ const modifyCartDb = async ({cart_id, product_id, quantity}) => {
 const removeCartDb = async ({cart_id, product_id}) => {
   try {
     const res = await pool.query('DELETE FROM cart_products WHERE cart_id = $1 AND product_id = $2', [cart_id, product_id])
-    return res.rows
+    return res.rows[0]
   } catch (err) {
     console.log(err.stack)
   }

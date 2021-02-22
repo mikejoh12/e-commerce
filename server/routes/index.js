@@ -16,18 +16,17 @@ router
     .delete('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.deleteProduct)
 
     .get('/users', passport.authenticate('jwt-admin', {session: false}), users.getAllUsers)
-    .get('/users/self', passport.authenticate('jwt-customer', {session: false}), users.getUserSelf) //Customer self access TODO: Don't send hash
-    .put('/users/self', passport.authenticate('jwt-customer', {session: false}), users.putUserSelf) //Customer self access
+    .get('/users/self', passport.authenticate('jwt-customer', {session: false}), users.getUserSelf) //Customer can access their user info TODO: Don't send hash
+    .put('/users/self', passport.authenticate('jwt-customer', {session: false}), users.putUserSelf) //Customer can edit their user info
     .delete('/users/:id', passport.authenticate('jwt-admin', {session: false}), users.deleteUser)
 
-    //TODO Limit cart operations to cart owned by user unless admin
     .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
-    .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in self cart
-    .post('/carts/:cartId/add', carts.postProductInCart) //Adds a new product to a cart TODO: Auth from here
-    .put('/carts/:cartId', carts.putCart) //Changes quantity of a product in a cart
-    .delete('/carts/:cartId', carts.deleteCart) //Deletes a product from a cart
+    .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in user's cart
+    .post('/carts/self/add', passport.authenticate('jwt-customer', {session: false}), carts.postProductInCartSelf) //Adds a new product to user's cart
+    .put('/carts/self/modify', passport.authenticate('jwt-customer', {session: false}), carts.putCartSelf) //Changes quantity of a product in user's cart
+    .delete('/carts/self/delete', passport.authenticate('jwt-customer', {session: false}), carts.deleteCartSelf) //Deletes a product from user's cart
 
-    .post('/carts/:cartId/checkout', carts.checkoutCart) //Checks out a cart and places an order
+    .post('/carts/self/checkout', passport.authenticate('jwt-customer', {session: false}), carts.checkoutCart) //Checks out a user's cart and places an order
 
     //TODO Limit order operations to orders by self unless admin
     .get('/orders', passport.authenticate('jwt-admin', {session: false}), orders.getAllOrders) //Gets all orders and related users

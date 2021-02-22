@@ -1,5 +1,5 @@
 const { cartsService, ordersService } = require('../services')
-const { fetchCarts, fetchCartById, createCart, createProductInCart, modifyCart, removeCart } = cartsService
+const { fetchCarts, fetchCartById, createProductInCart, modifyCart, removeCart } = cartsService
 const { createOrder, createProductInOrder } = ordersService
 
 const getAllCarts = async (req, res, next) => {
@@ -25,20 +25,8 @@ const getCartSelf = async (req, res, next) => {
   }
 }
 
-const postCart = async (req, res, next) => {
-  const user_id = req.user.id
-  try {
-    await createCart(user_id)
-    res.sendStatus(201)
-    next()
-  } catch(e)  {
-    console.log(e.message)
-    res.sendStatus(500) && next(e)
-  }
-}
-
-const postProductInCart = async (req, res, next) => {
-  const { cartId } = req.params
+const postProductInCartSelf = async (req, res, next) => {
+  const cartId = req.user.cart_id
   const { product_id, quantity } = req.body
   const cartProduct = {
     cart_id: cartId,
@@ -55,8 +43,8 @@ const postProductInCart = async (req, res, next) => {
   }
 }
 
-const putCart = async (req, res, next) => {
-  const { cartId } = req.params
+const putCartSelf = async (req, res, next) => {
+  const cartId = req.user.cart_id
   const { product_id, quantity } = req.body
   const updateCartProduct = {
     cart_id: cartId,
@@ -73,8 +61,8 @@ const putCart = async (req, res, next) => {
   }
 }
 
-const deleteCart = async (req, res, next) => {
-  const { cartId } = req.params
+const deleteCartSelf = async (req, res, next) => {
+  const cartId = req.user.cart_id
   const { product_id } = req.body
   const removeCartProduct = {
     cart_id: cartId,
@@ -91,10 +79,11 @@ const deleteCart = async (req, res, next) => {
 }
 
 const checkoutCart = async (req, res, next) => {
-  const { cartId } = req.params
-  const { user_id } = req.body
+  const cartId = req.user.cart_id
+  const user_id = req.user.id
+  console.log(`User id: ${user_id}`)
   try {
-    const cart = await fetchCartById(cartId)
+    const cart = await fetchCartById(user_id)
     console.log(cart)
     if (!cart.length) {
       res.status(500).send('Cart is empty')
@@ -125,9 +114,8 @@ const checkoutCart = async (req, res, next) => {
 module.exports = {
     getAllCarts,
     getCartSelf,
-    postCart,
-    postProductInCart,
-    putCart,
-    deleteCart,
+    postProductInCartSelf,
+    putCartSelf,
+    deleteCartSelf,
     checkoutCart
 }
