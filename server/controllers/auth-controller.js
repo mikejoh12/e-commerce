@@ -22,7 +22,6 @@ const signupUser = async (req, res, next) => {
         user_role: "customer"
       }        
       const newUser = await createUser(user)
-      console.log(`New user: ${JSON.stringify(newUser)}`)
       const newCart = await createCart(newUser.id)
       res.status(201).json({userId: newUser.id, cartId: newCart.id})
       next()

@@ -28,11 +28,9 @@ router
 
     .post('/carts/self/checkout', passport.authenticate('jwt-customer', {session: false}), carts.checkoutCart) //Checks out a user's cart and places an order
 
-    //TODO Limit order operations to orders by self unless admin
-    .get('/orders', passport.authenticate('jwt-admin', {session: false}), orders.getAllOrders) //Gets all orders and related users
-    .get('/orders/:orderId', orders.getOrderById) //Gets one order
-    .get('/orders/user/:userId', orders.getOrdersByUser) //Gets all orders by user
-    .post('/orders/:userId', orders.postOrder) //Adds a new empty order for a user
-    .post('/orders/:orderId/add', orders.postProductInOrder) //Adds one product to an order
+    .get('/orders', passport.authenticate('jwt-admin', {session: false}), orders.getAllOrders) //Gets all orders for all users
+    .get('/orders/review/:orderId', passport.authenticate('jwt-admin', {session: false}), orders.getOrderById) //Gets one order
+    .get('/orders/self', passport.authenticate('jwt-customer', {session: false}), orders.getOrdersSelf) //Gets all orders for current user
+
     
 module.exports = router

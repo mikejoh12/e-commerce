@@ -24,13 +24,13 @@ const fetchOrderByIdDb = async (orderId) => {
 
 //Fetches the order history for one user
 const fetchOrdersByUserDb = async (userId) => {
+  const text = `SELECT orders.id AS order_id, products.id, products.name, products.price AS products_id, user_id FROM orders
+                INNER JOIN order_products ON orders.id = order_products.order_id
+                INNER JOIN products ON order_products.product_id = products.id
+                WHERE user_id = $1`
+  values = [userId]
   try {
-    const res = await pool.query(
-      ` SELECT * FROM orders
-        INNER JOIN order_products ON orders.id = order_products.order_id
-        INNER JOIN products ON order_products.product_id = products.id
-        INNER JOIN users ON users.id = orders.user_id
-        WHERE users.id = $1`, [userId])
+    const res = await pool.query(text, values)
     return res.rows
   } catch (err) {
     console.log(err.stack)
