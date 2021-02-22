@@ -30,12 +30,12 @@ const fetchCartByIdDb = async (userId) => {
 //Creates a record in the carts table for a userId with 1-1 relation
 const createCartDb = async (userId) => {
   const text = `INSERT INTO carts(user_id)
-                VALUES($1) RETURNING *`
+                VALUES($1) RETURNING id`
   const values = [userId]
   try {
     const res = await pool.query(text, values)
     console.log(res.rows[0])
-    return res.rows
+    return res.rows[0]
   } catch (err) {
     console.log(err.stack)
   }

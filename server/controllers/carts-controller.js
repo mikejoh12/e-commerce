@@ -14,7 +14,7 @@ const getAllCarts = async (req, res, next) => {
   }
 
 const getCartSelf = async (req, res, next) => {
-  const { userId } = req.user.id //Extract user id from passport user object
+  const userId = req.user.id //Extract user id from passport user object
   try {
     const cart = await fetchCartById(userId)
     res.status(200).json(cart)
@@ -26,7 +26,7 @@ const getCartSelf = async (req, res, next) => {
 }
 
 const postCart = async (req, res, next) => {
-  const { user_id } = req.body
+  const user_id = req.user.id
   try {
     await createCart(user_id)
     res.sendStatus(201)

@@ -35,7 +35,7 @@ const createUserDb = async ({email, first_name, last_name, address1, address2, p
   try {
     const res = await pool.query(text, values)
     console.log(res.rows[0])
-    return res.rows
+    return res.rows[0]
   } catch (err) {
     console.log(err.stack)
   }

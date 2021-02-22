@@ -1,6 +1,7 @@
-const { authService, usersService } = require('../services')
+const { authService, usersService, cartsService } = require('../services')
 const { getPwdHash } = authService
 const { createUser } = usersService
+const { createCart } = cartsService
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
@@ -8,7 +9,6 @@ const signupUser = async (req, res, next) => {
     const { email, password, first_name, last_name, address1, address2, postcode, city, country } = req.body
     try {
       const pwd_hash = await getPwdHash(password)
-      console.log(pwd_hash)
       const user = {
         email,
         first_name,
@@ -21,8 +21,10 @@ const signupUser = async (req, res, next) => {
         pwd_hash,
         user_role: "customer"
       }        
-      await createUser(user)
-      res.status(201).send(`You signed up successfully.`)
+      const newUser = await createUser(user)
+      console.log(`New user: ${JSON.stringify(newUser)}`)
+      const newCart = await createCart(newUser.id)
+      res.status(201).json({userId: newUser.id, cartId: newCart.id})
       next()
     } catch(e) {
       console.log(e.message)
