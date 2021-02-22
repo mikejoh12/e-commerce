@@ -41,10 +41,10 @@ const createUserDb = async ({email, first_name, last_name, address1, address2, p
   }
 }
 
-const modifyUserDb = async ({id, email, first_name, last_name, address1, address2, postcode, city,  country, active, user_role}) => {
-  const text = `UPDATE users SET email=$2, first_name=$3, last_name=$4, address1=$5, address2=$6, postcode=$7, city=$8, country=$9, active=$10, user_role=$11
-    WHERE id = $1 RETURNING *`
-  const values = [id, email, first_name, last_name, address1, address2, postcode, city,  country, active, user_role]
+const modifyUserDb = async ({id, email, first_name, last_name, address1, address2, postcode, city,  country}) => {
+  const text = `UPDATE users SET email=$2, first_name=$3, last_name=$4, address1=$5, address2=$6, postcode=$7, city=$8, country=$9
+  WHERE id = $1 RETURNING *`
+  const values = [id, email, first_name, last_name, address1, address2, postcode, city,  country]
   try {
     const res = await pool.query(text, values)
     console.log(res.rows[0])

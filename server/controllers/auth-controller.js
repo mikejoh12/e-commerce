@@ -22,7 +22,7 @@ const signupUser = async (req, res, next) => {
         user_role: "customer"
       }        
       await createUser(user)
-      res.status(201).send(`You signed up. Hash: ${pwd_hash}`)
+      res.status(201).send(`You signed up successfully.`)
       next()
     } catch(e) {
       console.log(e.message)

@@ -13,14 +13,14 @@ const fetchCartsDb = async () => {
   }
 }
 
-//Fetches all products in a cart for a cartId
-const fetchCartByIdDb = async (cartId) => {
+//Fetches all products in a cart for a userId
+const fetchCartByIdDb = async (userId) => {
   try {
     const res = await pool.query(
       ` SELECT * FROM carts
         INNER JOIN cart_products ON carts.id = cart_products.cart_id
         INNER JOIN products ON cart_products.product_id = products.id
-        WHERE carts.id = $1`, [cartId])
+        WHERE user.id = $1`, [userId])
     return res.rows
   } catch (err) {
     console.log(err.stack)

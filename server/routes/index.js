@@ -7,7 +7,7 @@ const router = express.Router()
 
 router
     .post('/auth/signup', auth.signupUser) //Adds a user
-    .post('/auth/login', auth.loginUser) //Logs user in and sends a JWT back
+    .post('/auth/login', auth.loginUser) //Logs user in and sends a JWT back in cookie
     
     .get('/products', products.getAllProducts)
     .get('/products/:id', products.getProductById)
@@ -16,13 +16,13 @@ router
     .delete('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.deleteProduct)
 
     .get('/users', passport.authenticate('jwt-admin', {session: false}), users.getAllUsers)
-    .get('/users/:id', passport.authenticate('jwt-admin', {session: false}), users.getUserById)
-    .put('/users/:id', users.putUser) //TODO So only user can update self
+    .get('/users/self', passport.authenticate('jwt-customer', {session: false}), users.getUserSelf) //Customer self access TODO: Don't send hash
+    .put('/users/self', passport.authenticate('jwt-customer', {session: false}), users.putUserSelf) //Customer self access
     .delete('/users/:id', passport.authenticate('jwt-admin', {session: false}), users.deleteUser)
 
     //TODO Limit cart operations to cart owned by user unless admin
     .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
-    .get('/carts/:cartId', carts.getCartById) //Gets all products in a cart
+    .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in self cart
     .post('/carts', carts.postCart) //Adds a shopping cart for a user
     .post('/carts/:cartId/add', carts.postProductInCart) //Adds a new product to a cart
     .put('/carts/:cartId', carts.putCart) //Changes quantity of a product in a cart

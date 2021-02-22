@@ -8,9 +8,9 @@ const fetchCarts = async () => {
   }
 }
 
-const fetchCartById = async (cartId) => {
+const fetchCartById = async (userId) => {
   try {
-    return await fetchCartByIdDb(cartId)
+    return await fetchCartByIdDb(userId)
   } catch(e) {
     throw new Error(e.message)
   }

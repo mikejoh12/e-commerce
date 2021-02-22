@@ -4,7 +4,7 @@ const { fetchAllUsers, fetchUserById, modifyUser, removeUser } = usersService
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await fetchAllUsers()
-    res.status(200).json(users)
+    res.status(200).json({users: users})
     next()
   } catch(e) {
     console.log(e.message)
@@ -12,8 +12,8 @@ const getAllUsers = async (req, res, next) => {
   }
 }
 
-const getUserById = async (req, res, next) => {
-  const { id } = req.params
+const getUserSelf = async (req, res, next) => {
+  const id = req.user.id //Extract id from passport user object
   try {
     const user = await fetchUserById(id)
     res.status(200).json(user)
@@ -24,10 +24,10 @@ const getUserById = async (req, res, next) => {
   }
 }
 
-//putUser can update all user-info except id, date_joined and pwd_hash
-const putUser = async (req, res, next) => {
-  const { id } = req.params
-  const { email, first_name, last_name, address1, address2, postcode, city, country, active, user_role } = req.body
+//putUserSelf updates most fields of self
+const putUserSelf = async (req, res, next) => {
+  const id = req.user.id //Extract self user id from passport user object
+  const { email, first_name, last_name, address1, address2, postcode, city, country } = req.body
   const user = {
     id,
     email,
@@ -38,8 +38,6 @@ const putUser = async (req, res, next) => {
     postcode,
     city,
     country,
-    active,
-    user_role
   }
   try {
     await modifyUser(user)
@@ -65,7 +63,7 @@ const deleteUser = async (req, res, next) => {
 
 module.exports = {
     getAllUsers,
-    getUserById,
-    putUser,
+    getUserSelf,
+    putUserSelf,
     deleteUser
 }

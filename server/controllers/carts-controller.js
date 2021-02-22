@@ -13,10 +13,10 @@ const getAllCarts = async (req, res, next) => {
     }
   }
 
-const getCartById = async (req, res, next) => {
-  const { cartId } = req.params
+const getCartSelf = async (req, res, next) => {
+  const { userId } = req.user.id //Extract user id from passport user object
   try {
-    const cart = await fetchCartById(cartId)
+    const cart = await fetchCartById(userId)
     res.status(200).json(cart)
     next()
   } catch(e)  {
@@ -124,7 +124,7 @@ const checkoutCart = async (req, res, next) => {
 
 module.exports = {
     getAllCarts,
-    getCartById,
+    getCartSelf,
     postCart,
     postProductInCart,
     putCart,
