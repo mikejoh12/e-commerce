@@ -38,9 +38,9 @@ const fetchOrdersByUserDb = async (userId) => {
 }
 
 //Create an empty order for a customer
-const createOrderDb = async (userId) => {
-  const text =  `INSERT INTO orders (user_id) VALUES($1) RETURNING *`
-  const values = [userId]
+const createOrderDb = async ({user_id, status}) => {
+  const text =  `INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *`
+  const values = [user_id, status]
   try {
     const res = await pool.query(text, values)
     console.log(res.rows[0])

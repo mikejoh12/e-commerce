@@ -29,8 +29,12 @@ const fetchOrdersByUser = async (userId) => {
 }
 
 const createOrder = async (userId) => {
+  const order = {
+    user_id: userId,
+    status: 'Placed order'
+  }
   try {
-    return await createOrderDb(userId)
+    return await createOrderDb(order)
   } catch(e) {
     throw new Error(e.message)
   }
