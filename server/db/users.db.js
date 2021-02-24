@@ -2,7 +2,8 @@ const {pool} = require('../config')
 
 const fetchUsersDb = async () => {
   try {
-    const res = await pool.query('SELECT * FROM users')
+    const res = await pool.query(
+      'SELECT id, email, first_name, last_name, address1, address2, postcode, city, country, date_joined, active, user_role FROM users')
     return res.rows
   } catch (err) {
     console.log(err.stack)
@@ -11,7 +12,9 @@ const fetchUsersDb = async () => {
 
 const fetchUserByIdDb = async (id) => {
   try {
-    const res = await pool.query('SELECT * FROM users WHERE id = $1', [id])
+    const res = await pool.query(
+      'SELECT id, email, first_name, last_name, address1, address2, postcode, city, country FROM users WHERE id = $1'
+      ,[id])
     return res.rows
   } catch (err) {
     console.log(err.stack)

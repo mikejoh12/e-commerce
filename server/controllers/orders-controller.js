@@ -27,7 +27,6 @@ const getOrderById = async (req, res, next) => {
 
 const getOrdersSelf = async (req, res, next) => {
   const userId = req.user.id
-  console.log(`User id: ${userId}`)
   try {
     const orders = await fetchOrdersByUser(userId)
     res.status(200).json({orders: orders})

@@ -80,10 +80,47 @@ const validateDeleteProduct = [
         else next();
 }]
 
+const validatePutUser = [
+    check('email').not().isEmpty().isEmail().isLength({max: 100}),
+    check('first_name').not().isEmpty().isLength({max: 100}),
+    check('last_name').not().isEmpty().isLength({max: 100}),
+    check('address1').not().isEmpty().isLength({max: 100}),
+    check('address2').isLength({max: 100}),
+    check('postcode').not().isEmpty().isLength({max: 10}),
+    check('city').not().isEmpty().isLength({max: 100}),
+    check('country').isLength({max: 100})
+    , (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    else next();
+}]
+
+const validateDeleteUser = [
+    check('id').not().isEmpty().isInt()
+    , (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        else next();
+}]
+
 const validateCart = [
     check('product_id').not().isEmpty().isInt(),
     check('quantity').not().isEmpty().isInt(),
     (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        else next();
+}]
+
+const validateDeleteCart = [
+    check('product_id').not().isEmpty().isInt()
+    , (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
@@ -107,7 +144,10 @@ module.exports = {
     validateGetProducts,
     validatePostProduct,
     validatePutProduct,
+    validatePutUser,
+    validateDeleteUser,
     validateDeleteProduct,
     validateCart,
+    validateDeleteCart,
     validateOrder
 }
