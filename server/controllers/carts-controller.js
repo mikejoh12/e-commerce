@@ -81,10 +81,8 @@ const deleteCartSelf = async (req, res, next) => {
 const checkoutCart = async (req, res, next) => {
   const cartId = req.user.cart_id
   const user_id = req.user.id
-  console.log(`User id: ${user_id}`)
   try {
     const cart = await fetchCartById(user_id)
-    console.log(cart)
     if (!cart.length) {
       res.status(500).send('Cart is empty')
       next()

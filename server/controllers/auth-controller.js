@@ -7,11 +7,6 @@ const jwt = require('jsonwebtoken')
 const { validationResult } = require('express-validator')
 
 const signupUser = async (req, res, next) => {
-    //Reject if validation fails
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(422).json({errors: errors.array()})
-    }
 
     const { email, password, first_name, last_name, address1, address2, postcode, city, country } = req.body
     try {
