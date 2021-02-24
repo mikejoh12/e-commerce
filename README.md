@@ -9,7 +9,7 @@ Back-end uses Postgres, Express, React and Node.js. Passport, jsonwebtoken, and 
 
 ### Installation instructions:
 1. Clone repo
-2. Create a postgres database and populate it with tables found in the following file: server/db/e-commerce.sql
+2. Create and start up a local postgres database and populate it with tables found in the following file: server/db/e-commerce.sql
 3. Create a .env file in the /server directory with the following variables set to the values applying to your setup:
 DB_USER (your db username), DB_PASSWORD (your db password), DB_HOST=localhost, DB_PORT (postgres port, such as 5432), DB_DATABASE (your database name),
 JWT_KEY (random string, secret key used to verify JWT), PORT (port used, such as 3000)
