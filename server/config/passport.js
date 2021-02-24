@@ -38,7 +38,7 @@ passport.use(
     'jwt-customer',
     new JWTstrategy(
       {
-        secretOrKey: 'TOP_SECRET',
+        secretOrKey: process.env.JWT_KEY,
         jwtFromRequest: ExtractJWT.fromExtractors([
           (req) => {
             let token = null;
@@ -64,7 +64,7 @@ passport.use(
     'jwt-admin',
     new JWTstrategy(
       {
-        secretOrKey: 'TOP_SECRET',
+        secretOrKey: process.env.JWT_KEY,
         jwtFromRequest: ExtractJWT.fromExtractors([
           (req) => {
             let token = null;

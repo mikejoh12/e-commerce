@@ -48,7 +48,7 @@ const loginUser = async (req, res, next) => {
             if (error) return next(error);
 
             const body = { id: user.id, cart_id: user.cart_id, email: user.email, role: user.user_role};
-            const token = jwt.sign({ user: body }, 'TOP_SECRET');
+            const token = jwt.sign({ user: body }, process.env.JWT_KEY);
             res.cookie('A_JWT', token, {
               maxAge: 60 * 60 * 1000, // 1 hour
               httpOnly: true,

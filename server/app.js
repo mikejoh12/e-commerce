@@ -8,15 +8,13 @@ const config = require('./config')
 const passport = require('passport')
 require('./config/passport')
 
-app.use(express.json()); //Used to parse JSON bodies
-app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
-app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cors()) //TODO: Cors settings
 app.use(cookieParser())
 app.use(morgan('dev'))
 app.use(passport.initialize())
 
-app.get('/', (req, res) => res.send('App is working'))
-
 app.use('/api', routes)
 
-app.listen(config.port, () => console.log(`Example app listening on port ${config.port}`))
+app.listen(config.port, () => console.log(`Server listening on port ${config.port}`))
