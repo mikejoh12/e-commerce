@@ -1,5 +1,5 @@
 const { productsService } = require('../services')
-
+const { validationResult } = require('express-validator')
 const { fetchProducts, fetchProductById, createProduct, modifyProduct, removeProduct } = productsService
 
 const getAllProducts = async (req, res, next) => {
@@ -26,6 +26,12 @@ const getProductById = async (req, res, next) => {
 }
 
 const postProduct = async (req, res, next) => {
+  //Reject if validation fails
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()})
+  }
+  
   const { name, price, description, category, image_url, status } = req.body
   const product = {
     name,
@@ -47,6 +53,12 @@ const postProduct = async (req, res, next) => {
 
 //putProduct can update all info except id
 const putProduct = async (req, res, next) => {
+  //Reject if validation fails
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()})
+  }
+  
   const { id } = req.params
   const { name, price, description, category, image_url, status } = req.body
   const product = {

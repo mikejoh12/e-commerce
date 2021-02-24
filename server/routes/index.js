@@ -1,18 +1,56 @@
 const express = require('express')
 const passport = require('passport')
-
+const { check } = require('express-validator')
 const { auth, products, users, carts, orders } = require('../controllers')
 
 const router = express.Router()
 
 router
-    .post('/auth/signup', auth.signupUser) //Adds a user and creates a cart for the user
-    .post('/auth/login', auth.loginUser) //Logs user in and sends a JWT back in cookie
+    //Adds a user and creates a cart for the user
+    .post('/auth/signup',
+    [
+        check('password').not().isEmpty().isLength({min: 6, max: 100}),
+        check('email').not().isEmpty().isEmail().isLength({max: 100}),
+        check('first_name').not().isEmpty().isLength({max: 100}),
+        check('last_name').not().isEmpty().isLength({max: 100}),
+        check('address1').not().isEmpty().isLength({max: 100}),
+        check('address2').isLength({max: 100}),
+        check('postcode').not().isEmpty().isLength({max: 10}),
+        check('city').not().isEmpty().isLength({max: 100}),
+        check('country').isLength({max: 100})
+    ],
+    auth.signupUser) 
+    
+    //Logs user in and sends a JWT back in cookie
+    .post('/auth/login',
+    [
+        check('password').not().isEmpty().isLength({min: 6, max: 100}),
+        check('email').not().isEmpty().isEmail().isLength({max: 100})
+    ],
+    auth.loginUser) 
     
     .get('/products', products.getAllProducts)
     .get('/products/:id', products.getProductById)
-    .post('/products', passport.authenticate('jwt-admin', {session: false}), products.postProduct)
-    .put('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.putProduct)
+    
+    .post('/products', [
+        check('name').not().isEmpty().isLength({max: 100}),
+        check('price').not().isEmpty(),
+        check('description').not().isEmpty(),
+        check('category').not().isEmpty().isLength({max: 100}),
+        check('image_url').isLength({max: 100}),
+        check('status').not().isEmpty().isLength({max: 100})
+    ],
+    passport.authenticate('jwt-admin', {session: false}), products.postProduct)
+
+    .put('/products/:id', [
+        check('name').not().isEmpty().isLength({max: 100}),
+        check('price').not().isEmpty(),
+        check('description').not().isEmpty(),
+        check('category').not().isEmpty().isLength({max: 100}),
+        check('image_url').isLength({max: 100}),
+        check('status').not().isEmpty().isLength({max: 100})
+    ],
+    passport.authenticate('jwt-admin', {session: false}), products.putProduct)
     .delete('/products/:id', passport.authenticate('jwt-admin', {session: false}), products.deleteProduct)
 
     .get('/users', passport.authenticate('jwt-admin', {session: false}), users.getAllUsers)

@@ -4,8 +4,15 @@ const { createUser } = usersService
 const { createCart } = cartsService
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator')
 
 const signupUser = async (req, res, next) => {
+    //Reject if validation fails
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()})
+    }
+
     const { email, password, first_name, last_name, address1, address2, postcode, city, country } = req.body
     try {
       const pwd_hash = await getPwdHash(password)
@@ -32,6 +39,12 @@ const signupUser = async (req, res, next) => {
 }
 
 const loginUser = async (req, res, next) => {
+  //Reject if validation fails
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()})
+  }
+  
   passport.authenticate(
     'login',
     async (err, user, info) => {
