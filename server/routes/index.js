@@ -7,7 +7,63 @@ const { validateGetProducts, validateSignUp, validateLogin, validatePostProduct,
 const router = express.Router()
 
 router
+/**
+ * @openapi
+ * /api/auth/signup:
+ *   post:
+ *     description: Signs up a user.
+ *     produces: application/json
+ *     parameters:
+ *             - name: email
+ *               in: body
+ *               required: true
+ *             - name: password
+ *               in: body
+ *               required: true    
+ *             - name: first_name
+ *               in: body
+ *               required: true
+ *             - name: last_name
+ *               in: body
+ *               required: true
+ *             - name: address1
+ *               in: body
+ *               required: true
+ *             - name: address2
+ *               in: body
+ *               required: false    
+ *             - name: postcode
+ *               in: body
+ *               required: true
+ *             - name: city
+ *               in: body
+ *               required: true
+ *             - name: country
+ *               in: body
+ *               required: false
+ *     responses:
+ *       201:
+ *         description: Returns the new userId and cartId.
+ */
     .post('/auth/signup', validateSignUp, auth.signupUser) //Adds a user and creates a cart for the user
+    
+/**
+ * @openapi
+ * /api/auth/login:
+ *   post:
+ *     description: Logs a user in.
+ *     produces: cookie
+ *     parameters:
+ *             - name: email
+ *               in: body
+ *               required: true
+ *             - name: password
+ *               in: body
+ *               required: true    
+ *     responses:
+ *       200:
+ *         description: Returns a cookie containing a JWT used for access.
+ */
     .post('/auth/login', validateLogin, auth.loginUser) //Logs user in and sends a JWT back in cookie
     
     .get('/products', products.getAllProducts)
