@@ -101,7 +101,7 @@ const checkoutCart = async (req, res, next) => {
         product_id: item.product_id
       })
     })
-    res.status(201).send(`Order placed. Order id: ${orderId}`)
+    res.status(201).json({order_id: orderId})
     next()
   } catch(e) {
     console.log(e.message)

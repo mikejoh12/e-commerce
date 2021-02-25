@@ -5,6 +5,7 @@ const compression = require('compression')
 //const cors = require('cors')
 const app = express()
 
+const swaggerUI = require('swagger-ui-express')
 const swaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
@@ -14,11 +15,20 @@ const options = {
       title: 'E-commerce API',
       version: '1.0.0',
     },
+    servers: [
+      {
+        url: "http://localhost:3000",
+        description: "Development Server",
+      },
+    ],
   },
   apis: ['./routes/index.js'], // files containing annotations as above
 };
 
 const openapiSpecification = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openapiSpecification))
+
 
 const morgan = require('morgan')
 const routes = require('./routes')
@@ -35,11 +45,16 @@ app.use(cookieParser())
 app.use(morgan('dev'))
 app.use(passport.initialize())
 
-// serve swagger
-app.get('/swagger.json', (req, res) => {
-    res.send(openapiSpecification);
-  });
-
 app.use('/api', routes)
+
+ // error handler
+ app.use((error, req, res, next) => {
+   res.status(error.status || 500).send({
+    error: {
+    status: error.status || 500,
+    message: error.message || 'Internal Server Error',
+   },
+  });
+ })
 
 app.listen(config.port, () => console.log(`Server listening on port ${config.port}`))

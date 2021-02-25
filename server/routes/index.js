@@ -15,31 +15,31 @@ router
  *     produces: application/json
  *     parameters:
  *             - name: email
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: password
- *               in: body
+ *               in: formData
  *               required: true    
  *             - name: first_name
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: last_name
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: address1
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: address2
- *               in: body
+ *               in: formData
  *               required: false    
  *             - name: postcode
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: city
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: country
- *               in: body
+ *               in: formData
  *               required: false
  *     responses:
  *       201:
@@ -51,18 +51,18 @@ router
  * @openapi
  * /api/auth/login:
  *   post:
- *     description: Logs a user in.
- *     produces: cookie
+ *     description: Logs a user in and returns a cookie containing a JWT.
+ *     produces: application/json
  *     parameters:
  *             - name: email
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: password
- *               in: body
- *               required: true    
+ *               in: formData
+ *               required: true
  *     responses:
  *       200:
- *         description: Returns a cookie containing a JWT used for access.
+ *         description: Ok
  */
     .post('/auth/login', validateLogin, auth.loginUser) //Logs user in and sends a JWT back in cookie
     
@@ -111,7 +111,7 @@ router
  *       - application/json
  *     parameters:
  *       - name: id
- *         in: params
+ *         in: path
  *         required: true
  *     responses:
  *       200:
@@ -136,7 +136,7 @@ router
  *       - application/json
  *     parameters:
  *       - name: id
- *         in: JWT cookie
+ *         in: cookie
  *         required: true
  *     responses:
  *       200:
@@ -145,38 +145,38 @@ router
     .get('/users/self', passport.authenticate('jwt-customer', {session: false}), users.getUserSelf) //Customer can access their user info
 
 /**
- * @swagger
+ * @openapi
  * /api/users/self:
  *   put:
  *     description: Updates the logged in user
  *     produces: application/json
  *     parameters:
  *             - name: id
- *               in: JWT cookie
+ *               in: cookie
  *               required: true
  *             - name: email
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: first_name
- *               in: body
+ *               in: formData
  *               required: true    
  *             - name: last_name
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: address1
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: address2
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: postcode
- *               in: body
+ *               in: formData
  *               required: true   
  *             - name: city
- *               in: body
+ *               in: formData
  *               required: true
  *             - name: country
- *               in: body
+ *               in: formData
  *               required: false
  *     responses:
  *       200:
@@ -187,15 +187,125 @@ router
     .delete('/users/:id', validateDeleteUser, passport.authenticate('jwt-admin', {session: false}), users.deleteUser) //Todo: Delete related cart for user
 
     .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
+    
+    
+/**
+ * @openapi
+ * /api/carts/self:
+ *   get:
+ *     description: Returns all products in cart.
+ *     parameters:
+ *             - name: cart_id
+ *               in: cookie
+ *               required: true
+ *     produces:
+ *             - application/json
+ *     responses:
+ *       200:
+ *         description: Ok
+ */
     .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in user's cart
+
+/**
+ * @openapi
+ * /api/carts/self:
+ *   post:
+ *     description: Adds a new product of a specified quantity to cart.
+ *     produces: application/json
+ *     parameters:
+ *             - name: cart_id
+ *               in: cookie
+ *               required: true
+ *             - name: product_id
+ *               in: formData
+ *               required: true
+ *             - name: quantity
+ *               in: formData
+ *               required: true    
+ *     responses:
+ *       201:
+ *         description: Created
+ */
     .post('/carts/self', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.postProductInCartSelf) //Adds a new product to user's cart
+    
+/**
+ * @openapi
+ * /api/carts/self:
+ *   put:
+ *     description: Changes the quantity of a product in the cart.
+ *     produces: application/json
+ *     parameters:
+ *             - name: cart_id
+ *               in: cookie
+ *               required: true
+ *             - name: product_id
+ *               in: formData
+ *               required: true
+ *             - name: quantity
+ *               in: formData
+ *               required: true    
+ *     responses:
+ *       200:
+ *         description: Ok
+ */
     .put('/carts/self', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.putCartSelf) //Changes quantity of a product in user's cart
+    
+/**
+ * @openapi
+ * /api/carts/self:
+ *   delete:
+ *     description: Deletes a product in the cart.
+ *     produces: application/json
+ *     parameters:
+ *             - name: cart_id
+ *               in: cookie
+ *               required: true
+ *             - name: product_id
+ *               in: formData
+ *               required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ */
     .delete('/carts/self', validateDeleteCart, passport.authenticate('jwt-customer', {session: false}), carts.deleteCartSelf) //Deletes a product from user's cart
 
+/**
+ * @openapi
+ * /api/carts/self/checkout:
+ *   post:
+ *     description: Places an order and moves products from cart to the order.
+ *     produces: application/json
+ *     parameters:
+ *             - name: cart_id
+ *               in: cookie
+ *               required: true
+ *             - name: id
+ *               in: cookie
+ *               required: true    
+ *     responses:
+ *       201:
+ *         description: Returns an object with the order_id.
+ */
     .post('/carts/self/checkout', passport.authenticate('jwt-customer', {session: false}), carts.checkoutCart) //Checks out a user's cart and places an order
 
     .get('/orders', passport.authenticate('jwt-admin', {session: false}), orders.getAllOrders) //Gets all orders for all users
     .get('/orders/review/:orderId', validateOrder, passport.authenticate('jwt-admin', {session: false}), orders.getOrderById) //Gets one order
+
+/**
+ * @openapi
+ * /api/orders/self:
+ *   get:
+ *     description: Returns all orders by a customer.
+ *     parameters:
+ *             - name: id
+ *               in: cookie
+ *               required: true
+ *     produces:
+ *             - application/json
+ *     responses:
+ *       200:
+ *         description: Ok
+ */
     .get('/orders/self', passport.authenticate('jwt-customer', {session: false}), orders.getOrdersSelf) //Gets all orders for current user
 
 module.exports = router
