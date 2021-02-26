@@ -1,0 +1,265 @@
+openapi: 3.0.1
+info:
+  title: E-commerce API
+  description: This is a basic E-commerce API
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: users
+  description: Info about users
+- name: products
+  description: Info about products
+- name: carts
+  description: Shopping cart
+- name: orders
+  description: Product orders
+- name: auth
+  description: Authentication/Authorization
+paths:
+  /api/auth/signup:
+    post:
+      tags:
+      - auth
+      description: Signs up a user.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - address1
+              - city
+              - email
+              - first_name
+              - last_name
+              - password
+              - postcode
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                address1:
+                  type: string
+                address2:
+                  type: string
+                postcode:
+                  type: string
+                city:
+                  type: string
+                country:
+                  type: string
+        required: true
+      responses:
+        201:
+          description: Returns the new userId and cartId.
+          content: {}
+  /api/auth/login:
+    post:
+      tags:
+      - auth
+      description: Logs a user in and returns a cookie containing a JWT.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Ok
+          content: {}
+  /api/products:
+    get:
+      tags:
+      - products
+      description: Returns all products
+      responses:
+        200:
+          description: An array of all products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /api/products/{id}:
+    get:
+      tags:
+      - products
+      description: Returns one products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: One product object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /api/users/self:
+    get:
+      tags:
+      - users
+      description: Returns info about the logged in user
+      responses:
+        200:
+          description: Returns object containing user info
+          content: {}
+    put:
+      tags:
+      - users
+      description: Updates the logged in user
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - address1
+              - address2
+              - city
+              - email
+              - first_name
+              - last_name
+              - postcode
+              properties:
+                email:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                address1:
+                  type: string
+                address2:
+                  type: string
+                postcode:
+                  type: string
+                city:
+                  type: string
+                country:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Successfully updated
+          content: {}
+  /api/carts/self:
+    get:
+      tags:
+      - carts
+      description: Returns all products in cart.
+      responses:
+        200:
+          description: Ok
+          content: {}
+    put:
+      tags:
+      - carts
+      description: Changes the quantity of a product in the cart.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - product_id
+              - quantity
+              properties:
+                product_id:
+                  type: string
+                quantity:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Ok
+          content: {}
+    post:
+      tags:
+      - carts
+      description: Adds a new product of a specified quantity to cart.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - product_id
+              - quantity
+              properties:
+                product_id:
+                  type: string
+                quantity:
+                  type: string
+        required: true
+      responses:
+        201:
+          description: Created
+          content: {}
+    delete:
+      tags:
+      - carts
+      description: Deletes a product in the cart.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - product_id
+              properties:
+                product_id:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Ok
+          content: {}
+  /api/carts/self/checkout:
+    post:
+      tags:
+      - carts
+      description: Places an order and moves products from cart to the order.
+      responses:
+        201:
+          description: Returns an object with the order_id.
+          content: {}
+  /api/orders/self:
+    get:
+      tags:
+      - orders
+      description: Returns all orders by a customer.
+      responses:
+        200:
+          description: Ok
+          content: {}
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+        image_url:
+          type: string
+        status:
+          type: string
