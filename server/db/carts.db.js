@@ -70,7 +70,7 @@ const modifyCartDb = async ({cart_id, product_id, quantity}) => {
 }
 
 //Removes a product from a cart
-const removeCartDb = async ({cart_id, product_id}) => {
+const removeCartProductDb = async ({cart_id, product_id}) => {
   try {
     const res = await pool.query('DELETE FROM cart_products WHERE cart_id = $1 AND product_id = $2', [cart_id, product_id])
     return res.rows[0]
@@ -79,6 +79,16 @@ const removeCartDb = async ({cart_id, product_id}) => {
   }
 }
 
+//Removes a cart (needs to be empty)
+const removeCartDb = async (userId) => {
+  try {
+    const res = await pool.query('DELETE FROM carts WHERE user_id = $1', [userId])
+    return res.rows[0]
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
 module.exports = {
-  fetchCartsDb, fetchCartByIdDb, createCartDb, createCartDb, createProductInCartDb, modifyCartDb, removeCartDb
+  fetchCartsDb, fetchCartByIdDb, createCartDb, createCartDb, createProductInCartDb, modifyCartDb, removeCartProductDb, removeCartDb
 }

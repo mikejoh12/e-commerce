@@ -1,5 +1,6 @@
-const { usersService } = require('../services')
+const { usersService, cartsService } = require('../services')
 const { fetchAllUsers, fetchUserById, modifyUser, removeUser } = usersService
+const { removeCart, fetchCartById } = cartsService
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -50,10 +51,17 @@ const putUserSelf = async (req, res, next) => {
 }
 
 const deleteUser = async (req, res, next) => {
-  const { id } = req.params
+  const { id } = req.params 
   try {
-    const deleted = await removeUser(id)
-    res.status(200).json(deleted)
+    const cart = await fetchCartById(id)
+    const user = await fetchUserById(id)
+    if (cart.length || !user) {
+      const error = new Error('Incorrect user or cart not empty');
+      return next(error);
+    }
+    await removeCart(id)
+    await removeUser(id)
+    res.status(200).json({msg: 'User and cart deleted'})
     next()
   } catch(e)  {
     console.log(e.message)

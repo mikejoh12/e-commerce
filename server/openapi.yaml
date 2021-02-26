@@ -208,6 +208,7 @@ paths:
         201:
           description: Created
           content: {}
+  /api/carts/self/product:
     delete:
       tags:
       - carts

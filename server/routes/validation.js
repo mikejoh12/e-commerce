@@ -118,7 +118,7 @@ const validateCart = [
         else next();
 }]
 
-const validateDeleteCart = [
+const validateDeleteCartProduct = [
     check('product_id').not().isEmpty().isInt()
     , (req, res, next) => {
         const errors = validationResult(req);
@@ -148,6 +148,6 @@ module.exports = {
     validateDeleteUser,
     validateDeleteProduct,
     validateCart,
-    validateDeleteCart,
+    validateDeleteCartProduct,
     validateOrder
 }

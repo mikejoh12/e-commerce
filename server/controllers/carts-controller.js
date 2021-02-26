@@ -1,5 +1,5 @@
 const { cartsService, ordersService } = require('../services')
-const { fetchCarts, fetchCartById, createProductInCart, modifyCart, removeCart } = cartsService
+const { fetchCarts, fetchCartById, createProductInCart, modifyCart, removeCartProduct } = cartsService
 const { createOrder, createProductInOrder } = ordersService
 
 const getAllCarts = async (req, res, next) => {
@@ -61,15 +61,15 @@ const putCartSelf = async (req, res, next) => {
   }
 }
 
-const deleteCartSelf = async (req, res, next) => {
+const deleteCartProductSelf = async (req, res, next) => {
   const cartId = req.user.cart_id
   const { product_id } = req.body
-  const removeCartProduct = {
+  const cartProduct = {
     cart_id: cartId,
     product_id
   }
   try {
-    const deleted = await removeCart(removeCartProduct)
+    const deleted = await removeCartProduct(cartProduct)
     res.status(200).json(deleted)
     next()
   } catch(e)  {
@@ -114,6 +114,6 @@ module.exports = {
     getCartSelf,
     postProductInCartSelf,
     putCartSelf,
-    deleteCartSelf,
+    deleteCartProductSelf,
     checkoutCart
 }

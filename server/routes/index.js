@@ -2,7 +2,7 @@ const express = require('express')
 const passport = require('passport')
 const { auth, products, users, carts, orders } = require('../controllers')
 const { validateGetProducts, validateSignUp, validateLogin, validatePostProduct, validatePutProduct, validateDeleteProduct,
-        validatePutUser, validateDeleteUser, validateCart, validateDeleteCart, validateOrder } = require('./validation')
+        validatePutUser, validateDeleteUser, validateCart, validateDeleteCartProduct, validateOrder } = require('./validation')
 
 const router = express.Router()
 
@@ -19,13 +19,13 @@ router
     .get('/users', passport.authenticate('jwt-admin', {session: false}), users.getAllUsers)
     .get('/users/self', passport.authenticate('jwt-customer', {session: false}), users.getUserSelf) //Customer can access their user info
     .put('/users/self', validatePutUser, passport.authenticate('jwt-customer', {session: false}), users.putUserSelf) //Customer can edit their user info
-    .delete('/users/:id', validateDeleteUser, passport.authenticate('jwt-admin', {session: false}), users.deleteUser) //Todo: Delete related cart for user
+    .delete('/users/:id', validateDeleteUser, passport.authenticate('jwt-admin', {session: false}), users.deleteUser) //Delete user and associated cart
 
     .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
     .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in user's cart
     .post('/carts/self', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.postProductInCartSelf) //Adds a new product to user's cart
     .put('/carts/self', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.putCartSelf) //Changes quantity of a product in user's cart
-    .delete('/carts/self', validateDeleteCart, passport.authenticate('jwt-customer', {session: false}), carts.deleteCartSelf) //Deletes a product from user's cart
+    .delete('/carts/self/product', validateDeleteCartProduct, passport.authenticate('jwt-customer', {session: false}), carts.deleteCartProductSelf) //Deletes a product from user's cart
 
     .post('/carts/self/checkout', passport.authenticate('jwt-customer', {session: false}), carts.checkoutCart) //Checks out a user's cart and places an order
 
