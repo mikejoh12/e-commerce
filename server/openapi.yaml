@@ -1,15 +1,15 @@
 openapi: 3.0.1
 info:
-  title: E-commerce API
-  description: This is a basic E-commerce API
+  title: E-market API
+  description: This is a basic demo e-commerce API and includes the end-points used by customers.
   version: 1.0.0
 servers:
-- url: /
+- url: https://e-market-api.herokuapp.com
 tags:
 - name: users
-  description: Info about users
+  description: Users
 - name: products
-  description: Info about products
+  description: Products
 - name: carts
   description: Shopping cart
 - name: orders
