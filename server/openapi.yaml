@@ -166,6 +166,7 @@ paths:
         200:
           description: Ok
           content: {}
+  /api/carts/self/product:
     put:
       tags:
       - carts
@@ -208,7 +209,6 @@ paths:
         201:
           description: Created
           content: {}
-  /api/carts/self/product:
     delete:
       tags:
       - carts
