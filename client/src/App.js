@@ -1,13 +1,15 @@
-function App() {
+import Nav from './components/Nav'
+import MainContent from './components/MainContent'
+import Footer from './components/Footer'
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>
-          E-Market
-        </h1>
-      </header>
+      <Nav />
+      <MainContent />
+      <Footer />
     </div>
   );
 }
 
-export default App;
+export default App
