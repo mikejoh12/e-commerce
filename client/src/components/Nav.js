@@ -9,7 +9,7 @@ function Nav() {
               <Link to="/">
                 <p className="text-4xl text-white text-center font-mono whitespace-nowrap mx-2">E-Market</p>
               </Link>
-              <p className="text-md text-white text-center font-mono mx-2">A demo e-commerce app</p>
+              <p className="hidden sm:inline text-md text-white text-center font-mono mx-2">A demo e-commerce app</p>
               <Link to="/cart">
                 <span className="inline">
                   <FontAwesomeIcon icon={faShoppingCart} size="lg" inverse/>
