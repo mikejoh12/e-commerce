@@ -16,7 +16,7 @@ function Nav() {
                   <p className="inline text-md text-white text-center font-mono mx-2">Cart</p>
                 </span>
               </Link>
-              <Link to="/register">
+              <Link to="/login">
                 <p className="text-md text-white text-center font-mono mx-2">Sign In / Register</p>
               </Link>
         </div>

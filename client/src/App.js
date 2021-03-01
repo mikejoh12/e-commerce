@@ -2,6 +2,7 @@ import Nav from './components/Nav'
 import Register from './components/Register'
 import MainContent from './components/MainContent'
 import Cart from './components/Cart'
+import Login from './components/Login'
 import Footer from './components/Footer'
 import { BrowserRouter as Router,
   Switch,
@@ -15,6 +16,9 @@ const App = () => {
       <div className="App flex flex-col min-h-screen">
         <Nav />
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
