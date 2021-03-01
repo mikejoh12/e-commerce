@@ -7,7 +7,7 @@ import { BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom'
-import ProductCard from './components/ProductCard'
+import ProductDetail from './components/ProductDetail'
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
             <Register />
           </Route>
           <Route path="/product">
-            <ProductCard />
+            <ProductDetail />
           </Route>
           <Route path="/cart">
             <Cart />
