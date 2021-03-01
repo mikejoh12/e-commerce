@@ -1,7 +1,15 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopyright } from '@fortawesome/free-solid-svg-icons'
+
 const Footer = () => {
     return (
       <div className="bg-blue-100 p-5">
-            <p className="text-xl text-center font-mono">E-Market Footer</p>
+          <div className="text-center">
+            <span className="p-2">
+              <FontAwesomeIcon icon={faCopyright} size="lg"/>
+            </span>
+            <p className="inline text-xl font-mono">2021 E-Market</p>
+          </div>
       </div>
     )
   }
