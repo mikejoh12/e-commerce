@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard'
 
-const MainContent = () => {
+const ProductList = () => {
   
   const cards = []
   for (let i = 0; i < 12; i++) {
@@ -16,4 +16,4 @@ const MainContent = () => {
     )
   }
   
-  export default MainContent
+  export default ProductList

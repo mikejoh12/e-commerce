@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form"
+import { Link } from 'react-router-dom'
 
 const Register = () => {
       const { register, handleSubmit, errors } = useForm();
@@ -66,12 +67,19 @@ const Register = () => {
               <label htmlFor="country">Country:</label>
               <input name="country" className="border rounded w-full p-1 border-blue-300" ref={register()} />
             </div>
-            
+
             <div className="p-2">
-              <input type="submit" className="my-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
+              <input type="submit" value="Create your account" className="my-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
             </div>
-          </form>
-        </div>
+            <div>
+              <Link to="/login">
+                <button className="wrap m-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Go to Sign-In page
+                </button>
+              </Link>
+          </div>
+        </form>
+      </div>
       )
     }
     

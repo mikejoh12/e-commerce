@@ -1,7 +1,7 @@
 import Nav from './components/Nav'
 import Register from './components/Register'
-import MainContent from './components/MainContent'
 import Cart from './components/Cart'
+import CheckOut from './components/CheckOut'
 import Login from './components/Login'
 import Footer from './components/Footer'
 import { BrowserRouter as Router,
@@ -9,6 +9,7 @@ import { BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 import ProductDetail from './components/ProductDetail'
+import ProductList from './components/MainContent'
 
 const App = () => {
   return (
@@ -28,8 +29,11 @@ const App = () => {
           <Route path="/cart">
             <Cart />
           </Route>
+          <Route path="/checkout">
+            <CheckOut />
+          </Route>
           <Route path="/">
-            <MainContent />
+            <ProductList />
           </Route>
         </Switch>
         <Footer />

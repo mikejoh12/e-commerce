@@ -1,5 +1,9 @@
+import { useForm } from "react-hook-form"
+
 const CartProduct = () => {
 
+    const { register } = useForm();
+    
     return (
         <div>
             <span>
@@ -9,9 +13,7 @@ const CartProduct = () => {
                 </div>
                 <p className="inline p-4">$1899</p>
                 <div className="inline">
-                    <span className="p-2">-</span>
-                    <span>Qty</span>
-                    <span className="p-2">+</span>
+                    <input name="quantity" type="number" min="0" max="10" className="border w-12 rounded p-1 border-blue-300" ref={register()} />
                 </div>
             </span>
         </div>
