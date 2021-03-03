@@ -4,6 +4,7 @@ export const usersSlice = createSlice({
     name: 'users',
     initialState: {
         currentUser: {
+            id: 6,
             email: 'mikejoh12@gmail.com',
             first_name: 'Mike',
             last_name: 'Johansson',
@@ -11,7 +12,8 @@ export const usersSlice = createSlice({
             address2: '',
             postcode: '75248',
             city: 'Dallas',
-            country: 'USA'
+            country: 'USA',
+            cart_id: 7
         }
     }
 })

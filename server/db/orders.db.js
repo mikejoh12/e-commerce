@@ -24,7 +24,7 @@ const fetchOrderByIdDb = async (orderId) => {
 
 //Fetches the order history for one user
 const fetchOrdersByUserDb = async (userId) => {
-  const text = `SELECT orders.id AS order_id, products.id, products.name, products.price, quantity, user_id FROM orders
+  const text = `SELECT orders.id AS order_id, products.id AS product_id, products.name, products.price, quantity, orders.created_at FROM orders
                 INNER JOIN order_products ON orders.id = order_products.order_id
                 INNER JOIN products ON order_products.product_id = products.id
                 WHERE user_id = $1`
