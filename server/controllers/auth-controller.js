@@ -61,8 +61,9 @@ const loginUser = async (req, res, next) => {
             res.cookie('A_JWT', token, {
               maxAge: 60 * 60 * 1000, // 1 hour
               httpOnly: true,
-              secure: process.env.NODE_ENV === 'production'? true: false,
-              sameSite: true, //Change if hosting client site with different provider
+              secure: false,
+              /* secure: process.env.NODE_ENV === 'production'? true: false,*/
+              sameSite: false, //Change if hosting client site with different provider
             })
             
             return res.status(200).send(`Login successful.`);

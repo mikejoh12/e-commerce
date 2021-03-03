@@ -9,7 +9,7 @@ const Login = () => {
         console.log(data)
         try {
           const response = await axios.post(
-            'http://localhost:5000/api/auth/login',
+            'https://e-market-api.herokuapp.com/api/auth/login',
               {
                 email: 'mikejoh12@gmail.com',
                 password: 'password'
