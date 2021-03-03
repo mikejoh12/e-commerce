@@ -1,19 +1,19 @@
 import { useForm } from "react-hook-form"
 
-const CartProduct = () => {
+const CartProduct = ({cartItem}) => {
 
     const { register } = useForm();
     
     return (
-        <div>
+        <div className="m-4">
             <span>
-                <img className="hidden sm:inline max-h-24" src="https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp" alt="Mountain" />
+                <img className="hidden sm:inline max-h-24" src={cartItem.product.image_url} alt="" />
                 <div className="inline">
-                    <p className="inline whitespace-nowrap p-4">MacBook Pro</p>
+                    <p className="inline whitespace-nowrap p-4">{cartItem.product.description}</p>
                 </div>
-                <p className="inline p-4">$1899</p>
+                <p className="inline p-4">{cartItem.product.price}</p>
                 <div className="inline">
-                    <input name="quantity" type="number" min="0" max="10" className="border w-12 rounded p-1 border-blue-300" ref={register()} />
+                    <input name="quantity" type="number" value={cartItem.quantity} min="0" max="10" className="border w-12 rounded p-1 border-blue-300" ref={register()} />
                 </div>
             </span>
         </div>
