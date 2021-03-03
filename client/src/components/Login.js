@@ -1,12 +1,23 @@
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom'
-const axios = require('axios').default
+const axios = require('axios')
 
 const Login = () => {
       const { register, handleSubmit, errors } = useForm();
       
-      const onSubmit = data => {
+      const onSubmit = async (data) => {
         console.log(data)
+        try {
+          const response = await axios.post(
+            'http://localhost:5000/api/auth/login',
+              {
+                email: 'mikejoh12@gmail.com',
+                password: 'password'
+              })
+          console.log(response)
+        } catch (error) {
+          console.log(error)
+        }
       }
 
       return (

@@ -35,11 +35,12 @@ const signupUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   //Reject if validation fails
+  /*
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()})
   }
-  
+  */
   passport.authenticate(
     'login',
     async (err, user, info) => {
