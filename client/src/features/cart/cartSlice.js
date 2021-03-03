@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -19,3 +19,5 @@ export const cartSlice = createSlice({
         ]
     }
 })
+
+export default cartSlice.reducer

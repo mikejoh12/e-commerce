@@ -6,12 +6,15 @@ export const ordersSlice = createSlice({
         customerOrders: [
             {
                 order_id: 1,
-                id: 1,
-                name: 'MacBook Pro',
+                product_id: 1,
+                name: 'Apple MacBook Pro',
                 price: 1899.00,
                 quantity: 1,
                 user_id: 6,
+                created_at: '2021-02-22T15:07:13.042Z'
             }
         ]
     }
 })
+
+export default ordersSlice.reducer

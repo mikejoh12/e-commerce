@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
     return (
         <Link to="/product">
             <div className="p-10">  
                 <div className="max-w-sm rounded overflow-hidden shadow-lg">
                 <img className="w-full" src="https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp" alt="Mountain" />
                 <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">MacBook Pro</div>
+                    <div className="font-bold text-xl mb-2">{product.name}</div>
                     <p className="text-gray-700 text-base">
                         This is the 2021 MacBook Pro with 16GB ram and an M5 processor.
                     </p>
