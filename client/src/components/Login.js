@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom'
+const axios = require('axios').default
 
 const Login = () => {
       const { register, handleSubmit, errors } = useForm();
       
-      const onSubmit = data => console.log(data);
+      const onSubmit = data => {
+        console.log(data)
+      }
 
       return (
         <div className="flex-grow pt-16 mx-auto">    
@@ -25,7 +28,9 @@ const Login = () => {
             {errors.exampleRequired && <span>This field is required</span>}
             
             <div className="p-2">
-                <input type="submit" value="Login" className="mr-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
+                <input  type="submit"
+                        value="Login"
+                        className="mr-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
                 <Link to="/register">
                     <button className="m-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Create new account
