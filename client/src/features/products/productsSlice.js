@@ -11,7 +11,7 @@ export const productsSlice = createSlice({
                 description: 'A very powerful Mac with M5 chip.',
                 category: 'Computers',
                 image_url: 'https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp',
-                status: 'active'
+                status: 'Active'
             }
         ]
     }

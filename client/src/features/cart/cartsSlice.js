@@ -6,21 +6,15 @@ export const cartSlice = createSlice({
         cartProducts: [
             {
                 product:    {
-
+                        id: 1,
+                        name: "MacBook Pro",
+                        price: 1899.00,
+                        description: "A great computer for coding.",
+                        category: "Computers",
+                        image_url: "https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp",
+                        status: "Active"
                 },
-                quantity: 
-                
-                "id": 1,
-                "user_id": 6,
-                "cart_id": 7,
-                "product_id": 1,
-                "quantity": 1,
-                "name": "Apple Macbook Pro",
-                "price": "1599.00",
-                "description": "A great computer for coding",
-                "category": "Electronics",
-                "image_url": null,
-                "status": "Active"
+                quantity: 1
             }
         ]
     }
