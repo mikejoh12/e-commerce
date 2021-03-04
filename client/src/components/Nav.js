@@ -3,10 +3,18 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '../features/users/usersSlice'
+import { useDispatch } from 'react-redux'
+import { isLoggedInUpdated } from '../features/users/usersSlice'
 
 function Nav() {
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
+    const dispatch = useDispatch(isLoggedInUpdated)
+
+    const handleLogout = () => {
+      dispatch(isLoggedInUpdated(false))
+
+    }
 
     return (
       <div className="bg-black">
@@ -22,12 +30,13 @@ function Nav() {
                 </span>
               </Link>
               {isLoggedIn ?
-              <Link to="/logout">
-                <p className="text-md text-white text-center font-mono mx-2">Sign Out</p>
+              <Link to="/">
+                <button   className="text-md text-white text-center font-mono mx-2"
+                          onClick={handleLogout}>Sign Out</button>
               </Link>
               :
               <Link to="/login">
-                <p className="text-md text-white text-center font-mono mx-2">Sign In / Register</p>
+                <button className="text-md text-white text-center font-mono mx-2">Sign In / Register</button>
               </Link>
               }           
         </div>
