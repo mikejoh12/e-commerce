@@ -5,9 +5,7 @@ import { selectProductById} from '../features/products/productsSlice'
 const ProductDetail = () => {
  
   let { id } = useParams()
-  console.log(id)
   const product = useSelector(state => selectProductById(state, id))
-  console.log(product)
 
   return (
       <div className="flex-grow p-5">
