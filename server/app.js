@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const compression = require('compression')
 const YAML = require('yamljs')
-const cors = require('cors')
+//const cors = require('cors')
 const app = express()
 
 const swaggerUI = require('swagger-ui-express')
@@ -19,7 +19,9 @@ app.use(helmet())
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors()) //TODO: Cors settings
+
+//TODO: Cors settings
+
 app.use(cookieParser())
 app.use(morgan('dev'))
 app.use(passport.initialize())

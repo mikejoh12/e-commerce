@@ -35,12 +35,10 @@ const signupUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   //Reject if validation fails
-  /*
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()})
   }
-  */
   passport.authenticate(
     'login',
     async (err, user, info) => {
@@ -61,9 +59,7 @@ const loginUser = async (req, res, next) => {
             res.cookie('A_JWT', token, {
               maxAge: 60 * 60 * 1000, // 1 hour
               httpOnly: true,
-              secure: false,
-              /* secure: process.env.NODE_ENV === 'production'? true: false,*/
-              sameSite: false, //Change if hosting client site with different provider
+              secure: process.env.NODE_ENV === 'production'? true: false,
             })
             
             return res.status(200).send(`Login successful.`);

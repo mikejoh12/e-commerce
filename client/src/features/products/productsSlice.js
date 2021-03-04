@@ -1,40 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+const axios = require('axios')
+
+export const fetchAllProducts = createAsyncThunk('products/fetchAllProducts', async () => {
+    try {
+        const response = await axios.get('/api/products')
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 export const productsSlice = createSlice({
     name: 'products',
     initialState: {
-        allProducts: [
-            {
-                id: 1,
-                name: 'MacBook Pro',
-                price: 1899.00,
-                description: 'A very powerful Mac with M5 chip.',
-                category: 'Computers',
-                image_url: 'https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp',
-                status: 'Active'
-            },
-            {
-                id: 1,
-                name: 'MacBook Pro',
-                price: 1899.00,
-                description: 'A very powerful Mac with M5 chip.',
-                category: 'Computers',
-                image_url: 'https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp',
-                status: 'Active'
-            },
-            {
-                id: 1,
-                name: 'MacBook Pro',
-                price: 1899.00,
-                description: 'A very powerful Mac with M5 chip.',
-                category: 'Computers',
-                image_url: 'https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp',
-                status: 'Active'
-            }
-        ]
+        allProductsStatus: 'idle',
+        allProducts: []
+    },
+    extraReducers: {
+        //Reducers for fetching products
+        [fetchAllProducts.pending]: (state, action) => {
+            state.allProductsStatus = 'loading'
+          },
+          [fetchAllProducts.fulfilled]: (state, action) => {
+            state.allProductsStatus = 'succeeded'
+            state.allProducts = action.payload
+          },
+          [fetchAllProducts.rejected]: (state, action) => {
+            state.allProductsStatus = 'failed'
+          },
     }
 })
 
-export const selectProducts = state => state.products.allProducts
+export const selectAllProducts = state => state.products.allProducts
+export const selectProductById = (state, productId) =>
+    state.products.allProducts.find(product => product.id === productId)
+
+export const selectAllProductsStatus = state => state.products.allProductsStatus
 
 export default productsSlice.reducer

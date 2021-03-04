@@ -8,7 +8,7 @@ const router = express.Router()
 
 router
     .post('/auth/signup', validateSignUp, auth.signupUser) //Adds a user and creates a cart for the user
-    .post('/auth/login',/*validateLogin,*/ auth.loginUser) //Logs user in and sends a JWT back in cookie
+    .post('/auth/login', validateLogin, auth.loginUser) //Logs user in and sends a JWT back in cookie
 
     .get('/products', products.getAllProducts)
     .get('/products/:id', validateGetProducts, products.getProductById)

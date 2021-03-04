@@ -9,7 +9,7 @@ import { BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 import ProductDetail from './components/ProductDetail'
-import ProductList from './components/MainContent'
+import ProductList from './components/ProductList'
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/product">
+          <Route path="/product/:id">
             <ProductDetail />
           </Route>
           <Route path="/cart">

@@ -1,20 +1,27 @@
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { isLoggedInUpdated } from '../features/users/usersSlice'
 const axios = require('axios')
 
 const Login = () => {
       const { register, handleSubmit, errors } = useForm();
-      
+      const dispatch = useDispatch(isLoggedInUpdated)
+
       const onSubmit = async (data) => {
         console.log(data)
         try {
           const response = await axios.post(
-            'https://e-market-api.herokuapp.com/api/auth/login',
+            '/api/auth/login',
               {
-                email: 'mikejoh12@gmail.com',
-                password: 'password'
-              })
+                email: data.email,
+                password: data.password
+              },
+              {withCredentials: true})
           console.log(response)
+          if (response.status === 200) {
+            dispatch(isLoggedInUpdated(true))
+          }
         } catch (error) {
           console.log(error)
         }

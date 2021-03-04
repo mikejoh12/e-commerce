@@ -35,7 +35,7 @@ CREATE TABLE "products" (
   "price" decimal(10,2) NOT NULL,
   "description" varchar,
   "category" varchar(100),
-  "image_url" varchar(100),
+  "image_url" varchar(255),
   "status" varchar(100)
 );
 

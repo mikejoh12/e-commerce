@@ -14,8 +14,17 @@ export const usersSlice = createSlice({
             city: 'Dallas',
             country: 'USA',
             cart_id: 7
+        },
+        isLoggedIn: false
+    },
+    reducers: {
+        isLoggedInUpdated(state, action) {
+            state.isLoggedIn = action.payload
         }
     }
 })
 
+export const { isLoggedInUpdated } = usersSlice.actions
+export const selectcurrentUser = state => state.users.currentUser
+export const selectIsLoggedIn = state => state.users.isLoggedIn
 export default usersSlice.reducer
