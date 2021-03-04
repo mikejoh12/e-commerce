@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { isLoggedInUpdated } from '../features/users/usersSlice'
 const axios = require('axios')
@@ -7,6 +7,7 @@ const axios = require('axios')
 const Login = () => {
       const { register, handleSubmit, errors } = useForm();
       const dispatch = useDispatch(isLoggedInUpdated)
+      const history = useHistory()
 
       const onSubmit = async (data) => {
         console.log(data)
@@ -21,6 +22,7 @@ const Login = () => {
           console.log(response)
           if (response.status === 200) {
             dispatch(isLoggedInUpdated(true))
+            history.push('/')
           }
         } catch (error) {
           console.log(error)
