@@ -13,7 +13,6 @@ export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async 
     }
 })
 
-
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {

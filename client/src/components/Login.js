@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
 import { fetchCurrentCart } from "../features/cart/cartSlice"
+import { fetchCustomerOrders } from "../features/orders/ordersSlice"
 const axios = require('axios')
 
 const Login = () => {
@@ -25,6 +26,7 @@ const Login = () => {
             dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())
             dispatch(fetchCurrentCart())
+            dispatch(fetchCustomerOrders())
             history.push('/')
           }
         } catch (error) {

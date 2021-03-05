@@ -7,6 +7,7 @@ const Account = () => {
     const user = useSelector(selectCurrentUser)
     const orders = useSelector(selectCustomerOrders)
 
+
     return (
         <div className="flex-grow p-5">
           <div className="grid justify-center">
@@ -24,8 +25,11 @@ const Account = () => {
             <div className="m-4">
               <h1>Order History</h1>
               <ul>
-                {orders.map((orderItem, index) =>
-                  <li key={index}>{`${orderItem.order_id} ${orderItem.created_at}`}</li>
+
+                {Object.keys(orders).map(keyName =>
+                    orders[keyName].map(orderItem => {
+                      return <li>{`${orderItem.order_id} - ${orderItem.name} - ${orderItem.price} - ${orderItem.created_at}`}</li>
+                    })
                   )}
               </ul>
             </div>

@@ -16,8 +16,8 @@ const getAllOrders = async (req, res, next) => {
 const getOrderById = async (req, res, next) => {
   const { orderId } = req.params
   try {
-    const product = await fetchOrderById(orderId)
-    res.status(200).json(product)
+    const order = await fetchOrderById(orderId)
+    res.status(200).json(order)
     next()
   } catch(e)  {
     console.log(e.message)
@@ -29,7 +29,7 @@ const getOrdersSelf = async (req, res, next) => {
   const userId = req.user.id
   try {
     const orders = await fetchOrdersByUser(userId)
-    res.status(200).json({orders: orders})
+    res.status(200).json(orders)
     next()
   } catch(e)  {
     console.log(e.message)
