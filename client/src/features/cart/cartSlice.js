@@ -1,36 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+const axios = require('axios')
+
+export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async () => {
+    try {
+        const response = await axios.get('/api/carts/self')
+        const cart = {}
+        response.data.forEach(cartProduct =>
+            cart[cartProduct.product.id] = cartProduct)
+        return cart
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cartProducts: [
-            {
-                product:    {
-                        id: 1,
-                        name: "MacBook Pro",
-                        price: 1899.00,
-                        description: "A great computer for coding.",
-                        category: "Computers",
-                        image_url: "https://cdn.pocket-lint.com/r/s/970x/assets/images/152137-laptops-review-apple-macbook-pro-2020-review-image1-pbzm4ejvvs-jpg.webp",
-                        status: "Active"
-                },
-                quantity: 1
-            },
-            {
-                product:    {
-                        id: 2,
-                        name: "Ipad",
-                        price: 799.00,
-                        description: "A nice toy",
-                        category: "Computers",
-                        image_url: "https://cdn.pocket-lint.com/r/s/970x/assets/images/153809-tablets-news-apple-ipad-air-gets-a-pro-like-update-a14-chip-launches-alongside-ipad-8th-gen-image7-jypias54uz-jpg.webp?v1",
-                        status: "Active"
-                },
-                quantity: 2
-            }
-        ]
+        cartProducts: {}
+    },
+    //Clear cart when logging out
+    reducers: {
+        cartProductsUpdated(state, action) {
+            state.cartProducts = action.payload
+        }
+    },    
+    extraReducers: {
+        //Reducers for fetching cart
+        [fetchCurrentCart.pending]: (state, action) => {
+            state.cartProductsStatus = 'loading'
+          },
+          [fetchCurrentCart.fulfilled]: (state, action) => {
+            state.cartProductsStatus = 'succeeded'
+            state.cartProducts = action.payload
+          },
+          [fetchCurrentCart.rejected]: (state, action) => {
+            state.cartProductsStatus = 'failed'
+          },
     }
 })
+
+export const    { cartProductsUpdated } = cartSlice.actions
 
 export const selectCart = state => state.cart.cartProducts
 

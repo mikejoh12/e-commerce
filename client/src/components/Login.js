@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
+import { fetchCurrentCart } from "../features/cart/cartSlice"
 const axios = require('axios')
 
 const Login = () => {
@@ -23,6 +24,7 @@ const Login = () => {
           if (response.status === 200) {
             dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())
+            dispatch(fetchCurrentCart())
             history.push('/')
           }
         } catch (error) {

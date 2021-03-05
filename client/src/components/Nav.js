@@ -5,15 +5,17 @@ import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '../features/users/usersSlice'
 import { useDispatch } from 'react-redux'
 import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSlice'
+import { cartProductsUpdated } from '../features/cart/cartSlice'
 
 function Nav() {
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const dispatch = useDispatch(isLoggedInUpdated)
+    const dispatch = useDispatch()
 
     const handleLogout = () => {
       dispatch(isLoggedInUpdated(false))
       dispatch(currentUserUpdated({})) //Clear current user info from session
+      dispatch(cartProductsUpdated({})) //Clear cart
     }
 
     return (
