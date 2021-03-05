@@ -1,30 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+const axios = require('axios')
+
+export const fetchCurrentUser = createAsyncThunk('users/fetchCurrentUser', async () => {
+    try {
+        const response = await axios.get('/api/users/self')
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
-        currentUser: {
-            id: 6,
-            email: 'mikejoh12@gmail.com',
-            first_name: 'Mike',
-            last_name: 'Johansson',
-            address1: '7726 La Sobrina Dr',
-            address2: '',
-            postcode: '75248',
-            city: 'Dallas',
-            country: 'USA',
-            cart_id: 7
-        },
+        currentUser: {},
+        currentUserStatus: 'idle',
         isLoggedIn: false
     },
     reducers: {
         isLoggedInUpdated(state, action) {
             state.isLoggedIn = action.payload
+        },
+        //Clear user info when logging out
+        currentUserUpdated(state, action) {
+            state.currentUser = action.payload
         }
+    },
+    extraReducers: {
+        //Reducers for fetching user
+        [fetchCurrentUser.pending]: (state, action) => {
+            state.currentUserStatus = 'loading'
+          },
+          [fetchCurrentUser.fulfilled]: (state, action) => {
+            state.currentUserStatus = 'succeeded'
+            state.currentUser = action.payload
+          },
+          [fetchCurrentUser.rejected]: (state, action) => {
+            state.currentUserStatus = 'failed'
+          },
     }
 })
 
-export const { isLoggedInUpdated } = usersSlice.actions
+export const    {   isLoggedInUpdated,
+                    currentUserUpdated } = usersSlice.actions
 export const selectCurrentUser = state => state.users.currentUser
 export const selectIsLoggedIn = state => state.users.isLoggedIn
 export default usersSlice.reducer

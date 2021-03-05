@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '../features/users/usersSlice'
 import { useDispatch } from 'react-redux'
-import { isLoggedInUpdated } from '../features/users/usersSlice'
+import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSlice'
 
 function Nav() {
 
@@ -13,7 +13,7 @@ function Nav() {
 
     const handleLogout = () => {
       dispatch(isLoggedInUpdated(false))
-
+      dispatch(currentUserUpdated({})) //Clear current user info from session
     }
 
     return (
@@ -32,7 +32,7 @@ function Nav() {
               {isLoggedIn ?
               <div>
                 <Link to="/account">
-                  <button   className="text-md text-white text-center font-mono mx-2"
+                  <button   className="text-md text-white text-center font-mono mx-4"
                             >User Account</button>
                 </Link>
                 <Link to="/">
@@ -42,7 +42,7 @@ function Nav() {
               </div>
               :
               <Link to="/login">
-                <button className="text-md text-white text-center font-mono mx-2">Sign In / Register</button>
+                <button className="text-md text-white text-center font-mono mx-4">Sign In / Register</button>
               </Link>
               }           
         </div>
