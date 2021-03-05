@@ -30,10 +30,16 @@ function Nav() {
                 </span>
               </Link>
               {isLoggedIn ?
-              <Link to="/">
+              <div>
+                <Link to="/account">
+                  <button   className="text-md text-white text-center font-mono mx-2"
+                            >User Account</button>
+                </Link>
+                <Link to="/">
                 <button   className="text-md text-white text-center font-mono mx-2"
                           onClick={handleLogout}>Sign Out</button>
-              </Link>
+                </Link>
+              </div>
               :
               <Link to="/login">
                 <button className="text-md text-white text-center font-mono mx-2">Sign In / Register</button>

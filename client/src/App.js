@@ -1,5 +1,6 @@
 import Nav from './components/Nav'
 import Register from './components/Register'
+import Account from './components/Account'
 import Cart from './components/Cart'
 import CheckOut from './components/CheckOut'
 import Login from './components/Login'
@@ -22,6 +23,9 @@ const App = () => {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/account">
+            <Account />
           </Route>
           <Route path="/product/:id">
             <ProductDetail />
