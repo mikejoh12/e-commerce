@@ -1,16 +1,19 @@
-import { useForm } from "react-hook-form"
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { removeProductFromCart } from '../features/cart/cartSlice'
+import { removeProductFromCart, changeProductQuantity } from '../features/cart/cartSlice'
 
 const CartProduct = ({cartItem, quantity}) => {
 
-    const { register } = useForm();
+    const [productQty, setProductQty] = useState(quantity) 
     const dispatch = useDispatch()
 
-    const handleQtyChange = () => {
-        console.log('Quantity changed')
-    }
-
+    useEffect(() => {
+        dispatch(changeProductQuantity({
+            product_id: cartItem.id,
+            quantity: productQty
+        }))
+    }, [productQty, cartItem.id, dispatch])
+    
     const handleRemoveProduct = async() => {
         try {
             await dispatch(
@@ -19,7 +22,7 @@ const CartProduct = ({cartItem, quantity}) => {
                 })
             )
         } catch (err) {
-            console.log(err.response)
+            console.log(err)
         }
     }
 
@@ -35,9 +38,9 @@ const CartProduct = ({cartItem, quantity}) => {
                     <p>${cartItem.price}</p>
                 </div>
                 <div className="m-2">
-                    <input name="quantity" type="number" onChange={handleQtyChange}
-                    value={quantity} min="0" max="10"
-                    className="border w-12 rounded p-1 border-blue-300" ref={register()} />
+                    <input name="quantity" type="number" onChange={event => setProductQty(event.target.value)}
+                    value={productQty} min="0" max="20"
+                    className="border w-12 rounded p-1 border-blue-300" />
                 </div>
                 <div className="m-2">
                     <button onClick={handleRemoveProduct} 

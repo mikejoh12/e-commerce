@@ -36,7 +36,20 @@ export const removeProductFromCart = createAsyncThunk(
                 {data: product})
             return product
         } catch (error) {
-            console.log(error.response)
+            console.log(error)
+        }
+    }
+)
+
+export const changeProductQuantity = createAsyncThunk(
+    'cart/changeProductQuantity',
+    async product => {
+        try {
+            await axios.put('/api/carts/self/product',
+            product)
+            return product
+        } catch (error) {
+            console.log(error)
         }
     }
 )
@@ -68,15 +81,17 @@ export const cartSlice = createSlice({
         [addProductToCart.fulfilled]: (state, action) => {
             state.cartProducts[action.payload.product_id] = action.payload
         },
-        //Reducer for removing producct from cart
+        //Reducer for removing product from cart
         [removeProductFromCart.fulfilled]: (state, action) => {
             delete state.cartProducts[action.payload.product_id]
+        },
+        //Reducer for changing qty of a product in cart
+        [changeProductQuantity.fulfilled]: (state, action) => {
+            state.cartProducts[action.payload.product_id].quantity = action.payload.quantity
         }
     }
 })
 
 export const    { cartProductsUpdated } = cartSlice.actions
-
 export const selectCart = state => state.cart.cartProducts
-
 export default cartSlice.reducer

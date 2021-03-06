@@ -1,18 +1,21 @@
 import CartProduct from './CartProduct'
 import { useSelector } from 'react-redux'
 import { selectCart } from '../features/cart/cartSlice'
+import { selectAllProducts } from '../features/products/productsSlice'
 
 const CheckOut = () => {
   
   const cartContents = useSelector(selectCart)
+  const products = useSelector(selectAllProducts)
 
     return (
         <div className="flex-grow p-5">
           <div className="grid justify-center">
-              {Object.keys(cartContents).map(keyName =>
-                  <CartProduct  key={cartContents[keyName].product.id}
-                                cartItem={cartContents[keyName]} />
-                                )}
+            {Object.keys(cartContents).map(keyName =>
+                    <CartProduct  key={keyName}
+                                  cartItem={products[keyName]}
+                                  quantity={cartContents[keyName].quantity}/>
+                                  )}
             <div>
               <div>
                 <button
