@@ -1,6 +1,26 @@
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addProductToCart } from '../features/cart/cartSlice'
 
 const ProductCard = ({product}) => {
+    
+    const dispatch = useDispatch()
+    
+    const onAddToCartClicked = async () => {
+        console.log('Add to cart')
+        try {
+            const result = await dispatch(
+                addProductToCart({
+                    product_id: product.id,
+                    quantity: 1
+                })
+            )
+            console.log(result)
+        } catch (err) {
+            console.error('Failed to add to cart: ', err)
+        }
+    }
+
     return (
         <Link to={`/product/${product.id}`}>
             <div className="p-10">  
@@ -14,7 +34,8 @@ const ProductCard = ({product}) => {
                 </div>
                 <div className="px-6 pt-4 pb-2">
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{product.price}</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Add to cart</span>
+                    <span   className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                            onClick={onAddToCartClicked}>Add to cart</span>
                 </div>
                 </div>
             </div>

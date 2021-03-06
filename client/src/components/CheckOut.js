@@ -9,9 +9,9 @@ const CheckOut = () => {
     return (
         <div className="flex-grow p-5">
           <div className="grid justify-center">
-              {cartContents.map(cartItem => 
-                  <CartProduct  key={cartItem.product.id}
-                                cartItem={cartItem} />
+              {Object.keys(cartContents).map(keyName =>
+                  <CartProduct  key={cartContents[keyName].product.id}
+                                cartItem={cartContents[keyName]} />
                                 )}
             <div>
               <div>
