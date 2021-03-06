@@ -15,7 +15,6 @@ export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async 
     }
 })
 
-//TO DO: Fix this thunk
 export const addProductToCart = createAsyncThunk(
     'cart/addProductToCart',
     async cartProduct => {
@@ -25,6 +24,19 @@ export const addProductToCart = createAsyncThunk(
             return cartProduct
         } catch (error) {
             console.log(error)
+        }
+    }
+)
+
+export const removeProductFromCart = createAsyncThunk(
+    'cart/removeProductFromCart',
+    async product => {
+        try {
+            await axios.delete('/api/carts/self/product',
+                {data: product})
+            return product
+        } catch (error) {
+            console.log(error.response)
         }
     }
 )
@@ -52,9 +64,13 @@ export const cartSlice = createSlice({
         [fetchCurrentCart.rejected]: (state, action) => {
         state.cartProductsStatus = 'failed'
         },
-        //TO DO: Verify below:
+        //Reducer for adding product to cart
         [addProductToCart.fulfilled]: (state, action) => {
             state.cartProducts[action.payload.product_id] = action.payload
+        },
+        //Reducer for removing producct from cart
+        [removeProductFromCart.fulfilled]: (state, action) => {
+            delete state.cartProducts[action.payload.product_id]
         }
     }
 })

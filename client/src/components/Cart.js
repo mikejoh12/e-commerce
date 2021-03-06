@@ -13,8 +13,9 @@ const Cart = () => {
         <div className="flex-grow p-5">
           <div className="grid justify-center">
               {Object.keys(cartContents).map(keyName =>
-                  <CartProduct  key={cartContents[keyName]}
-                                cartItem={products[keyName]} />
+                  <CartProduct  key={keyName}
+                                cartItem={products[keyName]}
+                                quantity={cartContents[keyName].quantity}/>
                                 )}
           <div>
             <div>

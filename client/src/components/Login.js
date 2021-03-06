@@ -21,7 +21,6 @@ const Login = () => {
                 password: data.password
               },
               {withCredentials: true})
-          console.log(response)
           if (response.status === 200) {
             dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())

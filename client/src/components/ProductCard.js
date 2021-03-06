@@ -7,15 +7,13 @@ const ProductCard = ({product}) => {
     const dispatch = useDispatch()
     
     const onAddToCartClicked = async () => {
-        console.log('Add to cart')
         try {
-            const result = await dispatch(
+            await dispatch(
                 addProductToCart({
                     product_id: product.id,
                     quantity: 1
                 })
             )
-            console.log(result)
         } catch (err) {
             console.error('Failed to add to cart: ', err)
         }

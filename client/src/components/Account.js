@@ -28,7 +28,8 @@ const Account = () => {
 
                 {Object.keys(orders).map(keyName =>
                     orders[keyName].map(orderItem => {
-                      return <li>{`${orderItem.order_id} - ${orderItem.name} - ${orderItem.price} - ${orderItem.created_at}`}</li>
+                      return <li key={`${keyName}-${orderItem.product_id}`}
+                        >{`${orderItem.order_id} - ${orderItem.name} - ${orderItem.price} - ${orderItem.created_at}`}</li>
                     })
                   )}
               </ul>
