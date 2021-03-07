@@ -6,16 +6,22 @@ import { selectIsLoggedIn } from '../features/users/usersSlice'
 import { useDispatch } from 'react-redux'
 import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSlice'
 import { cartProductsUpdated } from '../features/cart/cartSlice'
+const axios = require('axios')
 
 function Nav() {
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const dispatch = useDispatch()
 
-    const handleLogout = () => {
+    const handleLogout = async() => {
       dispatch(isLoggedInUpdated(false))
       dispatch(currentUserUpdated({})) //Clear current user info from session
       dispatch(cartProductsUpdated({})) //Clear cart
+      try {
+        await axios.post('/api/auth/logout')
+      } catch(err) {
+        console.log(err)
+      }
     }
 
     return (

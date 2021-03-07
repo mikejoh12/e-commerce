@@ -72,7 +72,19 @@ const loginUser = async (req, res, next) => {
   )(req, res, next);
 }
 
+const logoutUser = (req, res, next) => {
+  try {
+    res.clearCookie('A_JWT')
+    res.status(200)
+    next()
+  } catch(e) {
+    console.log(e.message)
+    res.sendStatus(500)
+  }
+}
+
 module.exports = {
     signupUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
