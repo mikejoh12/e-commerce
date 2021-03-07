@@ -8,10 +8,11 @@ const CartProduct = ({cartItem, quantity}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(changeProductQuantity({
-            product_id: cartItem.id,
-            quantity: productQty
-        }))
+            dispatch(changeProductQuantity({
+                product_id: cartItem.id,
+                quantity: productQty
+            })
+        )
     }, [productQty, cartItem.id, dispatch])
     
     const handleRemoveProduct = async() => {
@@ -37,11 +38,13 @@ const CartProduct = ({cartItem, quantity}) => {
                 <div className="m-2">
                     <p>${cartItem.price}</p>
                 </div>
-                <div className="m-2">
-                    <input name="quantity" type="number" onChange={event => setProductQty(event.target.value)}
-                    value={productQty} min="0" max="20"
-                    className="border w-12 rounded p-1 border-blue-300" />
-                </div>
+                <select className="m-2 border border-solid" value={productQty} onChange={event => setProductQty(event.target.value)}>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                </select>
                 <div className="m-2">
                     <button onClick={handleRemoveProduct} 
                     className="m-4 mt-4 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
