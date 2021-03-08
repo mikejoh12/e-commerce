@@ -14,10 +14,10 @@ function Nav() {
     const dispatch = useDispatch()
 
     const handleLogout = async() => {
-      dispatch(isLoggedInUpdated(false))
-      dispatch(currentUserUpdated({})) //Clear current user info from session
-      dispatch(cartProductsUpdated({})) //Clear cart
       try {
+        await dispatch(isLoggedInUpdated(false))
+        await dispatch(currentUserUpdated({})) //Clear current user info from session
+        await dispatch(cartProductsUpdated({})) //Clear cart
         await axios.post('/api/auth/logout')
       } catch(err) {
         console.log(err)

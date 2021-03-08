@@ -11,7 +11,7 @@ const Login = () => {
       const dispatch = useDispatch()
       const history = useHistory()
 
-      const onSubmit = async (data) => {
+      const handleLogin = async (data) => {
         try {
           const response = await axios.post(
             '/api/auth/login',
@@ -34,7 +34,7 @@ const Login = () => {
 
       return (
         <div className="flex-grow pt-16 mx-auto">    
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handleLogin)}>
 
             <div className="p-2">
               <label htmlFor="email" className="block text-md font-medium text-gray-700">Email:</label>

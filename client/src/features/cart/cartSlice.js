@@ -54,10 +54,23 @@ export const changeProductQuantity = createAsyncThunk(
     }
 )
 
+export const checkoutCart = createAsyncThunk(
+    'cart/checkoutCart', async () => {
+        try {
+            const response = await axios.post('/api/carts/self/checkout')
+            return response.data
+        } catch(error) {
+            console.log(error)
+        }
+    }
+)
+
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cartProducts: {}
+        cartProductsStatus: 'idle',
+        cartProducts: {},
+        checkoutCartStatus: 'idle'
     },
     //Clear cart when logging out
     reducers: {
@@ -72,10 +85,10 @@ export const cartSlice = createSlice({
         },
         [fetchCurrentCart.fulfilled]: (state, action) => {
         state.cartProductsStatus = 'succeeded'
-        state.cartProducts = action.payload
+            state.cartProducts = action.payload
         },
         [fetchCurrentCart.rejected]: (state, action) => {
-        state.cartProductsStatus = 'failed'
+            state.cartProductsStatus = 'failed'
         },
         //Reducer for adding product to cart
         [addProductToCart.fulfilled]: (state, action) => {
@@ -88,7 +101,17 @@ export const cartSlice = createSlice({
         //Reducer for changing qty of a product in cart
         [changeProductQuantity.fulfilled]: (state, action) => {
             state.cartProducts[action.payload.product_id].quantity = action.payload.quantity
-        }
+        },
+        //Reducers for tracking status of order placement
+        [checkoutCart.pending]: (state, action) => {
+            state.checkoutCartStatus = 'loading'
+        },
+        [checkoutCart.fulfilled]: (state, action) => {
+            state.checkoutCartStatus = 'succeeded'
+        },
+        [checkoutCart.rejected]: (state, action) => {
+            state.checkoutCartStatus = 'failed'
+        },
     }
 })
 

@@ -6,7 +6,7 @@ const ProductCard = ({product}) => {
     
     const dispatch = useDispatch()
     
-    const onAddToCartClicked = async () => {
+    const handleAddToCartClicked = async () => {
         try {
             await dispatch(
                 addProductToCart({
@@ -35,7 +35,7 @@ const ProductCard = ({product}) => {
                     <div className="px-6 pt-4 pb-2">
                         <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{product.price}</div>
                         <button   className="inline-block z-10 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                                onClick={onAddToCartClicked}>Add to cart</button>
+                                onClick={handleAddToCartClicked}>Add to cart</button>
                     </div>
                 </div>
             </div>

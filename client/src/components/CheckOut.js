@@ -1,12 +1,25 @@
 import CartProduct from './CartProduct'
-import { useSelector } from 'react-redux'
-import { selectCart } from '../features/cart/cartSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectCart, checkoutCart, cartProductsUpdated } from '../features/cart/cartSlice'
 import { selectAllProducts } from '../features/products/productsSlice'
+import { fetchCustomerOrders } from '../features/orders/ordersSlice'
 
 const CheckOut = () => {
   
   const cartContents = useSelector(selectCart)
   const products = useSelector(selectAllProducts)
+  const dispatch = useDispatch()
+
+  const handlePlaceOrder = async() => {
+      try {
+        await dispatch(checkoutCart())
+        await dispatch(fetchCustomerOrders()) //Fetch order state after new order placed
+        await dispatch(cartProductsUpdated({})) //Clear cart
+        alert('Order placed')
+      } catch(error) {
+        console.log(error)
+      }
+}
 
     return (
         <div className="flex-grow p-5">
@@ -20,7 +33,7 @@ const CheckOut = () => {
               <div>
                 <button
                     className="m-4 mt-4 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onClick={() => alert('Order Placed!')}>
+                    onClick={() => handlePlaceOrder()}>
                     Place Order
                 </button>  
               </div>
