@@ -18,10 +18,11 @@ const CheckOut = () => {
 
   const handlePlaceOrder = async() => {
       try {
-        await dispatch(checkoutCart())
+        const orderResponse = await dispatch(checkoutCart())
         await dispatch(fetchCustomerOrders()) //Fetch order state after new order placed
         await dispatch(cartProductsUpdated({})) //Clear cart
-        history.push('/checkout-done')
+        const orderId = orderResponse.payload.order_id
+        history.push(`/checkout-done/${orderId}`)
       } catch(error) {
         console.log(error)
       }

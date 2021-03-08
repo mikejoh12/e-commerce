@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/checkout">
             <CheckOut />
           </Route>
-          <Route path="/checkout-done">
+          <Route path="/checkout-done/:id">
             <CheckOutDone />
           </Route>
           <Route path="/">

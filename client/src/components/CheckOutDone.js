@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom' 
+import { useHistory, useParams } from 'react-router-dom' 
 
 const CheckOutDone = () => {
   
     const history = useHistory()
+    let { id } = useParams()
 
     const handleKeepShoppingClick = () => {
         history.push('/')
@@ -13,7 +13,7 @@ const CheckOutDone = () => {
         <div className="flex-grow p-5">
             <div>
                 <p className="font-bold text-center text-xl mb-2 text-gray-700 text-base">
-                  Order Complete.
+                  Order Complete. Order Nr: {id}
                 </p>
             </div>
             <div className="text-center">
