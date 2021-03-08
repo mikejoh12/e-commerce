@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addProductToCart } from '../features/cart/cartSlice'
+import { useHistory } from 'react-router-dom' 
+import { selectIsLoggedIn } from '../features/users/usersSlice'
 
 const ProductCard = ({product}) => {
     
     const dispatch = useDispatch()
-    
+    const history = useHistory()
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+
     const handleAddToCartClicked = async () => {
+        if (!isLoggedIn) {
+            history.push('/login')
+            return
+        }
         try {
             await dispatch(
                 addProductToCart({
