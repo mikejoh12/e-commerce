@@ -41,6 +41,7 @@ const createOrder = async (userId) => {
 }
 
 const createProductInOrder = async (orderProduct) => {
+  console.log(orderProduct)
   try {
     return await createProductInOrderDb(orderProduct)
   } catch(e) {
