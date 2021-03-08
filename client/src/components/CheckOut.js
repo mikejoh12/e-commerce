@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectCart, checkoutCart, cartProductsUpdated } from '../features/cart/cartSlice'
 import { selectAllProducts } from '../features/products/productsSlice'
 import { fetchCustomerOrders } from '../features/orders/ordersSlice'
+import { useHistory } from 'react-router-dom' 
 
 const CheckOut = () => {
   
   const cartContents = useSelector(selectCart)
   const products = useSelector(selectAllProducts)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const totalPrice = Object.keys(cartContents).reduce((acc, keyName) => 
     acc + parseFloat(products[keyName].price) * parseInt(cartContents[keyName].quantity, 10), 0)
@@ -19,7 +21,7 @@ const CheckOut = () => {
         await dispatch(checkoutCart())
         await dispatch(fetchCustomerOrders()) //Fetch order state after new order placed
         await dispatch(cartProductsUpdated({})) //Clear cart
-        alert('Order placed')
+        history.push('/checkout-done')
       } catch(error) {
         console.log(error)
       }

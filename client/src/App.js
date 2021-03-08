@@ -3,6 +3,7 @@ import Register from './components/Register'
 import Account from './components/Account'
 import Cart from './components/Cart'
 import CheckOut from './components/CheckOut'
+import CheckOutDone from './components/CheckOutDone'
 import Login from './components/Login'
 import Footer from './components/Footer'
 import { BrowserRouter as Router,
@@ -35,6 +36,9 @@ const App = () => {
           </Route>
           <Route path="/checkout">
             <CheckOut />
+          </Route>
+          <Route path="/checkout-done">
+            <CheckOutDone />
           </Route>
           <Route path="/">
             <ProductList />
