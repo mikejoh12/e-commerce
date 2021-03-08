@@ -16,20 +16,20 @@ export const fetchAllProducts = createAsyncThunk('products/fetchAllProducts', as
 export const productsSlice = createSlice({
     name: 'products',
     initialState: {
-        allProductsStatus: 'idle',
+        fetchAllProductsStatus: 'idle',
         allProducts: {}
     },
     extraReducers: {
         //Reducers for fetching products
         [fetchAllProducts.pending]: (state, action) => {
-            state.allProductsStatus = 'loading'
+            state.fetchAllProductsStatus = 'loading'
           },
           [fetchAllProducts.fulfilled]: (state, action) => {
-            state.allProductsStatus = 'succeeded'
+            state.fetchAllProductsStatus = 'succeeded'
             state.allProducts = action.payload
           },
           [fetchAllProducts.rejected]: (state, action) => {
-            state.allProductsStatus = 'failed'
+            state.fetchAllProductsStatus = 'failed'
           },
     }
 })
