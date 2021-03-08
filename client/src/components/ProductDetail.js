@@ -1,11 +1,34 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectProductById} from '../features/products/productsSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectProductById } from '../features/products/productsSlice'
+import { addProductToCart } from '../features/cart/cartSlice'
+import { selectIsLoggedIn } from '../features/users/usersSlice'
+import { useHistory } from 'react-router-dom' 
 
 const ProductDetail = () => {
  
   let { id } = useParams()
+  const dispatch = useDispatch()
   const product = useSelector(state => selectProductById(state, id))
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const history = useHistory()
+
+  const handleAddToCartClicked = async () => {
+    if (!isLoggedIn) {
+        history.push('/login')
+        return
+    }
+    try {
+        await dispatch(
+            addProductToCart({
+                product_id: id,
+                quantity: 1
+            })
+        )
+    } catch (err) {
+        console.error('Failed to add to cart: ', err)
+    }
+}
 
   return (
       <div className="flex-grow p-5">
@@ -20,7 +43,8 @@ const ProductDetail = () => {
             </div>
             <div className="px-6 pt-4 pb-2">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{product.price}</span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Add to cart</span>
+                <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                        onClick={handleAddToCartClicked}>Add to cart</button>
             </div>
             </div>
         </div>
