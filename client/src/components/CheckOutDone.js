@@ -3,12 +3,25 @@ import { useHistory } from 'react-router-dom'
 
 const CheckOutDone = () => {
   
+    const history = useHistory()
+
+    const handleKeepShoppingClick = () => {
+        history.push('/')
+    }
+
     return (
         <div className="flex-grow p-5">
             <div>
                 <p className="font-bold text-center text-xl mb-2 text-gray-700 text-base">
                   Order Complete.
                 </p>
+            </div>
+            <div className="text-center">
+              <button
+                  className="m-4 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={handleKeepShoppingClick}>
+                  Keep Shopping
+              </button>  
             </div>
         </div>
       )
