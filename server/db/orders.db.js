@@ -43,7 +43,6 @@ const createOrderDb = async ({user_id, status}) => {
   const values = [user_id, status]
   try {
     const res = await pool.query(text, values)
-    console.log(res.rows[0])
     return res.rows[0].id
   } catch (err) {
     console.log(err.stack)
@@ -56,7 +55,6 @@ const createProductInOrderDb = async ({order_id, product_id, quantity, price}) =
   const values = [order_id, product_id, quantity, price]
   try {
     const res = await pool.query(text, values)
-    console.log(res.rows[0])
     return res.rows
   } catch (err) {
     console.log(err.stack)

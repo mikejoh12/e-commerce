@@ -33,7 +33,7 @@ const CartProduct = ({cartItem, quantity}) => {
                     <img className="m-2 hidden sm:block max-h-24 rounded" src={cartItem.image_url} alt="" />
                 </div>
                 <div className="m-2 flex-grow">
-                    <p>{cartItem.description}</p>
+                    <p>{cartItem.name}</p>
                 </div>
                 <div className="m-2">
                     <p>${cartItem.price}</p>

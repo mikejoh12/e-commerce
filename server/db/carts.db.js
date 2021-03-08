@@ -34,7 +34,6 @@ const createCartDb = async (userId) => {
   const values = [userId]
   try {
     const res = await pool.query(text, values)
-    console.log(res.rows[0])
     return res.rows[0]
   } catch (err) {
     console.log(err.stack)
@@ -47,7 +46,6 @@ const createProductInCartDb = async ({cart_id, product_id, quantity}) => {
   const values = [cart_id, product_id, quantity]
   try {
     const res = await pool.query(text, values)
-    console.log(res.rows[0])
     return res.rows
   } catch (err) {
     console.log(err.stack)
@@ -56,7 +54,6 @@ const createProductInCartDb = async ({cart_id, product_id, quantity}) => {
 
 //Modifies one quantity of a product in a cart for a given cart_id and product_id
 const modifyCartDb = async ({cart_id, product_id, quantity}) => {
-  console.log(`Cart id: ${cart_id} Product_id: ${product_id} Qty ${quantity}`)
   const text = `UPDATE cart_products
                 SET quantity = $3
                 WHERE cart_id = $1 AND product_id = $2 RETURNING *`

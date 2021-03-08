@@ -90,7 +90,6 @@ const checkoutCart = async (req, res, next) => {
     const orderId = await createOrder(user_id)
     //Move all cart items to order
     await Promise.all(cart.map(async(item) => {
-      console.log(item)
       await createProductInOrder({
         order_id: orderId,
         product_id: item.product.id,
