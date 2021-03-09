@@ -1,6 +1,6 @@
 const express = require('express')
 const passport = require('passport')
-const { auth, products, users, carts, orders } = require('../controllers')
+const { auth, products, users, carts, orders, payment } = require('../controllers')
 const { validateGetProducts, validateSignUp, validateLogin, validatePostProduct, validatePutProduct, validateDeleteProduct,
         validatePutUser, validateDeleteUser, validateCart, validateDeleteCartProduct, validateOrder } = require('./validation')
 
@@ -34,4 +34,5 @@ router
     .get('/orders/review/:orderId', validateOrder, passport.authenticate('jwt-admin', {session: false}), orders.getOrderById) //Gets one order
     .get('/orders/self', passport.authenticate('jwt-customer', {session: false}), orders.getOrdersSelf) //Gets all orders for current user
 
+    .post('/payment/create-payment-intent', passport.authenticate('jwt-customer', {session: false}), payment.createPaymentIntent)
 module.exports = router

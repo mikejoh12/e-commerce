@@ -15,11 +15,11 @@ import ProductList from './components/ProductList'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 
-const stripePromise = loadStripe('pk_test_51I904uBSQJkm3JDXKbckPcWBdvtxBy53ZWHJPlU802XUsXyP4cLr6bwOqhvwYu5itpHPwgkBmye8MkaVFil4c4lp00IDOUmarR');
+const promise = loadStripe('pk_test_51I904uBSQJkm3JDXKbckPcWBdvtxBy53ZWHJPlU802XUsXyP4cLr6bwOqhvwYu5itpHPwgkBmye8MkaVFil4c4lp00IDOUmarR');
 
 const App = () => {
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={promise}>
       <Router>
         <div className="App flex flex-col min-h-screen">
           <Nav />
