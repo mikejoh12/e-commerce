@@ -13,7 +13,7 @@ const CheckOutDone = () => {
         <div className="flex-grow p-5">
             <div>
                 <p className="font-bold text-center text-xl mb-2 text-gray-700 text-base">
-                  Order Complete. Order Nr: {id}
+                  Payment Succesful. Order Nr: {id}
                 </p>
             </div>
             <div className="text-center">
