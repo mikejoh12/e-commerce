@@ -16,6 +16,8 @@ tags:
   description: Product orders
 - name: auth
   description: Authentication/Authorization
+- name: payment
+  description: Handles payment with Stripe
 paths:
   /api/auth/signup:
     post:
@@ -245,6 +247,15 @@ paths:
         200:
           description: Ok
           content: {}
+  /api/payment/create-payment-intent:
+    post:
+      tags:
+      - payment
+      description: Uses Stripe to create a PaymentIntent. Returns a client secret to be used by Stripe in the front-end.
+      responses:
+        200:
+          description: Ok
+
 components:
   schemas:
     Product:
