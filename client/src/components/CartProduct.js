@@ -10,7 +10,7 @@ const CartProduct = ({cartItem, quantity}) => {
     useEffect(() => {
             dispatch(changeProductQuantity({
                 product_id: cartItem.id,
-                quantity: productQty
+                quantity: parseInt(productQty, 10)
             })
         )
     }, [productQty, cartItem.id, dispatch])

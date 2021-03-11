@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Register from './components/Register'
 import Account from './components/Account'
+import OrderDetail from './components/OrderDetail'
 import Cart from './components/Cart'
 import CheckOut from './components/CheckOut'
 import CheckOutDone from './components/CheckOutDone'
@@ -30,9 +31,12 @@ const App = () => {
             <Route path="/register">
               <Register />
             </Route>
+            <Route path="/account/orders/:id">
+              <OrderDetail />
+            </Route>     
             <Route path="/account">
               <Account />
-            </Route>
+            </Route>       
             <Route path="/product/:id">
               <ProductDetail />
             </Route>

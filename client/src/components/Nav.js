@@ -3,7 +3,6 @@ import { selectIsLoggedIn } from '../features/users/usersSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSlice'
 import { cartProductsUpdated, selectCart } from '../features/cart/cartSlice'
-import { useEffect } from 'react'
 const axios = require('axios')
 
 function Nav() {

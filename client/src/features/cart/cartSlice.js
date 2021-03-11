@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const axios = require('axios')
 
 export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async () => {
-    try {
         const response = await axios.get('/api/carts/self')
         const cart = {}
         response.data.forEach(cartProduct =>
@@ -10,9 +9,6 @@ export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async 
                 quantity: cartProduct.quantity
             })
         return cart
-    } catch (error) {
-        console.log(error)
-    }
 })
 
 export const addProductToCart = createAsyncThunk(

@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const axios = require('axios')
 
 export const fetchCustomerOrders = createAsyncThunk('orders/fetchCustomerOrders', async () => {
-    try {
         const response = await axios.get('/api/orders/self')
         const orders = {}
         response.data.forEach(orderProduct => {
@@ -12,9 +11,6 @@ export const fetchCustomerOrders = createAsyncThunk('orders/fetchCustomerOrders'
             orders[orderProduct.order_id].push(orderProduct)
         })
         return orders
-    } catch (error) {
-        console.log(error)
-    }
 })
 
 export const ordersSlice = createSlice({
@@ -38,4 +34,5 @@ export const ordersSlice = createSlice({
 })
 
 export const selectCustomerOrders = state => state.orders.customerOrders
+export const selectOrderById = (state, orderId) => state.orders.customerOrders[orderId]
 export default ordersSlice.reducer
