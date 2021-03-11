@@ -13,8 +13,8 @@ const ProductList = () => {
   }, [dispatch])
 
   return (
-      <div className="flex-grow p-5">
-            <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 max-w-7xl mx-auto">
+      <div className="flex-grow px-8">
+            <div className="p-4 flex flex-wrap justify-center max-w-screen-2xl mx-auto">
               {Object.keys(products).map(keyName => <ProductCard
                                         key={products[keyName].id}
                                         product={products[keyName]} />)} 
