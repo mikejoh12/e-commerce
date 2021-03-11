@@ -40,10 +40,11 @@ const ProductCard = ({product}) => {
     return (
 
             <div className="m-4 max-w-sm flex flex-col overflow-hidden rounded shadow-lg">
-                <div className="flex flex-grow">
-                    <img className="w-full" src={product.image_url} alt="Mountain" />
-                </div>
-
+                <div className="flex flex-col flex-grow justify-center">
+                    <Link to={`/product/${product.id}`}>  
+                        <img className="w-full" src={product.image_url} alt="Mountain" />
+                    </Link>
+                </div>  
                     <div className="flex flex-col justify-center h-48">
                         <Link to={`/product/${product.id}`}>  
                             <div className="p-2">
