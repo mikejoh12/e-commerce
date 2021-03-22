@@ -41,17 +41,23 @@ const Login = () => {
 
             <div className="p-2">
               <label htmlFor="email" className="block text-md font-medium text-gray-700">Email:</label>
-              <input name="email" className="border rounded w-full p-1 border-blue-300" ref={register({ required: true })} />
-              {errors.email && <span>This field is required</span>}
+              <input  name="email" className="border rounded w-full p-1 border-blue-300" 
+                      ref={register({
+                        required: "Required",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address"
+                        }
+                      })} />
+              {errors.email && errors.email.message}
             </div>
 
             <div className="p-2">
               <label htmlFor="password">Password:</label>
-              <input name="password" type="password" className="border rounded w-full p-1 border-blue-300" ref={register({ required: true })} />
+              <input  name="password" type="password" className="border rounded w-full p-1 border-blue-300"
+                      ref={register({ required: true })} />
               {errors.password && <span>This field is required</span>}
             </div>
-
-            {errors.exampleRequired && <span>This field is required</span>}
             
             <div className="p-2">
                 <input  type="submit"
