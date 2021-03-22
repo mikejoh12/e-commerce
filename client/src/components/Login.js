@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
 import { fetchCurrentCart } from "../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../features/orders/ordersSlice"
+import { useState } from 'react'
 const axios = require('axios')
 
 const Login = () => {
       const { register, handleSubmit, errors } = useForm();
       const dispatch = useDispatch()
       const history = useHistory()
+      const [loginMsg, setLoginMsg] = useState('')
 
       const handleLogin = async (data) => {
         try {
@@ -28,7 +30,8 @@ const Login = () => {
             history.push('/')
           }
         } catch (error) {
-          console.log(error)
+          const errorMsg = error.response.data.error ? error.response.data.error.message : 'An error occurred.'
+          setLoginMsg(errorMsg)
         }
       }
 
@@ -61,6 +64,11 @@ const Login = () => {
                 </Link>
             </div>
           </form>
+
+          <p className="text-gray-700 font-medium text-base text-center">
+            {loginMsg}
+          </p>
+
         </div>
       )
     }
