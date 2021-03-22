@@ -8,7 +8,7 @@ import { useState } from 'react'
 const axios = require('axios')
 
 const Login = () => {
-      const { register, handleSubmit, errors } = useForm();
+      const { register, handleSubmit, formState } = useForm();
       const dispatch = useDispatch()
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
@@ -46,17 +46,17 @@ const Login = () => {
                         required: "Required",
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address"
                         }
                       })} />
-              {errors.email && errors.email.message}
+              {formState.errors.email?.type === 'required' && 'Email is required.'}
+              {formState.errors.email?.type === 'pattern' && 'Enter a valid email address.'}
             </div>
 
             <div className="p-2">
               <label htmlFor="password">Password:</label>
               <input  name="password" type="password" className="border rounded w-full p-1 border-blue-300"
                       ref={register({ required: true })} />
-              {errors.password && <span>This field is required</span>}
+              {formState.errors.password?.type === 'required' && 'Password is required.'}
             </div>
             
             <div className="p-2">
