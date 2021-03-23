@@ -26,7 +26,7 @@ const fetchUserByIdDb = async (id) => {
 const fetchUserByEmailDb = async (email) => {
   try {
     const res = await pool.query(`SELECT users.id, email, carts.id AS cart_id, pwd_hash, user_role
-                                  FROM users INNER JOIN carts ON users.id = carts.user_id WHERE email = $1`, [email])
+                                  FROM users INNER JOIN carts ON users.id = carts.user_id WHERE email = $1 AND active = true`, [email])
     return res.rows[0]
   } catch (err) {
     console.log(err.stack)
