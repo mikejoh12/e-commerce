@@ -1,16 +1,62 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
+import { fetchCurrentCart } from "../features/cart/cartSlice"
+import { fetchCustomerOrders } from "../features/orders/ordersSlice"
+const axios = require('axios')
 
 const Register = () => {
       const { register, handleSubmit, formState, watch } = useForm();
+      const history = useHistory()
+      const dispatch = useDispatch()
       const password = useRef({})
       password.current = watch("password", "");
-      const onSubmit = data => console.log(data);
+      const [registerUserMsg, setRegisterUserMsg] = useState('')
+      
+      const handleRegisterUser = async data => {
+        try {
+          await axios.post(
+            '/api/auth/signup',
+              {
+                email: data.email,
+                password: data.password,
+                first_name: data.firstName,
+                last_name: data.lastName,
+                address1: data.address1,
+                address2: data.address2,
+                postcode: data.postcode,
+                city: data.city,
+                country: data.country
+              })
+          const loginResponse = await axios.post(
+            '/api/auth/login',
+              {
+                email: data.email,
+                password: data.password
+              },
+              {withCredentials: true})
+          if (loginResponse.status === 200) {
+            dispatch(isLoggedInUpdated(true))
+            dispatch(fetchCurrentUser())
+            dispatch(fetchCurrentCart())
+            dispatch(fetchCustomerOrders())
+            history.push('/')
+          }
+        } catch (err) {
+          if (err.response) {
+          console.log(err.response.data)
+        } else if (err.request) {
+          console.log(err.request.data)
+        } else {
+          console.log('An error occured creating account and/or logging in.')
+        }
+      }}
 
       return (
         <div className="flex-grow p-10 mx-auto">    
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handleRegisterUser)}>
 
             <div className="p-2">
               <label htmlFor="email" className="block text-md font-medium text-gray-700">Email:</label>
@@ -135,6 +181,10 @@ const Register = () => {
               </Link>
           </div>
         </form>
+
+        <p className="text-gray-700 font-medium text-base text-center">
+            {registerUserMsg}
+        </p>
       </div>
       )
     }

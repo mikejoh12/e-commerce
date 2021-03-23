@@ -13,7 +13,7 @@ const Login = () => {
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
 
-      const handleLogin = async (data) => {
+      const handleLogin = async data => {
         try {
           const response = await axios.post(
             '/api/auth/login',
