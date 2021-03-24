@@ -1,10 +1,11 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
 const usersService = require('../services/users.service')
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-
+const { createUser } = usersService
 
 passport.use(
     'login',
@@ -32,6 +33,49 @@ passport.use(
     }
 }
 ))
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "http://localhost:3000/api/auth/facebook/callback",
+  profileFields: ['id', 'email']
+},
+async (accessToken, refreshToken, profile, done) => {
+  /*
+  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    return cb(err, user);
+  })*/
+  console.log('Accessing facebook passport config function')
+  return done(null, profile)
+  /*
+  try {
+    const user = await usersService.fetchUserByFacebookId(profile.id)
+    if (!user) {
+      //Create user
+      const user = {
+        email: profile.email,
+        facebook_id: profile.id,
+        first_name: 'test',
+        last_name: 'test',
+        address1: 'test',
+        address2,
+        postcode: 'test',
+        city: 'test',
+        country,
+        pwd_hash: 'test',
+        user_role: "customer"
+      }        
+      const newUser = await createUser(user)
+      const newCart = await createCart(newUser.id)
+      return done(null, profile)
+    } else if (user) {
+      return done(null, profile)
+    }
+  } catch (error) {
+    return done(error)
+  }
+  */
+}))
 
 //Checks the A_JWT cookie
 passport.use(

@@ -49,7 +49,7 @@ const App = () => {
             <Route path="/checkout-done/:id">
               <CheckOutDone />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <ProductList />
             </Route>
           </Switch>

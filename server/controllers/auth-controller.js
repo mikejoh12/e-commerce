@@ -72,6 +72,14 @@ const loginUser = async (req, res, next) => {
   )(req, res, next);
 }
 
+const facebookCallback = (req, res, next) => {
+  console.log('Accessing fb callback')
+  passport.authenticate('facebook'),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    return res.status(200).send('Reached fb callback')
+}}
+
 const logoutUser = (req, res, next) => {
   try {
     res.clearCookie('A_JWT')
@@ -86,5 +94,6 @@ const logoutUser = (req, res, next) => {
 module.exports = {
     signupUser,
     loginUser,
+    facebookCallback,
     logoutUser
 }

@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const compression = require('compression')
 const YAML = require('yamljs')
-//const cors = require('cors')
 const app = express()
 
 const swaggerUI = require('swagger-ui-express')
