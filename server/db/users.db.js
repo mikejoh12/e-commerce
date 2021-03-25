@@ -28,10 +28,10 @@ const fetchUserByGoogleIdDb = async (id) => {
 }
 
 
-const createUserDb = async ({email, first_name, last_name, address1, address2, postcode, city,  country, pwd_hash, user_role}) => {
-  const text = `INSERT INTO users(email, first_name, last_name, address1, address2, postcode, city, country, pwd_hash, user_role)
-                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
-  const values = [email, first_name, last_name, address1, address2, postcode, city, country, pwd_hash, user_role]
+const createUserDb = async ({email, google_id, first_name, last_name, address1, address2, postcode, city,  country, pwd_hash, user_role}) => {
+  const text = `INSERT INTO users(email, google_id, first_name, last_name, address1, address2, postcode, city, country, pwd_hash, user_role)
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`
+  const values = [email, google_id, first_name, last_name, address1, address2, postcode, city, country, pwd_hash, user_role]
   
     const res = await pool.query(text, values)
     console.log(res.rows[0])

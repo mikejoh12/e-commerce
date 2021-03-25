@@ -12,12 +12,14 @@ router
     .post('/auth/login', validateLogin, auth.loginUser) //Logs user in and sends a JWT back in cookie
     .post('/auth/logout', auth.logoutUser) //Deletes httpOnly cookie to logout
     .get('/auth/google', passport.authenticate("google", {
-        scope: ["profile", "email"]
+        scope: ["profile", "email"],
+        session: false
       }))
     .get('/auth/google/redirect', passport.authenticate("google",
-     (req, res) => {
-        res.send("you reached the redirect URI")
-     }))
+    { successRedirect: '/success',
+      failureRedirect: '/failure',
+      session: false }
+    ))
 
     .get('/products', products.getAllProducts)
     .get('/products/:id', validateGetProducts, products.getProductById)
