@@ -72,6 +72,19 @@ const loginUser = async (req, res, next) => {
   )(req, res, next);
 }
 
+const loginGoogle = async (req, res, next) => {
+  const user = req.user
+  const body = { id: user.id, cart_id: user.cart_id, email: user.email, role: user.user_role}
+  const token = jwt.sign({ user: body }, process.env.JWT_KEY)
+
+  res.cookie('A_JWT', token, {
+    maxAge: 60 * 60 * 1000, // 1 hour
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production'? true: false,
+  })
+  return res.status(200).send(`Login successful.`)
+}
+
 const logoutUser = (req, res, next) => {
   try {
     res.clearCookie('A_JWT')
@@ -86,5 +99,6 @@ const logoutUser = (req, res, next) => {
 module.exports = {
     signupUser,
     loginUser,
+    loginGoogle,
     logoutUser
 }

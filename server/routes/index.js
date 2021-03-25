@@ -16,10 +16,7 @@ router
         session: false
       }))
     .get('/auth/google/redirect', passport.authenticate("google",
-    { successRedirect: '/success',
-      failureRedirect: '/failure',
-      session: false }
-    ))
+    { session: false }), auth.loginGoogle) //Logs user in using Google Oauth and issues a JWT back in cookie
 
     .get('/products', products.getAllProducts)
     .get('/products/:id', validateGetProducts, products.getProductById)
