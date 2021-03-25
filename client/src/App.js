@@ -6,6 +6,7 @@ import Cart from './components/Cart'
 import CheckOut from './components/CheckOut'
 import CheckOutDone from './components/CheckOutDone'
 import Login from './components/Login'
+import GoogleLogin from './components/GoogleLogin'
 import Footer from './components/Footer'
 import { BrowserRouter as Router,
   Switch,
@@ -27,6 +28,9 @@ const App = () => {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/google-login">
+              <GoogleLogin />
             </Route>
             <Route path="/register">
               <Register />

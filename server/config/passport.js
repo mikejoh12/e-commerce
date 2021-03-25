@@ -35,11 +35,6 @@ passport.use(new GoogleStrategy({
   callbackURL: "/api/auth/google/redirect",
   },
   async (accessToken, refreshToken, profile, done) => {
-    console.log("Access token: ", accessToken)
-    console.log("Google id: ", profile.id)
-    //Use first email for now
-    console.log("Email: ", profile.emails[0].value)
-
     const googleUser = await fetchUserByGoogleId(profile.id)
     if(googleUser) {
       console.log('User exists in db')

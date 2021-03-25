@@ -82,7 +82,8 @@ const loginGoogle = async (req, res, next) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production'? true: false,
   })
-  return res.status(200).send(`Login successful.`)
+  return res  .status(200)
+              .redirect('http://localhost:3000/google-login')
 }
 
 const logoutUser = (req, res, next) => {
