@@ -1,10 +1,11 @@
 const express = require('express')
 const passport = require('passport')
+const Router = require('express-promise-router')
 const { auth, products, users, carts, orders, payment } = require('../controllers')
 const { validateGetProducts, validateSignUp, validateLogin, validatePostProduct, validatePutProduct, validateDeleteProduct,
         validatePutUser, validateDeleteUser, validateCart, validateDeleteCartProduct, validateOrder } = require('./validation')
 
-const router = express.Router()
+const router = new Router()
 
 router
     .post('/auth/signup', validateSignUp, auth.signupUser) //Adds a user and creates a cart for the user
