@@ -1,6 +1,7 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 const usersService = require('../services/users.service')
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
@@ -31,6 +32,16 @@ passport.use(
         return done(error);
     }
 }
+))
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "/api/auth/google/redirect"
+  },
+  accessToken => {
+    console.log("access token: ", accessToken)
+  }
 ))
 
 //Checks the A_JWT cookie
