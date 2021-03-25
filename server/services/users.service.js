@@ -1,4 +1,4 @@
-const { fetchUsersDb, fetchUserByIdDb, fetchUserByEmailDb, fetchUserByFacebookIdDb, createUserDb, modifyUserDb, removeUserDb } = require('../db')
+const { fetchUsersDb, fetchUserByIdDb, fetchUserByEmailDb, fetchUserByGoogleIdDb, createUserDb, modifyUserDb, removeUserDb } = require('../db')
 
 const fetchAllUsers = async () => {
   try {
@@ -24,9 +24,9 @@ const fetchUserByEmail = async (email) => {
   }
 }
 
-const fetchUserByFacebookId = async (id) => {
+const fetchUserByGoogleId = async (id) => {
   try {
-    return await fetchUserByFacebookIdDb(id)
+    return await fetchUserByGoogleIdDb(id)
   } catch(e) {
     throw new Error(e.message)
   }
@@ -59,7 +59,7 @@ const removeUser = async (id) => {
 module.exports = {
   fetchAllUsers,
   fetchUserById,
-  fetchUserByFacebookIdDb,
+  fetchUserByGoogleId,
   fetchUserByEmail,
   createUser,
   modifyUser,

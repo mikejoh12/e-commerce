@@ -33,10 +33,10 @@ const fetchUserByEmailDb = async (email) => {
   }
 }
 
-const fetchUserByFacebookIdDb = async (id) => {
+const fetchUserByGoogleIdDb = async (id) => {
   try {
     const res = await pool.query(`SELECT users.id, email, carts.id AS cart_id, pwd_hash, user_role
-                                  FROM users INNER JOIN carts ON users.id = carts.user_id WHERE facebook_id = $1`, [id])
+                                  FROM users INNER JOIN carts ON users.id = carts.user_id WHERE google_id = $1`, [id])
     return res.rows[0]
   } catch (err) {
     console.log(err.stack)
@@ -85,7 +85,7 @@ module.exports = {
   fetchUsersDb,
   fetchUserByIdDb,
   fetchUserByEmailDb,
-  fetchUserByFacebookIdDb,
+  fetchUserByGoogleIdDb,
   createUserDb,
   modifyUserDb,
   removeUserDb

@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const usersService = require('../services/users.service')
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const { createUser } = usersService
+const { fetchUserByGoogleIdDb, createUser } = usersService
 
 passport.use(
     'login',
@@ -39,8 +39,23 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "/api/auth/google/redirect"
   },
-  accessToken => {
-    console.log("access token: ", accessToken)
+  async (accessToken, refreshToken, profile, done) => {
+    console.log("Access token: ", accessToken)
+    console.log("Google id: ", profile.id)
+    //Use first email for now
+    console.log("Email: ", profile.emails[0].value)
+    try {
+      const googleUser = await usersService.fetchUserByGoogleIdDb(profile.id)
+      if(googleUser) {
+        console.log('User exists in db')
+        return done(null, false /*for now*/, { message: 'User found' });
+      } else {
+        console.log('User does not exist')
+        return done(null, false, { message: 'Google user not found' });
+      }
+    } catch (error) {
+      return done(error)
+    }
   }
 ))
 
