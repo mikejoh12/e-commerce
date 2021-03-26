@@ -40,10 +40,13 @@ passport.use(new GoogleStrategy({
       console.log('User exists in db')
       return done(null, googleUser, { message: 'User found' });
     } else {
+      console.log('name: ', profile.name)
       console.log('User does not exist. Creating user in db.')
       const user = {
         email: profile.emails[0].value,
         google_id: profile.id,
+        first_name: profile.name.givenName,
+        last_name: profile.name.familyName,
         user_role: "customer"
       }        
       const newUser = await createUser(user)

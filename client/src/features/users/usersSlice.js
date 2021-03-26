@@ -39,6 +39,7 @@ export const usersSlice = createSlice({
 
 export const    {   isLoggedInUpdated,
                     currentUserUpdated } = usersSlice.actions
+export const selectCurrentUserStatus = state => state.users.currentUserStatus
 export const selectCurrentUser = state => state.users.currentUser
 export const selectIsLoggedIn = state => state.users.isLoggedIn
 export default usersSlice.reducer

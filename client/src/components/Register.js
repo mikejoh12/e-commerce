@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -13,7 +13,6 @@ const Register = () => {
       const dispatch = useDispatch()
       const password = useRef({})
       password.current = watch("password", "");
-      const [registerUserMsg, setRegisterUserMsg] = useState('')
       
       const handleRegisterUser = async data => {
         try {
@@ -181,10 +180,6 @@ const Register = () => {
               </Link>
           </div>
         </form>
-
-        <p className="text-gray-700 font-medium text-base text-center">
-            {registerUserMsg}
-        </p>
       </div>
       )
     }

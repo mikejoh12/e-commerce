@@ -7,6 +7,7 @@ import CheckOut from './components/CheckOut'
 import CheckOutDone from './components/CheckOutDone'
 import Login from './components/Login'
 import GoogleLogin from './components/GoogleLogin'
+import GoogleUserRegister from './components/GoogleUserRegister'
 import Footer from './components/Footer'
 import { BrowserRouter as Router,
   Switch,
@@ -29,8 +30,11 @@ const App = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/google-login">
+            <Route exact path="/google-login">
               <GoogleLogin />
+            </Route>
+            <Route exact path="/google-login/user-register">
+              <GoogleUserRegister />
             </Route>
             <Route path="/register">
               <Register />
