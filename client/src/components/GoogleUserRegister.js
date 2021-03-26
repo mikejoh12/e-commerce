@@ -35,7 +35,25 @@ const GoogleUserRegister = () => {
       return (
         <div className="flex-grow p-10 mx-auto">    
           <form onSubmit={handleSubmit(handleUpdateUser)}>
+            
+            <div className="p-2">
+              <p  className="w-full p-1">
+                Google Email: {user.email}
+              </p>
+            </div>
+            
+            <div className="p-2">
+              <p  className="w-full p-1">
+                Name: {user.first_name} {user.last_name}
+              </p>
+            </div>
 
+            <div className="p-2">
+              <p  className="w-full p-1">
+                Please enter contact info below:
+              </p>
+            </div>
+            
             <div className="p-2">
               <label htmlFor="address1">Address Line 1:</label>
               <input  name="address1" className="border rounded w-full p-1 border-blue-300"

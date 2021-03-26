@@ -4,7 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux'
 import store from './store'
 import './index.css';
-//import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,4 +19,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
-//reportWebVitals();
+reportWebVitals();
