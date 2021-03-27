@@ -82,6 +82,23 @@ paths:
         200:
           description: Ok
           content: {}
+  /api/auth/google:
+    get:
+      tags:
+      - auth
+      description: Redirects a user to Google OAuth login
+      responses:
+        200:
+          description: After google login redirects to /api/auth/google/redirect
+  /api/auth/google/redirect:
+    get:
+      tags:
+      - auth
+      description: Redirect path for google OAuth
+      responses:
+        200:
+          description: Returns JWT cookie
+
   /api/products:
     get:
       tags:

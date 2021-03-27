@@ -37,11 +37,8 @@ passport.use(new GoogleStrategy({
   async (accessToken, refreshToken, profile, done) => {
     const googleUser = await fetchUserByGoogleId(profile.id)
     if(googleUser) {
-      console.log('User exists in db')
       return done(null, googleUser, { message: 'User found' });
     } else {
-      console.log('name: ', profile.name)
-      console.log('User does not exist. Creating user in db.')
       const user = {
         email: profile.emails[0].value,
         google_id: profile.id,
@@ -51,7 +48,6 @@ passport.use(new GoogleStrategy({
       }        
       const newUser = await createUser(user)
       const newCart = await createCart(newUser.id)
-      console.log('creating cart with cart_id: ', newCart)
       newUser.cart_id = newCart.id //Attach cart_id to the newUser object so it can appear in JWT cookie on first login
       return done(null, newUser, { message: 'New user created' });
     }
