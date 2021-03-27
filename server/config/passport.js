@@ -51,6 +51,8 @@ passport.use(new GoogleStrategy({
       }        
       const newUser = await createUser(user)
       const newCart = await createCart(newUser.id)
+      console.log('creating cart with cart_id: ', newCart)
+      newUser.cart_id = newCart.id //Attach cart_id to the newUser object so it can appear in JWT cookie on first login
       return done(null, newUser, { message: 'New user created' });
     }
 }))
