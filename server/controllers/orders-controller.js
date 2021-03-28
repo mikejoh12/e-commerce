@@ -3,38 +3,23 @@ const { ordersService } = require('../services')
 const { fetchOrders, fetchOrderById, fetchOrdersByUser, createOrder, createProductInOrder } = ordersService
 
 const getAllOrders = async (req, res, next) => {
-    try {
       const orders = await fetchOrders()
       res.status(200).json(orders)
       next()
-    } catch(e) {
-      console.log(e.message)
-      res.sendStatus(500) && next(e)
-    }
   }
 
 const getOrderById = async (req, res, next) => {
   const { orderId } = req.params
-  try {
-    const order = await fetchOrderById(orderId)
-    res.status(200).json(order)
-    next()
-  } catch(e)  {
-    console.log(e.message)
-    res.sendStatus(500) && next(e)
-  }
+  const order = await fetchOrderById(orderId)
+  res.status(200).json(order)
+  next()
 }
 
 const getOrdersSelf = async (req, res, next) => {
   const userId = req.user.id
-  try {
-    const orders = await fetchOrdersByUser(userId)
-    res.status(200).json(orders)
-    next()
-  } catch(e)  {
-    console.log(e.message)
-    res.sendStatus(500) && next(e)
-  }
+  const orders = await fetchOrdersByUser(userId)
+  res.status(200).json(orders)
+  next()
 }
 
 module.exports = {

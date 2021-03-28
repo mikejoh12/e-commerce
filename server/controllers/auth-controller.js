@@ -9,7 +9,6 @@ const { validationResult } = require('express-validator')
 const signupUser = async (req, res, next) => {
 
     const { email, password, first_name, last_name, address1, address2, postcode, city, country } = req.body
-    try {
       const pwd_hash = await getPwdHash(password)
       const user = {
         email,
@@ -27,10 +26,6 @@ const signupUser = async (req, res, next) => {
       const newCart = await createCart(newUser.id)
       res.status(201).json({userId: newUser.id, cartId: newCart.id})
       next()
-    } catch(e) {
-      console.log(e.message)
-      res.sendStatus(500)
-    }
 }
 
 const loginUser = async (req, res, next) => {
@@ -42,12 +37,10 @@ const loginUser = async (req, res, next) => {
   passport.authenticate(
     'login',
     async (err, user, info) => {
-      try {
         if (err || !user) {
           const error = new Error('Incorrect email or password');
           return next(error);
         }
-
         req.login(
           user,
           { session: false },
@@ -61,16 +54,10 @@ const loginUser = async (req, res, next) => {
               httpOnly: true,
               secure: process.env.NODE_ENV === 'production'? true: false,
             })
-            
             return res.status(200).send(`Login successful.`);
           }
         );
-      } catch (error) {
-        return next(error);
-      }
-    }
-  )(req, res, next);
-}
+    })(req, res, next)}
 
 const loginGoogle = async (req, res, next) => {
   const user = req.user
@@ -87,14 +74,9 @@ const loginGoogle = async (req, res, next) => {
 }
 
 const logoutUser = (req, res, next) => {
-  try {
     res.clearCookie('A_JWT')
     res.status(200).send()
     next()
-  } catch(e) {
-    console.log(e.message)
-    res.sendStatus(500)
-  }
 }
 
 module.exports = {
