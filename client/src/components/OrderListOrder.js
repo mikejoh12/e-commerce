@@ -7,11 +7,16 @@ const OrderListOrder = ({order, orderNr}) => {
 
     //Get the time from the first item in the order
     const orderTime = order[Object.keys(order)[0]].created_at
+    const d = new Date(orderTime)
+    var date = d.getDate()
+    var month = d.getMonth() + 1
+    var year = d.getFullYear()
+    var dateStr = month + "/" + date + "/" + year 
 
     return (
         <Link to={`/account/orders/${orderNr}`}>
             <div>
-                Order Id: {orderNr} | Total price: ${totalPrice} | Date: {orderTime}
+                Order Id: {orderNr} | Total price: ${totalPrice} | Date: {dateStr}
             </div>
         </Link>
       )
