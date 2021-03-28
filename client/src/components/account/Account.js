@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { selectCurrentUser } from '../features/users/usersSlice'
+import { selectCurrentUser } from '../../features/users/usersSlice'
 import OrderList from './OrderList'
 
 const Account = () => {

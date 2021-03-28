@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductToCart, changeProductQuantity, selectCart } from '../features/cart/cartSlice'
+import { addProductToCart, changeProductQuantity, selectCart } from '../../features/cart/cartSlice'
 import { useHistory } from 'react-router-dom' 
-import { selectIsLoggedIn } from '../features/users/usersSlice'
+import { selectIsLoggedIn } from '../../features/users/usersSlice'
 
 const ProductCard = ({product}) => {
     

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { selectCustomerOrders } from '../features/orders/ordersSlice'
+import { selectCustomerOrders } from '../../features/orders/ordersSlice'
 import OrderListOrder from './OrderListOrder'
 
 const OrderList = () => {

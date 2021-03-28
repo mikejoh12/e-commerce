@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { selectCart } from '../features/cart/cartSlice'
-import { selectAllProducts } from '../features/products/productsSlice'
+import { selectCart } from '../../features/cart/cartSlice'
+import { selectAllProducts } from '../../features/products/productsSlice'
 import CheckoutProduct from './CheckoutProduct'
 
 const CheckoutProductList = () => {

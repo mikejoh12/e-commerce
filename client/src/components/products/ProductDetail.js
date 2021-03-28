@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectProductById } from '../features/products/productsSlice'
-import { selectCart, addProductToCart, changeProductQuantity } from '../features/cart/cartSlice'
-import { selectIsLoggedIn } from '../features/users/usersSlice'
+import { selectProductById } from '../../features/products/productsSlice'
+import { selectCart, addProductToCart, changeProductQuantity } from '../../features/cart/cartSlice'
+import { selectIsLoggedIn } from '../../features/users/usersSlice'
 import { useHistory } from 'react-router-dom' 
 
 const ProductDetail = () => {

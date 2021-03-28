@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { removeProductFromCart, changeProductQuantity } from '../features/cart/cartSlice'
+import { removeProductFromCart, changeProductQuantity } from '../../features/cart/cartSlice'
 
 const CartProduct = ({cartItem, quantity}) => {
 

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
-import { fetchCurrentCart } from "../features/cart/cartSlice"
-import { fetchCustomerOrders } from "../features/orders/ordersSlice"
+import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
+import { fetchCurrentCart } from "../../features/cart/cartSlice"
+import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
 const axios = require('axios')
 

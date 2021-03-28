@@ -1,7 +1,7 @@
 import CartProduct from './CartProduct'
 import { useSelector } from 'react-redux'
-import { selectCart } from '../features/cart/cartSlice'
-import { selectAllProducts } from '../features/products/productsSlice'
+import { selectCart } from '../../features/cart/cartSlice'
+import { selectAllProducts } from '../../features/products/productsSlice'
 import { Link } from 'react-router-dom'
 
 const Cart = () => {

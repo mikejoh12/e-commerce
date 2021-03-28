@@ -1,11 +1,11 @@
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated } from '../features/users/usersSlice'
-import { fetchCurrentCart } from "../features/cart/cartSlice"
+import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
+import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { useSelector } from 'react-redux'
-import { fetchCustomerOrders } from "../features/orders/ordersSlice"
+import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useEffect } from 'react'
-import { selectCurrentUser, selectCurrentUserStatus } from '../features/users/usersSlice'
+import { selectCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
 
 
 const GoogleLogin = () => {

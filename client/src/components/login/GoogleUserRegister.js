@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectCurrentUser, fetchCurrentUser } from '../features/users/usersSlice'
+import { selectCurrentUser, fetchCurrentUser } from '../../features/users/usersSlice'
 const axios = require('axios')
 
 const GoogleUserRegister = () => {

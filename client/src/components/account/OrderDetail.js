@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectOrderById } from '../features/orders/ordersSlice'
+import { selectOrderById } from '../../features/orders/ordersSlice'
 
 const OrderProduct = ({productId}) => {
     const { id } = useParams()
