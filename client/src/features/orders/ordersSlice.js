@@ -6,9 +6,9 @@ export const fetchCustomerOrders = createAsyncThunk('orders/fetchCustomerOrders'
         const orders = {}
         response.data.forEach(orderProduct => {
             if (!orders[orderProduct.order_id]) {
-                orders[orderProduct.order_id] = []
+                orders[orderProduct.order_id] = {}
             }
-            orders[orderProduct.order_id].push(orderProduct)
+            orders[orderProduct.order_id][orderProduct.product_id] = orderProduct
         })
         return orders
 })
