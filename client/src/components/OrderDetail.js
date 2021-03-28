@@ -8,9 +8,17 @@ const OrderProduct = ({productId}) => {
     const productPrice = parseFloat(order[productId].price) * parseInt(order[productId].quantity, 10)
 
     return (
-        <div>
-            Product Id: {productId} | {order[productId].name} | Qty: {order[productId].quantity} | Price: ${productPrice}
-        </div>
+
+                  <div className="mx-auto m-4 max-w-md flex flex-col overflow-hidden rounded shadow-lg">
+                    <div className="p-4">
+                          <p className="text-gray-700 text-lg text-base text-center">
+                            Product Id: {productId} Name: {order[productId].name}
+                          </p>
+                          <p className="text-gray-700 text-lg text-base text-center">
+                            Qty: {order[productId].quantity} Price: ${productPrice}
+                          </p>
+                    </div>
+                  </div>
     )
 }
 
@@ -25,16 +33,14 @@ const OrderDetail = () => {
         <div className="flex-grow p-5">
           <div className="grid justify-center">
             <div className="mx-auto">
-                <h1>Order Details:</h1>
-
-                <p>Order Id: {id}</p>
+                <h1 className="font-bold text-xl text-center p-2">Order Id: {id}</h1>
                 <div>
                     {Object.keys(order).map(productId =>
                         <OrderProduct   productId={productId}
                                         key={productId} />
                         )}
                 </div>
-                <p>Total Price: ${totalPrice}</p>
+                <p className="font-bold text-lg text-center p-2">Total Price: ${totalPrice}</p>
             </div>
           </div>
         </div>

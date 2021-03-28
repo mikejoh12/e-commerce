@@ -8,9 +8,9 @@ const OrderList = () => {
 
 
     return (
-            <div className="m-4">
-              <h1 className="text-center">Order History</h1>
-              <div className="p-10 grid grid-cols-1 gap-5 max-w-7xl mx-auto">
+            <div className="m-2 mx-auto">
+              <h1 className="font-bold text-xl text-center pt-4">Order History</h1>
+              <div className="p-2 grid grid-cols-1 align-center gap-2 max-w-7xl mx-auto">
                 {Object.keys(orders).map(orderNr => 
                         <OrderListOrder key={orderNr}
                                         order={orders[orderNr]}
