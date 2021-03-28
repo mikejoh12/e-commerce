@@ -72,11 +72,11 @@ const Login = () => {
             </div>
           </form>
 
-          <Link to={{ pathname: "/api/auth/google" }} target="_blank">
+          <a href="/api/auth/google">
             <button  className="m-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Login with Google
             </button>
-          </Link>
+          </a>
 
           <p className="text-gray-700 font-medium text-base text-center">
             {loginMsg}
