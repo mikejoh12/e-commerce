@@ -41,7 +41,7 @@ const CheckOut = () => {
         color: "#32325d",
         fontFamily: 'Arial, sans-serif',
         fontSmoothing: "antialiased",
-        fontSize: "20px",
+        fontSize: "16px",
         "::placeholder": {
           color: "#32325d",
         }
@@ -89,19 +89,23 @@ const CheckOut = () => {
   return (
       <div className="flex-grow p-5">
         <div className="grid justify-center">
+          <div className="m-4 max-w-2xl">
+            <h2 className="font-bold text-xl text-center mb-6">Order Summary:</h2>
+          </div>
+
           <div className="m-4">
             <CheckoutProductList />
           </div>
 
           <div className="m-4 max-w-2xl">
             <h2 className="font-bold text-xl text-center mb-6">Enter credit card info to pay</h2>
-            <p className="text-lg">You can use credit card nr 4242424242424242 with any future date, CVC and zip-code for testing. This transaction is just a test and will not charge any money.</p>
+            <p className="text-lg">You can use credit card nr 4242424242424242 with any future date, CVC and zip-code for testing. This transaction is just a test and will not charge any real money.</p>
           </div>
 
           <div className="max-w-2xl">
-            <div className="m-6">
+            <div className="mt-4">
               <form id="payment-form" className="mt-4" onSubmit={handleSubmit}>
-                <div className="">
+                <div className="bg-blue-100 p-4 rounded shadow-lg">
                 <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
                 </div>                
                 { (!succeeded && !processing) &&

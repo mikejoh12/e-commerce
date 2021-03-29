@@ -58,7 +58,7 @@ function Nav() {
                 <Link to="/account">
                   <FontAwesomeIcon className="ml-4" icon={faUserCircle} size="lg" inverse/>
                   <button   className="hidden lg:inline text-md lg:text-lg text-white text-center font-mono ml-2"
-                            >User Account</button>
+                            >Account</button>
                 </Link>
               </div>
               }
