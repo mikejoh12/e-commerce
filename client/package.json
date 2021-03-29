@@ -13,7 +13,7 @@
     "@stripe/stripe-js": "^1.13.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/user-event": "^13.0.16",
     "axios": "^0.21.1",
     "http-proxy-middleware": "^1.0.6",
     "react": "^17.0.1",
@@ -50,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "@tailwindcss/postcss7-compat": "^2.0.4",
     "autoprefixer": "^9",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"

@@ -32,11 +32,11 @@ function Nav() {
         <div className="max-w-7xl mx-auto flex flex-row justify-around items-center p-5">
               <div className="m-2">
                 <Link to="/">
-                  <p className="text-4xl text-white text-center font-mono whitespace-nowrap mx-2">E-Market</p>
+                  <p className="text-2xl md:text-3xl lg:text-4xl text-blue-100 text-center font-mono whitespace-nowrap mx-2">E-Market</p>
                 </Link>
               </div>
 
-              <p className="hidden sm:inline text-md text-white text-center font-mono mx-2">A demo e-commerce app</p>
+              <p className="hidden md:inline  max-w-md text-md lg:text-lg text-white text-center font-mono mx-2">A demo e-commerce app build with Postgres, Express, React and Node.js</p>
               
               <div className="m-2">
                 <Link to="/cart">
@@ -56,8 +56,8 @@ function Nav() {
               {isLoggedIn &&
               <div className="m-2">
                 <Link to="/account">
-                  <FontAwesomeIcon icon={faUserCircle} size="lg" inverse/>
-                  <button   className="hidden md:inline text-md text-white text-center font-mono ml-2"
+                  <FontAwesomeIcon className="ml-4" icon={faUserCircle} size="lg" inverse/>
+                  <button   className="hidden lg:inline text-md lg:text-lg text-white text-center font-mono ml-2"
                             >User Account</button>
                 </Link>
               </div>
@@ -65,14 +65,14 @@ function Nav() {
               {isLoggedIn ?
                 <div className="m-2">
                   <Link to="/">
-                  <button   className="text-md text-white text-center font-mono mx-2"
+                  <button   className="text-md lg:text-lg text-white text-center font-mono mx-2"
                             onClick={handleLogout}>Sign Out</button>
                   </Link>
                 </div>
               :
               <div className="m-2">
               <Link to="/login">
-                <button className="text-md text-white text-center font-mono mx-4">Sign In / Register</button>
+                <button className="text-md lg:text-lg text-white text-center font-mono mx-4">Sign In / Register</button>
               </Link>
               </div>
               }           

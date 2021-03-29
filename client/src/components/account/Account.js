@@ -12,7 +12,7 @@ const Account = () => {
 
                     <div className="p-2">
                         <div className="font-bold text-xl text-center mb-2">
-                          Account info:
+                          <h2>Account info:</h2>
                         </div>
                         <ul className="text-gray-700 p-2 text-lg text-base text-center">
                           <li>{`${user.first_name} ${user.last_name}`}</li>

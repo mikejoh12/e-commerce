@@ -41,9 +41,9 @@ const CheckOut = () => {
         color: "#32325d",
         fontFamily: 'Arial, sans-serif',
         fontSmoothing: "antialiased",
-        fontSize: "16px",
+        fontSize: "20px",
         "::placeholder": {
-          color: "#32325d"
+          color: "#32325d",
         }
       },
       invalid: {
@@ -94,7 +94,8 @@ const CheckOut = () => {
           </div>
 
           <div className="m-4 max-w-2xl">
-            <p className="text-lg">Please enter credit card details below. You can use 4242424242424242 with any future date, CVC and zip-code for testing. This transaction is just a test and will not charge any money.</p>
+            <h2 className="font-bold text-xl text-center mb-6">Enter credit card info to pay</h2>
+            <p className="text-lg">You can use credit card nr 4242424242424242 with any future date, CVC and zip-code for testing. This transaction is just a test and will not charge any money.</p>
           </div>
 
           <div className="max-w-2xl">
