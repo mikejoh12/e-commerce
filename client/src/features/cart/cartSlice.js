@@ -14,58 +14,45 @@ export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async 
 export const addProductToCart = createAsyncThunk(
     'cart/addProductToCart',
     async cartProduct => {
-        try {
-            await axios.post('/api/carts/self/product',
-                cartProduct)
-            return cartProduct
-        } catch (error) {
-            console.log(error)
-        }
+        await axios.post('/api/carts/self/product',
+            cartProduct)
+        return cartProduct
     }
 )
 
 export const removeProductFromCart = createAsyncThunk(
     'cart/removeProductFromCart',
     async product => {
-        try {
             await axios.delete('/api/carts/self/product',
                 {data: product})
             return product
-        } catch (error) {
-            console.log(error)
-        }
     }
 )
 
 export const changeProductQuantity = createAsyncThunk(
     'cart/changeProductQuantity',
     async product => {
-        try {
-            await axios.put('/api/carts/self/product',
-            product)
-            return product
-        } catch (error) {
-            console.log(error)
-        }
+        await axios.put('/api/carts/self/product',
+        product)
+        return product
     }
 )
 
 export const checkoutCart = createAsyncThunk(
     'cart/checkoutCart', async () => {
-        try {
             const response = await axios.post('/api/carts/self/checkout')
             return response.data
-        } catch(error) {
-            console.log(error)
-        }
     }
 )
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cartProductsStatus: 'idle',
         cartProducts: {},
+        fetchCurrentCartStatus: 'idle',
+        addProductToCartStatus: 'idle',
+        removeProductFromCartStatus: 'idle',
+        changeProductQuantityStatus: 'idle',
         checkoutCartStatus: 'idle'
     },
     //Clear cart when logging out
@@ -80,24 +67,45 @@ export const cartSlice = createSlice({
             state.cartProductsStatus = 'loading'
         },
         [fetchCurrentCart.fulfilled]: (state, action) => {
-        state.cartProductsStatus = 'succeeded'
+            state.cartProductsStatus = 'succeeded'
             state.cartProducts = action.payload
         },
         [fetchCurrentCart.rejected]: (state, action) => {
             state.cartProductsStatus = 'failed'
         },
         //Reducer for adding product to cart
+        [addProductToCart.pending]: (state, action) => {
+            state.addProductToCartStatus = 'loading'
+        },
         [addProductToCart.fulfilled]: (state, action) => {
+            state.addProductToCartStatus = 'succeeded'
             state.cartProducts[action.payload.product_id] = action.payload
         },
+        [addProductToCart.rejected]: (state, action) => {
+            state.addProductToCartStatus = 'failed'
+        },
         //Reducer for removing product from cart
+        [removeProductFromCart.pending]: (state, action) => {
+            state.removeProductFromCartStatus = 'loading'
+        },
         [removeProductFromCart.fulfilled]: (state, action) => {
+            state.removeProductFromCartStatus = 'succeeded'
             delete state.cartProducts[action.payload.product_id]
         },
+        [removeProductFromCart.rejected]: (state, action) => {
+            state.removeProductFromCartStatus = 'failed'
+        },
         //Reducer for changing qty of a product in cart
+        [changeProductQuantity.pending]: (state, action) => {
+            state.changeProductQuantityStatus = 'loading'
+        },        
         [changeProductQuantity.fulfilled]: (state, action) => {
+            state.changeProductQuantityStatus = 'succeeded'
             state.cartProducts[action.payload.product_id].quantity = action.payload.quantity
         },
+        [changeProductQuantity.rejected]: (state, action) => {
+            state.changeProductQuantityStatus = 'failed'
+        },    
         //Reducers for tracking status of order placement
         [checkoutCart.pending]: (state, action) => {
             state.checkoutCartStatus = 'loading'
