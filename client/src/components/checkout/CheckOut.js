@@ -87,7 +87,6 @@ const CheckOut = () => {
   }
 
   return (
-      <div className="flex-grow p-5">
         <div className="grid justify-center">
           <div className="m-4 max-w-2xl">
             <h2 className="font-bold text-xl text-center mb-6">Order Summary:</h2>
@@ -137,8 +136,7 @@ const CheckOut = () => {
                 {error}
               </div>
             )}
-        </div>
-      </div>     
+        </div> 
     )
   }
     

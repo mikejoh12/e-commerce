@@ -36,7 +36,7 @@ const Login = () => {
       }
 
       return (
-        <div className="flex-grow pt-16 mx-auto">    
+        <div className="pt-16 mx-auto">    
           <form onSubmit={handleSubmit(handleLogin)}>
 
             <div className="p-2">

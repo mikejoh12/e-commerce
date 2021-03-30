@@ -27,11 +27,9 @@ const ProductList = () => {
     product={products[keyName]} />)
   
   return (
-      <div className="flex-grow px-8">
             <div className="p-4 flex flex-wrap justify-center max-w-screen-2xl mx-auto">
               {manyProductCards} 
             </div>
-      </div>
     )
   }
   

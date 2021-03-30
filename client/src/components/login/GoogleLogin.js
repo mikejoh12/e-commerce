@@ -36,7 +36,7 @@ const GoogleLogin = () => {
       }, [userStatus, user.address1, dispatch, history])
 
       return (
-        <div className="flex-grow pt-16 mx-auto">    
+        <div>   
         </div>
       )
     }

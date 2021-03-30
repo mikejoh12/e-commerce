@@ -10,7 +10,7 @@ const CheckOutDone = () => {
     }
 
     return (
-        <div className="flex-grow p-5">
+        <div>
             <div>
                 <p className="font-bold text-center text-xl mb-2 text-gray-700 text-base">
                   Payment Succesful. Order Nr: {id}

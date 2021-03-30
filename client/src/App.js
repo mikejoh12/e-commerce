@@ -24,43 +24,45 @@ const App = () => {
   return (
     <Elements stripe={promise}>
       <Router>
-        <div className="App flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen">
           <Nav />
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/google-login">
-              <GoogleLogin />
-            </Route>
-            <Route exact path="/google-login/user-register">
-              <GoogleUserRegister />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/account/orders/:id">
-              <OrderDetail />
-            </Route>     
-            <Route path="/account">
-              <Account />
-            </Route>       
-            <Route path="/product/:id">
-              <ProductDetail />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            <Route path="/checkout">
-              <CheckOut />
-            </Route>
-            <Route path="/checkout-done/:id">
-              <CheckOutDone />
-            </Route>
-            <Route exact path="/">
-              <ProductList />
-            </Route>
-          </Switch>
+          <div className="mt-24 flex-grow">
+            <Switch>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/google-login">
+                <GoogleLogin />
+              </Route>
+              <Route exact path="/google-login/user-register">
+                <GoogleUserRegister />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/account/orders/:id">
+                <OrderDetail />
+              </Route>     
+              <Route path="/account">
+                <Account />
+              </Route>       
+              <Route path="/product/:id">
+                <ProductDetail />
+              </Route>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+              <Route path="/checkout">
+                <CheckOut />
+              </Route>
+              <Route path="/checkout-done/:id">
+                <CheckOutDone />
+              </Route>
+              <Route exact path="/">
+                <ProductList />
+              </Route>
+            </Switch>
+          </div>
           <Footer />
         </div>
       </Router>

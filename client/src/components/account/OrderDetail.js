@@ -30,7 +30,6 @@ const OrderDetail = () => {
       acc + parseFloat(order[keyName].price) * parseInt(order[keyName].quantity, 10), 0)
 
     return (
-        <div className="flex-grow p-5">
           <div className="grid justify-center">
             <div className="mx-auto">
                 <h1 className="font-bold text-xl text-center p-2">Order Id: {id}</h1>
@@ -43,7 +42,6 @@ const OrderDetail = () => {
                 <p className="font-bold text-lg text-center p-2">Total Price: ${totalPrice}</p>
             </div>
           </div>
-        </div>
       )
 }
     

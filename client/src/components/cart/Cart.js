@@ -13,7 +13,6 @@ const Cart = () => {
     acc + parseFloat(products[keyName].price) * parseInt(cartContents[keyName].quantity, 10), 0)
 
     return (
-        <div className="flex-grow p-5">
           <div className="grid justify-center">
               {Object.keys(cartContents).map(keyName =>
                   <CartProduct  key={keyName}
@@ -47,8 +46,6 @@ const Cart = () => {
             </div>
             </div>     
           </div>
-
-        </div>
       )
     }
     
