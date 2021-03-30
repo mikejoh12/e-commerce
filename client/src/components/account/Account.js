@@ -8,8 +8,9 @@ const Account = () => {
 
     return (
               
-          <div className="mx-auto m-4 max-w-sm flex flex-col overflow-hidden rounded shadow-lg">
-            <div className="p-2">
+          <div className="mx-auto pt-8 m-4 max-w-sm flex flex-col">
+            
+            <div className="border rounded shadow-lg overflow-hidden p-4">
               <div className="font-bold text-xl text-center mb-2">
                 <h2>Account info:</h2>
               </div>
@@ -20,8 +21,9 @@ const Account = () => {
                 <li>{user.address2}</li>
                 <li>{`${user.postcode} ${user.city}`}</li>
                 <li>{user.country}</li>
-              </ul>
-            </div>                    
+              </ul> 
+            </div>
+
             <OrderList />
           </div>
       )

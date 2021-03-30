@@ -9,7 +9,7 @@ const OrderProduct = ({productId}) => {
 
     return (
 
-                  <div className="mx-auto m-4 max-w-md flex flex-col overflow-hidden rounded shadow-lg">
+                  <div className="mx-auto m-4 max-w-md flex flex-col overflow-hidden border rounded shadow-lg">
                     <div className="p-4">
                           <p className="text-gray-700 text-lg text-base text-center">
                             Product Id: {productId} Name: {order[productId].name}

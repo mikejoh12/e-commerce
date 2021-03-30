@@ -53,7 +53,7 @@ const ProductDetail = () => {
             </div>
             <div className="px-6 pt-4 pb-2 text-center">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-4 mb-2">${product.price}</span>
-                <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-4 mb-2"
+                <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-4 mb-2 hover:bg-indigo-200 active:bg-indigo-400 focus:outline-none"
                         onClick={handleAddToCartClick}>Add to cart</button>
             </div>
             </div>

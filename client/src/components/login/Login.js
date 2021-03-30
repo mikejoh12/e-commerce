@@ -36,7 +36,7 @@ const Login = () => {
       }
 
       return (
-        <div className="pt-16 mx-auto">    
+        <div className="pt-16 mx-auto max-w-md px-4">    
           <form onSubmit={handleSubmit(handleLogin)}>
 
             <div className="p-2">

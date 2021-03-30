@@ -54,7 +54,7 @@ const Register = () => {
       }}
 
       return (
-        <div className="p-10 mx-auto">    
+        <div className="p-10 mx-auto max-w-lg mx-4">    
           <form onSubmit={handleSubmit(handleRegisterUser)}>
 
             <div className="p-2">

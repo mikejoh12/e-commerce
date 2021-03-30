@@ -15,7 +15,7 @@ const OrderListOrder = ({order, orderNr}) => {
 
     return (
         <Link to={`/account/orders/${orderNr}`}>
-            <div className="mx-auto m-2 max-w-md flex flex-col overflow-hidden rounded shadow-lg">
+            <div className="mx-auto m-2 max-w-md flex flex-col overflow-hidden border rounded shadow-lg">
               <div className="p-4">
                     <p className="text-gray-700 text-lg text-base text-center">
                       Order Nr: {orderNr} Price: ${totalPrice} Date: ${dateStr}
