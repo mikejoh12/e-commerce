@@ -26,7 +26,7 @@ const App = () => {
       <Router>
         <div className="flex flex-col min-h-screen">
           <Nav />
-          <div className="mt-24 flex-grow">
+          <div className="mt-24 flex flex-col flex-grow">
             <Switch>
               <Route path="/login">
                 <Login />
