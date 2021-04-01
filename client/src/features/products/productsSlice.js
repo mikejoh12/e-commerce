@@ -32,6 +32,6 @@ export const productsSlice = createSlice({
 
 export const selectAllProducts = state => state.products.allProducts
 export const selectProductById = (state, productId) => state.products.allProducts[productId]
-export const selectAllProductsStatus = state => state.products.allProductsStatus
+export const selectFetchAllProductsStatus = state => state.products.fetchAllProductsStatus
 
 export default productsSlice.reducer
