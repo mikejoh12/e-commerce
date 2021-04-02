@@ -12,8 +12,7 @@ const signupUser = async (req, res, next) => {
       //Check if active user with this email exists
       const userDb = await fetchUserByEmail(email)
       if (userDb?.active === true) {
-        res.status(403).send("User with this email already exists.")
-        next()
+        return res.status(403).send("User with this email already exists.")
       }
 
       const pwd_hash = await getPwdHash(password)
