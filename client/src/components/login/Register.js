@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -12,7 +12,8 @@ const Register = () => {
       const history = useHistory()
       const dispatch = useDispatch()
       const password = useRef({})
-      password.current = watch("password", "");
+      password.current = watch("password", "")
+      const [errorMsg, setErrorMsg] = useState('')
       
       const handleRegisterUser = async data => {
         try {
@@ -46,6 +47,7 @@ const Register = () => {
         } catch (err) {
           if (err.response) {
           console.log(err.response.data)
+          setErrorMsg(err.response.data)
         } else if (err.request) {
           console.log(err.request.data)
         } else {
@@ -180,6 +182,11 @@ const Register = () => {
               </Link>
           </div>
         </form>
+        <div className="p-2">
+            <p className="text-gray-700 font-medium text-base text-center">
+              {errorMsg}
+            </p>
+        </div>
       </div>
       )
     }

@@ -1,6 +1,6 @@
 const { authService, usersService, cartsService } = require('../services')
 const { getPwdHash } = authService
-const { createUser } = usersService
+const { createUser, fetchUserByEmail } = usersService
 const { createCart } = cartsService
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
@@ -9,6 +9,13 @@ const { validationResult } = require('express-validator')
 const signupUser = async (req, res, next) => {
 
     const { email, password, first_name, last_name, address1, address2, postcode, city, country } = req.body
+      //Check if active user with this email exists
+      const userDb = await fetchUserByEmail(email)
+      if (userDb?.active === true) {
+        res.status(403).send("User with this email already exists.")
+        next()
+      }
+
       const pwd_hash = await getPwdHash(password)
       const user = {
         email,
@@ -65,7 +72,7 @@ const loginGoogle = async (req, res, next) => {
   const token = jwt.sign({ user: body }, process.env.JWT_KEY)
 
   res.cookie('A_JWT', token, {
-    maxAge: 1000 * 60 * 60, // 10 sec
+    maxAge: 1000 * 60 * 60, // 1 hr
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production'? true: false,
   })
