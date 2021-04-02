@@ -26,7 +26,7 @@ const CheckOut = () => {
       try {
         const response = await axios.post(
           '/api/payment/create-payment-intent',
-          {items: [{ id: "xl-tshirt" }]})
+          {items: [{ id: "order" }]})
           setClientSecret(response.data.clientSecret)
       } catch (error) {
         console.log(error)
