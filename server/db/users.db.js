@@ -45,7 +45,15 @@ const modifyUserDb = async ({id, email, first_name, last_name, address1, address
 
     const res = await pool.query(text, values)
     console.log(res.rows[0])
-    return res.rows
+    return res.rows[0]
+}
+
+const addGoogleIdUserDb = async({id, google_id}) => {
+  const text = `UPDATE users SET google_id = $2 WHERE id = $1 RETURNING *`;
+  const values = [id, google_id]
+  const res = await pool.query(text, values)
+  console.log(res.rows[0])
+  return res.rows[0]
 }
 
 //Keep user record in db for record-keeping but set active = false
@@ -61,5 +69,6 @@ module.exports = {
   fetchUserByGoogleIdDb,
   createUserDb,
   modifyUserDb,
-  removeUserDb
+  removeUserDb,
+  addGoogleIdUserDb
 }

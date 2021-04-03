@@ -1,7 +1,7 @@
 const { cartsService, ordersService } = require('../services')
 const { fetchCartById } = cartsService
 const { calculateOrderAmount } = ordersService
-const stripe = require("stripe")(process.env.STRIPE_KEY);
+const stripe = require("stripe")(process.env.STRIPE_KEY)
 
 const createPaymentIntent = async (req, res, next) => {
     const userId = req.user.id //Extract user id from passport user object

@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const { cartsService, usersService } = require('../services')
-const { fetchUserByGoogleId, createUser } = usersService
+const { fetchUserByGoogleId, fetchUserByEmail, createUser, addGoogleIdUser } = usersService
 const { createCart } = cartsService
 
 passport.use(
@@ -20,6 +20,11 @@ passport.use(
         if (!user) {
         return done(null, false, { message: 'User not found' });
         }
+
+        if (!user.pwd_hash) {
+          return done(null, false, { message: 'No password associated with user. Try signing in using Google.'})
+        }
+
         const match = await bcrypt.compare(password, user.pwd_hash)
 
         if (!match) {
@@ -39,6 +44,17 @@ passport.use(new GoogleStrategy({
     if(googleUser) {
       return done(null, googleUser, { message: 'User found' });
     } else {
+      //Check if we have an active user with this email and add google_id
+      const userDb = await fetchUserByEmail(profile.emails[0].value)
+      if (userDb?.active) {
+        const googleUser = {
+          id: userDb.id,
+          google_id: profile.id
+        }
+        const newGoogleUser = await addGoogleIdUser(googleUser)
+        return done(null, newGoogleUser, { message: 'Google login added to user'})
+      }
+
       const user = {
         email: profile.emails[0].value,
         google_id: profile.id,
@@ -49,7 +65,7 @@ passport.use(new GoogleStrategy({
       const newUser = await createUser(user)
       const newCart = await createCart(newUser.id)
       newUser.cart_id = newCart.id //Attach cart_id to the newUser object so it can appear in JWT cookie on first login
-      return done(null, newUser, { message: 'New user created' });
+      return done(null, newUser, { message: 'New user created' })
     }
 }))
 

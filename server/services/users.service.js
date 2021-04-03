@@ -1,4 +1,4 @@
-const { fetchUsersDb, fetchUserByIdDb, fetchUserByEmailDb, fetchUserByGoogleIdDb, createUserDb, modifyUserDb, removeUserDb } = require('../db')
+const { fetchUsersDb, fetchUserByIdDb, fetchUserByEmailDb, fetchUserByGoogleIdDb, createUserDb, modifyUserDb, removeUserDb, addGoogleIdUserDb } = require('../db')
 
 const fetchAllUsers = async () => {
     return await fetchUsersDb()
@@ -20,12 +20,16 @@ const createUser = async (user) => {
     return await createUserDb(user)
 }
 
-const modifyUser = async (id) => {
-    return await modifyUserDb(id)
+const modifyUser = async (user) => {
+    return await modifyUserDb(user)
 }
 
 const removeUser = async (id) => {
     return await removeUserDb(id)
+}
+
+const addGoogleIdUser = async (user) => {
+    return await addGoogleIdUserDb(user)
 }
 
 module.exports = {
@@ -35,5 +39,6 @@ module.exports = {
   fetchUserByEmail,
   createUser,
   modifyUser,
-  removeUser
+  removeUser,
+  addGoogleIdUser
 }
