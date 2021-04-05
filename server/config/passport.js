@@ -18,17 +18,17 @@ passport.use(
     async (email, password, done) => {
         const user = await usersService.fetchUserByEmail(email);
         if (!user) {
-        return done(null, false, { message: 'User not found' });
+        return done(null, false, { message: 'Incorrect email or password.' });
         }
 
         if (!user.pwd_hash) {
-          return done(null, false, { message: 'No password associated with user. Try signing in using Google.'})
+          return done(null, false, { message: 'This email address is associated with a Google Login. Try Login with Google.'})
         }
 
         const match = await bcrypt.compare(password, user.pwd_hash)
 
         if (!match) {
-        return done(null, false, { message: 'Wrong Password' });
+        return done(null, false, { message: 'Incorrect email or password.' });
         }
 
         return done(null, user, { message: 'Logged in Successfully' });

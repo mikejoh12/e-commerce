@@ -44,7 +44,7 @@ const loginUser = async (req, res, next) => {
     'login',
     async (err, user, info) => {
         if (err || !user) {
-          const error = new Error('Incorrect email or password');
+          const error = new Error(info.message);
           return next(error);
         }
         req.login(
