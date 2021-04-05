@@ -13,27 +13,33 @@ export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async 
 
 export const addProductToCart = createAsyncThunk(
     'cart/addProductToCart',
-    async cartProduct => {
+    async (cartProduct, {getState}) => {
+        if (getState().users.isLoggedIn) {
         await apiAxios.post('/carts/self/product',
             cartProduct)
+        }
         return cartProduct
     }
 )
 
 export const removeProductFromCart = createAsyncThunk(
     'cart/removeProductFromCart',
-    async product => {
-            await apiAxios.delete('/carts/self/product',
-                {data: product})
+    async (product, {getState}) => {
+            if (getState().users.isLoggedIn) {
+                await apiAxios.delete('/carts/self/product',
+                    {data: product})
+            }
             return product
     }
 )
 
 export const changeProductQuantity = createAsyncThunk(
     'cart/changeProductQuantity',
-    async product => {
-        await apiAxios.put('/carts/self/product',
-        product)
+    async (product, {getState}) => {
+        if (getState().users.isLoggedIn) {
+            await apiAxios.put('/carts/self/product',
+                product)
+        }
         return product
     }
 )

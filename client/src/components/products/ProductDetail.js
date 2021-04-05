@@ -2,26 +2,18 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectProductById } from '../../features/products/productsSlice'
 import { selectCart, addProductToCart, changeProductQuantity } from '../../features/cart/cartSlice'
-import { selectIsLoggedIn } from '../../features/users/usersSlice'
-import { useHistory } from 'react-router-dom' 
 
 const ProductDetail = () => {
  
   let { id } = useParams()
   const dispatch = useDispatch()
   const product = useSelector(state => selectProductById(state, id))
-  const isLoggedIn = useSelector(selectIsLoggedIn)
-  const history = useHistory()
   const cartContents = useSelector(selectCart)   
 
   //Return true if product is already in cart
   const isProductInCart = () => cartContents.hasOwnProperty(product.id)
 
   const handleAddToCartClick = async () => {
-    if (!isLoggedIn) {
-        history.push('/login')
-        return
-    }
     try {
         if (isProductInCart()) {
             dispatch(changeProductQuantity({

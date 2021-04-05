@@ -41,7 +41,7 @@ const App = () => {
               <Route path="/account/orders/:id" component={OrderDetail} />
               <ProtectedRoute path="/account" isLoggedIn={isLoggedIn} component={Account} />
               <Route path="/product/:id" component={ProductDetail} />
-              <ProtectedRoute path="/cart" isLoggedIn={isLoggedIn} component={Cart} />
+              <Route path="/cart" component={Cart} />
               <ProtectedRoute path="/checkout" isLoggedIn={isLoggedIn} component={CheckOut} />
               <ProtectedRoute path="/checkout-done/:id" isLoggedIn={isLoggedIn} component={CheckOutDone} />
               <Route exact path="/" component={ProductList} />
