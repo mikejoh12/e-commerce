@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-const axios = require('axios')
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import apiAxios from '../../config/axiosConfig'
 
 export const fetchCustomerOrders = createAsyncThunk('orders/fetchCustomerOrders', async () => {
-        const response = await axios.get('/api/orders/self')
+        const response = await apiAxios.get('/orders/self')
         const orders = {}
         response.data.forEach(orderProduct => {
             if (!orders[orderProduct.order_id]) {

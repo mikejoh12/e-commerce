@@ -5,7 +5,7 @@ import { fetchCustomerOrders } from '../../features/orders/ordersSlice'
 import { useHistory } from 'react-router-dom'
 import { CardElement, useElements, useStripe} from '@stripe/react-stripe-js'
 import CheckoutProductList from './CheckoutProductList'
-const axios = require('axios')
+import apiAxios from '../../config/axiosConfig'
 
 const CheckOut = () => {
   
@@ -24,8 +24,8 @@ const CheckOut = () => {
     // Create PaymentIntent as soon as the page loads
       const fetchData = async() => {
       try {
-        const response = await axios.post(
-          '/api/payment/create-payment-intent',
+        const response = await apiAxios.post(
+          '/payment/create-payment-intent',
           {items: [{ id: "order" }]})
           setClientSecret(response.data.clientSecret)
       } catch (error) {

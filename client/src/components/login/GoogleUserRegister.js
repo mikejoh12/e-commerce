@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentUser, fetchCurrentUser } from '../../features/users/usersSlice'
-const axios = require('axios')
+import apiAxios from '../../config/axiosConfig'
 
 const GoogleUserRegister = () => {
       const { register, handleSubmit, formState } = useForm();
@@ -12,8 +12,8 @@ const GoogleUserRegister = () => {
 
       const handleUpdateUser = async data => {
         try {
-          await axios.put(
-            '/api/users/self',
+          await apiAxios.put(
+            '/users/self',
               {
                 email: user.email,
                 first_name: user.first_name,

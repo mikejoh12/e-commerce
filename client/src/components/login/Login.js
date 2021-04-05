@@ -5,7 +5,7 @@ import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersS
 import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
-const axios = require('axios')
+import apiAxios from '../../config/axiosConfig'
 
 const Login = () => {
       const { register, handleSubmit, formState } = useForm();
@@ -15,8 +15,8 @@ const Login = () => {
 
       const handleLogin = async data => {
         try {
-          const response = await axios.post(
-            '/api/auth/login',
+          const response = await apiAxios.post(
+            '/auth/login',
               {
                 email: data.email,
                 password: data.password

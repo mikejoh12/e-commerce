@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
 import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
-const axios = require('axios')
+import apiAxios from '../../config/axiosConfig'
 
 const Register = () => {
       const { register, handleSubmit, formState, watch } = useForm();
@@ -17,8 +17,8 @@ const Register = () => {
       
       const handleRegisterUser = async data => {
         try {
-          await axios.post(
-            '/api/auth/signup',
+          await apiAxios.post(
+            '/auth/signup',
               {
                 email: data.email,
                 password: data.password,
@@ -30,8 +30,8 @@ const Register = () => {
                 city: data.city,
                 country: data.country
               })
-          const loginResponse = await axios.post(
-            '/api/auth/login',
+          const loginResponse = await apiAxios.post(
+            '/auth/login',
               {
                 email: data.email,
                 password: data.password

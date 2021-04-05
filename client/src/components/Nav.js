@@ -5,7 +5,7 @@ import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSl
 import { cartProductsUpdated, selectCart } from '../features/cart/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
-const axios = require('axios')
+import apiAxios from './../config/axiosConfig'
 
 function Nav() {
 
@@ -21,7 +21,7 @@ function Nav() {
         await dispatch(isLoggedInUpdated(false))
         await dispatch(currentUserUpdated({})) //Clear current user info from session
         await dispatch(cartProductsUpdated({})) //Clear cart
-        await axios.post('/api/auth/logout')
+        await apiAxios.post('/auth/logout')
       } catch(err) {
         console.log(err)
       }

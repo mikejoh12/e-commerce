@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-const axios = require('axios')
+import apiAxios from '../../config/axiosConfig'
 
 export const fetchAllProducts = createAsyncThunk('products/fetchAllProducts', async () => {
-        const response = await axios.get('/api/products')
+        const response = await apiAxios.get('/products')
         const products = {}
         response.data.forEach(product =>
             products[product.id] = product)
