@@ -8,7 +8,7 @@ const Account = () => {
 
     return (
               
-          <div className="mx-auto pt-8 m-4 max-w-sm flex flex-col">
+          <div className="mx-auto pt-8 m-4 max-w-md flex flex-col">
             
             <div className="border rounded shadow-lg overflow-hidden p-4">
               <div className="font-bold text-xl text-center mb-2">

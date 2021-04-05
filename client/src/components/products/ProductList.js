@@ -15,10 +15,11 @@ const ProductList = () => {
 
   const [offset, setOffset] = useState(0)
   const [data, setData] = useState([])
-  const [perPage] = useState(2)
+  const [perPage] = useState(6)
   const [pageCount, setPageCount] = useState(0)
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_URL)
     dispatch(fetchAllProducts())
   }, [dispatch])
 
@@ -34,7 +35,7 @@ const ProductList = () => {
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected
-    setOffset(selectedPage + 1)
+    setOffset(Math.ceil(selectedPage * perPage))
   }
 
   return (
