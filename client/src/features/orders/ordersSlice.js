@@ -18,6 +18,12 @@ export const ordersSlice = createSlice({
     initialState: {
         customerOrders: {}
     },
+    //Clear cart when logging out
+    reducers: {
+      customerOrdersUpdated(state, action) {
+          state.customerOrders = action.payload
+      }
+      },    
     extraReducers: {
         //Reducers for fetching orders
         [fetchCustomerOrders.pending]: (state, action) => {
@@ -33,6 +39,7 @@ export const ordersSlice = createSlice({
     }
 })
 
+export const { customerOrdersUpdated } = ordersSlice.actions
 export const selectCustomerOrders = state => state.orders.customerOrders
 export const selectOrderById = (state, orderId) => state.orders.customerOrders[orderId]
 export default ordersSlice.reducer
