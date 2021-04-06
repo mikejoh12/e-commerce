@@ -1,8 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios from '../../config/axiosConfig'
 
-export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async () => {
-        const response = await apiAxios.get('/carts/self')
+export const fetchCurrentCart = createAsyncThunk('cart/fetchCurrentCart', async (loggedOutCart) => {
+        const response = await apiAxios.post('/carts/self',
+                        {
+                            cart: loggedOutCart
+                        })
         const cart = {}
         response.data.forEach(cartProduct =>
             cart[cartProduct.product.id] = {

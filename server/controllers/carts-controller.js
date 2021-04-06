@@ -8,11 +8,26 @@ const getAllCarts = async (req, res, next) => {
       next()
   }
 
-const getCartSelf = async (req, res, next) => {
-  const userId = req.user.id //Extract user id from passport user object
-    const cart = await fetchCartById(userId)
-    res.status(200).json(cart)
-    next()
+// Gets cart from db, adds items from logged-out cart, and sends updated cart back
+const syncCartSelf = async (req, res, next) => {
+  const userId = req.user.id // Extract user id from passport user object
+  const cartId = req.user.cart_id
+  const dbCart = await fetchCartById(userId)
+  const loggedOutCart = req.body.cart
+  
+  for (const productId in loggedOutCart) {
+    if (!dbCart.some(item => item.product.id == productId)) {
+      const cartProduct = {
+        cart_id: cartId,
+        product_id: productId,
+        quantity: loggedOutCart[productId].quantity
+      }
+    await createProductInCart(cartProduct)        
+    }
+  }
+  const newCart = await fetchCartById(userId)
+  res.status(200).json(newCart)
+  next()
 }
 
 const postProductInCartSelf = async (req, res, next) => {
@@ -81,7 +96,7 @@ const checkoutCart = async (req, res, next) => {
 
 module.exports = {
     getAllCarts,
-    getCartSelf,
+    syncCartSelf,
     postProductInCartSelf,
     putCartSelf,
     deleteCartProductSelf,

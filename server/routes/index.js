@@ -30,7 +30,7 @@ router
     .delete('/users/:id', validateDeleteUser, passport.authenticate('jwt-admin', {session: false}), users.deleteUser) //Delete user and associated cart
 
     .get('/carts', passport.authenticate('jwt-admin', {session: false}), carts.getAllCarts) //Gets all products in all carts
-    .get('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.getCartSelf) //Gets products in user's cart
+    .post('/carts/self', passport.authenticate('jwt-customer', {session: false}), carts.syncCartSelf) //Gets products in user's cart and syncs with logged out cart
     .post('/carts/self/product', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.postProductInCartSelf) //Adds a new product to user's cart
     .put('/carts/self/product', validateCart, passport.authenticate('jwt-customer', {session: false}), carts.putCartSelf) //Changes quantity of a product in user's cart
     .delete('/carts/self/product', validateDeleteCartProduct, passport.authenticate('jwt-customer', {session: false}), carts.deleteCartProductSelf) //Deletes a product from user's cart

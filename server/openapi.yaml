@@ -177,13 +177,23 @@ paths:
           description: Successfully updated
           content: {}
   /api/carts/self:
-    get:
+    post:
       tags:
       - carts
-      description: Returns all products in cart.
+      description: Syncs the logged-out cart with the cart in db and returns all products in the updated cart.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - cart
+              properties:
+                cart:
+                  type: object
+        required: true
       responses:
         200:
-          description: Ok
+          description: Returns an updated cart
           content: {}
   /api/carts/self/product:
     put:

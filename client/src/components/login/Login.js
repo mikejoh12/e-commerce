@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
 import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
+import { selectCart } from '../../features/cart/cartSlice'
 import apiAxios from '../../config/axiosConfig'
 
 const Login = () => {
@@ -12,6 +13,7 @@ const Login = () => {
       const dispatch = useDispatch()
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
+      const cartContents = useSelector(selectCart)
 
       const handleLogin = async data => {
         try {
@@ -25,7 +27,7 @@ const Login = () => {
           if (response.status === 200) {
             dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())
-            dispatch(fetchCurrentCart())
+            dispatch(fetchCurrentCart(cartContents))
             dispatch(fetchCustomerOrders())
             history.push('/')
           }
