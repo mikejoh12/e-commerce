@@ -11,7 +11,8 @@ export const usersSlice = createSlice({
     initialState: {
         currentUser: {},
         currentUserStatus: 'idle',
-        isLoggedIn: false
+        isLoggedIn: false,
+        isCheckingOut: false
     },
     reducers: {
         isLoggedInUpdated(state, action) {
@@ -20,7 +21,10 @@ export const usersSlice = createSlice({
         //Clear user info when logging out
         currentUserUpdated(state, action) {
             state.currentUser = action.payload
-        }
+        },
+        isCheckingOutUpdated(state, action) {
+            state.isCheckingOut = action.payload
+        },        
     },
     extraReducers: {
         //Reducers for fetching user
@@ -38,8 +42,11 @@ export const usersSlice = createSlice({
 })
 
 export const    {   isLoggedInUpdated,
-                    currentUserUpdated } = usersSlice.actions
+                    currentUserUpdated,
+                    isCheckingOutUpdated
+                } = usersSlice.actions
 export const selectCurrentUserStatus = state => state.users.currentUserStatus
 export const selectCurrentUser = state => state.users.currentUser
 export const selectIsLoggedIn = state => state.users.isLoggedIn
+export const selectIsCheckingOut = state => state.users.isCheckingOut
 export default usersSlice.reducer

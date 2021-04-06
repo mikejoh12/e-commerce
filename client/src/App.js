@@ -12,7 +12,8 @@ import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
 import { BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 import { selectIsLoggedIn } from './features/users/usersSlice'
 import { useSelector } from 'react-redux'
@@ -42,7 +43,9 @@ const App = () => {
               <ProtectedRoute path="/account" isLoggedIn={isLoggedIn} component={Account} />
               <Route path="/product/:id" component={ProductDetail} />
               <Route path="/cart" component={Cart} />
-              <ProtectedRoute path="/checkout" isLoggedIn={isLoggedIn} component={CheckOut} />
+              <Route exact path="/checkout">
+                {isLoggedIn ? <CheckOut /> : <Redirect to="/login" />}
+              </Route>
               <ProtectedRoute path="/checkout-done/:id" isLoggedIn={isLoggedIn} component={CheckOutDone} />
               <Route exact path="/" component={ProductList} />
             </Switch>

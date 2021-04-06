@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
+import { fetchCurrentUser, isLoggedInUpdated, selectIsCheckingOut } from '../../features/users/usersSlice'
 import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
@@ -14,6 +14,7 @@ const Login = () => {
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
       const cartContents = useSelector(selectCart)
+      const isCheckingOut = useSelector(selectIsCheckingOut)
 
       const handleLogin = async data => {
         try {
@@ -40,6 +41,10 @@ const Login = () => {
       return (
         <div className="pt-16 mx-auto max-w-md px-4">    
           <form onSubmit={handleSubmit(handleLogin)}>
+
+            {isCheckingOut &&
+            <h2>Please log in or create an account to continue checking out.</h2>
+            }
 
             <div className="p-2">
               <label htmlFor="email" className="block text-md font-medium text-gray-700">Email:</label>
