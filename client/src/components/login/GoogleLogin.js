@@ -1,13 +1,14 @@
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
-import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
+import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated, selectFetchCurrentCartStatus } from '../../features/cart/cartSlice'
 import { selectCart, fetchCurrentCart } from "../../features/cart/cartSlice"
 import { useSelector } from 'react-redux'
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useEffect } from 'react'
 import { selectCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
 import { fetchAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
+import { selectFetchCustomerOrdersStatus } from '../../features/orders/ordersSlice'
 
 const GoogleLogin = () => {
       const user = useSelector(selectCurrentUser)
@@ -17,6 +18,8 @@ const GoogleLogin = () => {
       const cartContents = useSelector(selectCart)
       const history = useHistory()
       const fetchAllProductsStatus = useSelector(selectFetchAllProductsStatus)
+      const fetchCurrentCartStatus = useSelector(selectFetchCurrentCartStatus)
+      const fetchCustomerOrdersStatus = useSelector(selectFetchCustomerOrdersStatus)
 
       //Get user data to redux store after signing in with Google
       useEffect(() => {
@@ -31,7 +34,10 @@ const GoogleLogin = () => {
       
       //Ask for address if not in the database, otherwise redirect to main site
       useEffect(() => {
-        if (userStatus === 'succeeded' && fetchAllProductsStatus === 'succeeded') {
+        if (  userStatus === 'succeeded' &&
+              fetchAllProductsStatus === 'succeeded' &&
+              fetchCurrentCartStatus === 'succeeded' &&
+              fetchCustomerOrdersStatus === 'succeeded') {
           if (user.address1) {
             //Check if we need to redirect back to checkout process
             if (needsCheckoutRedirect) {
@@ -45,7 +51,7 @@ const GoogleLogin = () => {
             history.push('/google-login/user-register')
           }
         }
-      }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect, fetchAllProductsStatus])
+      }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect, fetchAllProductsStatus, fetchCurrentCartStatus, fetchCustomerOrdersStatus])
 
       return (
         <div>   

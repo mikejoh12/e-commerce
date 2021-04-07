@@ -16,7 +16,8 @@ export const fetchCustomerOrders = createAsyncThunk('orders/fetchCustomerOrders'
 export const ordersSlice = createSlice({
     name: 'orders',
     initialState: {
-        customerOrders: {}
+        customerOrders: {},
+        fetchCustomerOrdersStatus: 'idle'
     },
     //Clear cart when logging out
     reducers: {
@@ -27,14 +28,14 @@ export const ordersSlice = createSlice({
     extraReducers: {
         //Reducers for fetching orders
         [fetchCustomerOrders.pending]: (state, action) => {
-            state.customerOrdersStatus = 'loading'
+            state.fetchCustomerOrdersStatus = 'loading'
           },
-          [fetchCustomerOrders.fulfilled]: (state, action) => {
-            state.customerOrdersStatus = 'succeeded'
+        [fetchCustomerOrders.fulfilled]: (state, action) => {
+            state.fetchCustomerOrdersStatus = 'succeeded'
             state.customerOrders = action.payload
           },
-          [fetchCustomerOrders.rejected]: (state, action) => {
-            state.customerOrdersStatus = 'failed'
+        [fetchCustomerOrders.rejected]: (state, action) => {
+            state.fetchCustomerOrdersStatus = 'failed'
           },
     }
 })
@@ -42,4 +43,5 @@ export const ordersSlice = createSlice({
 export const { customerOrdersUpdated } = ordersSlice.actions
 export const selectCustomerOrders = state => state.orders.customerOrders
 export const selectOrderById = (state, orderId) => state.orders.customerOrders[orderId]
+export const selectFetchCustomerOrdersStatus = state => state.orders.fetchCustomerOrdersStatus
 export default ordersSlice.reducer

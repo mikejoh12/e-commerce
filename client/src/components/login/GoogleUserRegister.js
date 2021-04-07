@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentUser, fetchCurrentUser } from '../../features/users/usersSlice'
+import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
 import apiAxios from '../../config/axiosConfig'
 
 const GoogleUserRegister = () => {
@@ -9,6 +10,7 @@ const GoogleUserRegister = () => {
       const history = useHistory()
       const dispatch = useDispatch()
       const user = useSelector(selectCurrentUser)
+      const needsCheckoutRedirect = useSelector(selectNeedsCheckoutRedirect)
 
       const handleUpdateUser = async data => {
         try {
@@ -25,7 +27,12 @@ const GoogleUserRegister = () => {
                 country: data.country
               })
             dispatch(fetchCurrentUser())
-            history.push('/')
+            if (needsCheckoutRedirect) {
+              dispatch(needsCheckoutRedirectUpdated(false))
+              history.push('/checkout')
+            } else {
+              history.push('/')
+            }
         } catch (err) {
           if (err) {
           console.log(err)

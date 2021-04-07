@@ -77,14 +77,14 @@ export const cartSlice = createSlice({
     extraReducers: {
         //Reducers for fetching cart
         [fetchCurrentCart.pending]: (state, action) => {
-            state.cartProductsStatus = 'loading'
+            state.fetchCurrentCartStatus = 'loading'
         },
         [fetchCurrentCart.fulfilled]: (state, action) => {
-            state.cartProductsStatus = 'succeeded'
+            state.fetchCurrentCartStatus = 'succeeded'
             state.cartProducts = action.payload
         },
         [fetchCurrentCart.rejected]: (state, action) => {
-            state.cartProductsStatus = 'failed'
+            state.fetchCurrentCartStatus = 'failed'
         },
         //Reducer for adding product to cart
         [addProductToCart.pending]: (state, action) => {
@@ -135,4 +135,5 @@ export const cartSlice = createSlice({
 export const    { cartProductsUpdated, needsCheckoutRedirectUpdated } = cartSlice.actions
 export const selectCart = state => state.cart.cartProducts
 export const selectNeedsCheckoutRedirect = state => state.cart.needsCheckoutRedirect
+export const selectFetchCurrentCartStatus = state => state.cart.fetchCurrentCartStatus
 export default cartSlice.reducer
