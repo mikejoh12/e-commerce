@@ -126,7 +126,7 @@ const CheckOut = () => {
 
             { processing &&
             <div className="m-4">
-              <p>Processing payment</p>
+              <p className="text-lg text-center">Processing payment</p>
             </div>
             }
 

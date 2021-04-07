@@ -12,7 +12,7 @@ const CheckOutDone = () => {
     return (
         <div>
             <div>
-                <p className="font-bold text-center text-xl mb-2 text-gray-700 text-base">
+                <p className="font-bold text-center text-xl my-8 text-gray-700 text-base">
                   Payment Succesful. Order Nr: {id}
                 </p>
             </div>
