@@ -1,11 +1,13 @@
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated, selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from '../../features/users/usersSlice'
+import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
+import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
 import { selectCart, fetchCurrentCart } from "../../features/cart/cartSlice"
 import { useSelector } from 'react-redux'
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useEffect } from 'react'
 import { selectCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
+import { fetchAllProducts } from '../../features/products/productsSlice'
 
 
 const GoogleLogin = () => {
@@ -22,7 +24,8 @@ const GoogleLogin = () => {
           dispatch(isLoggedInUpdated(true))
           dispatch(fetchCurrentUser())
           dispatch(fetchCurrentCart(cartContents))
-          dispatch(fetchCustomerOrders())          
+          dispatch(fetchCustomerOrders())
+          dispatch(fetchAllProducts())    
         }
       }, [userStatus, dispatch, history, cartContents])
       

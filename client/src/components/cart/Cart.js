@@ -1,8 +1,7 @@
 import CartProduct from './CartProduct'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectCart } from '../../features/cart/cartSlice'
+import { selectCart,  needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
 import { selectAllProducts } from '../../features/products/productsSlice'
-import { needsCheckoutRedirectUpdated } from '../../features/users/usersSlice'
 import { useHistory } from 'react-router-dom'
 
 const Cart = () => {

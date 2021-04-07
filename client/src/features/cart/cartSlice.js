@@ -62,13 +62,17 @@ export const cartSlice = createSlice({
         addProductToCartStatus: 'idle',
         removeProductFromCartStatus: 'idle',
         changeProductQuantityStatus: 'idle',
-        checkoutCartStatus: 'idle'
+        checkoutCartStatus: 'idle',
+        needsCheckoutRedirect: false
     },
-    //Clear cart when logging out
     reducers: {
         cartProductsUpdated(state, action) {
             state.cartProducts = action.payload
-        }
+        },
+        //Used to determine if a user is logging in as part of the checkout-flow
+        needsCheckoutRedirectUpdated(state, action) {
+            state.needsCheckoutRedirect = action.payload
+        },   
     },    
     extraReducers: {
         //Reducers for fetching cart
@@ -128,6 +132,7 @@ export const cartSlice = createSlice({
     }
 })
 
-export const    { cartProductsUpdated } = cartSlice.actions
+export const    { cartProductsUpdated, needsCheckoutRedirectUpdated } = cartSlice.actions
 export const selectCart = state => state.cart.cartProducts
+export const selectNeedsCheckoutRedirect = state => state.cart.needsCheckoutRedirect
 export default cartSlice.reducer

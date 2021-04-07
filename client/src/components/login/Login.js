@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser,  selectNeedsCheckoutRedirect,  isLoggedInUpdated, needsCheckoutRedirectUpdated } from '../../features/users/usersSlice'
-import { fetchCurrentCart } from "../../features/cart/cartSlice"
+import { fetchCurrentUser,  isLoggedInUpdated } from '../../features/users/usersSlice'
+import { selectCart, fetchCurrentCart,  selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
-import { selectCart } from '../../features/cart/cartSlice'
 import apiAxios from '../../config/axiosConfig'
 
 const Login = () => {

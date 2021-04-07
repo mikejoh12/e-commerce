@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated, selectNeedsCheckoutRedirect } from '../../features/users/usersSlice'
-import { fetchCurrentCart, selectCart } from "../../features/cart/cartSlice"
+import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
+import { fetchCurrentCart, selectCart, selectNeedsCheckoutRedirect } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import apiAxios from '../../config/axiosConfig'
 
