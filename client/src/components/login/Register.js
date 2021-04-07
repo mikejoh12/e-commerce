@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
-import { fetchCurrentCart } from "../../features/cart/cartSlice"
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchCurrentUser, isLoggedInUpdated, selectNeedsCheckoutRedirect } from '../../features/users/usersSlice'
+import { fetchCurrentCart, selectCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import apiAxios from '../../config/axiosConfig'
 
@@ -11,6 +11,8 @@ const Register = () => {
       const { register, handleSubmit, formState, watch } = useForm();
       const history = useHistory()
       const dispatch = useDispatch()
+      const needsCheckoutRedirect = useSelector(selectNeedsCheckoutRedirect)
+      const cartContents = useSelector(selectCart)
       const password = useRef({})
       password.current = watch("password", "")
       const [errorMsg, setErrorMsg] = useState('')
@@ -40,9 +42,13 @@ const Register = () => {
           if (loginResponse.status === 200) {
             dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())
-            dispatch(fetchCurrentCart())
+            dispatch(fetchCurrentCart(cartContents))
             dispatch(fetchCustomerOrders())
-            history.push('/')
+            if (needsCheckoutRedirect) {
+              history.push('/checkout')
+            } else {
+              history.push('/')
+            }
           }
         } catch (err) {
           if (err.response) {

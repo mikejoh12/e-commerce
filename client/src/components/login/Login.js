@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated, selectIsCheckingOut } from '../../features/users/usersSlice'
+import { fetchCurrentUser,  selectNeedsCheckoutRedirect,  isLoggedInUpdated, needsCheckoutRedirectUpdated } from '../../features/users/usersSlice'
 import { fetchCurrentCart } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useState } from 'react'
@@ -14,7 +14,7 @@ const Login = () => {
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
       const cartContents = useSelector(selectCart)
-      const isCheckingOut = useSelector(selectIsCheckingOut)
+      const needsCheckoutRedirect = useSelector(selectNeedsCheckoutRedirect)
 
       const handleLogin = async data => {
         try {
@@ -30,7 +30,12 @@ const Login = () => {
             dispatch(fetchCurrentUser())
             dispatch(fetchCurrentCart(cartContents))
             dispatch(fetchCustomerOrders())
-            history.push('/')
+            if (needsCheckoutRedirect) {
+              dispatch(needsCheckoutRedirectUpdated(false))
+              history.push('/checkout')
+            } else {
+              history.push('/')
+            }
           }
         } catch (error) {
           const errorMsg = error.response.data.error ? error.response.data.error.message : 'An error occurred.'
@@ -42,8 +47,10 @@ const Login = () => {
         <div className="pt-16 mx-auto max-w-md px-4">    
           <form onSubmit={handleSubmit(handleLogin)}>
 
-            {isCheckingOut &&
-            <h2>Please log in or create an account to continue checking out.</h2>
+            {needsCheckoutRedirect &&
+            <p className="m-4 text-gray-700 text-lg text-base text-center"
+              >Please log in or create an account to continue checking out.
+            </p>
             }
 
             <div className="p-2">

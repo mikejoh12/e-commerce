@@ -12,7 +12,7 @@ export const usersSlice = createSlice({
         currentUser: {},
         currentUserStatus: 'idle',
         isLoggedIn: false,
-        isCheckingOut: false
+        needsCheckoutRedirect: false
     },
     reducers: {
         isLoggedInUpdated(state, action) {
@@ -22,8 +22,9 @@ export const usersSlice = createSlice({
         currentUserUpdated(state, action) {
             state.currentUser = action.payload
         },
-        isCheckingOutUpdated(state, action) {
-            state.isCheckingOut = action.payload
+        //Used to determine if a user is logging in as part of the checkout-flow
+        needsCheckoutRedirectUpdated(state, action) {
+            state.needsCheckoutRedirect = action.payload
         },        
     },
     extraReducers: {
@@ -43,10 +44,10 @@ export const usersSlice = createSlice({
 
 export const    {   isLoggedInUpdated,
                     currentUserUpdated,
-                    isCheckingOutUpdated
+                    needsCheckoutRedirectUpdated
                 } = usersSlice.actions
 export const selectCurrentUserStatus = state => state.users.currentUserStatus
 export const selectCurrentUser = state => state.users.currentUser
 export const selectIsLoggedIn = state => state.users.isLoggedIn
-export const selectIsCheckingOut = state => state.users.isCheckingOut
+export const selectNeedsCheckoutRedirect = state => state.users.needsCheckoutRedirect
 export default usersSlice.reducer

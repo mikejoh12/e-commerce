@@ -2,7 +2,7 @@ import CartProduct from './CartProduct'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCart } from '../../features/cart/cartSlice'
 import { selectAllProducts } from '../../features/products/productsSlice'
-import { isCheckingOutUpdated } from '../../features/users/usersSlice'
+import { needsCheckoutRedirectUpdated } from '../../features/users/usersSlice'
 import { useHistory } from 'react-router-dom'
 
 const Cart = () => {
@@ -13,7 +13,7 @@ const Cart = () => {
   const history = useHistory()
 
   const handleCheckout = () => {
-    dispatch(isCheckingOutUpdated(true))
+    dispatch(needsCheckoutRedirectUpdated(true))
     history.push('/checkout')
   }
 
