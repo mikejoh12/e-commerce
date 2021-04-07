@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form"
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectCurrentUser, fetchCurrentUser } from '../../features/users/usersSlice'
+import { selectCurrentUser, fetchCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
 import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
 import apiAxios from '../../config/axiosConfig'
 
@@ -10,7 +11,9 @@ const GoogleUserRegister = () => {
       const history = useHistory()
       const dispatch = useDispatch()
       const user = useSelector(selectCurrentUser)
+      const userStatus = useSelector(selectCurrentUserStatus)   
       const needsCheckoutRedirect = useSelector(selectNeedsCheckoutRedirect)
+      const [isUserUpdated, setIsUserUpdated] = useState(false)
 
       const handleUpdateUser = async data => {
         try {
@@ -27,17 +30,25 @@ const GoogleUserRegister = () => {
                 country: data.country
               })
             dispatch(fetchCurrentUser())
+            setIsUserUpdated(true)
+        } catch (err) {
+          if (err) {
+          console.log(err)
+        }}
+      }
+
+      //When user info is updated, redirect to main site or checkout
+      useEffect(() => {
+        if (  userStatus === 'succeeded' &&
+              isUserUpdated) {
+            //Check if we need to redirect back to checkout process
             if (needsCheckoutRedirect) {
               dispatch(needsCheckoutRedirectUpdated(false))
               history.push('/checkout')
             } else {
               history.push('/')
             }
-        } catch (err) {
-          if (err) {
-          console.log(err)
-        }}
-      }
+      }}, [userStatus, dispatch, history, needsCheckoutRedirect, isUserUpdated])
 
       return (
         <div className="p-10 mx-auto">    

@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCurrentUser, isLoggedInUpdated } from '../../features/users/usersSlice'
-import { fetchCurrentCart, selectCart, selectNeedsCheckoutRedirect } from "../../features/cart/cartSlice"
-import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
+import { fetchCurrentUser, isLoggedInUpdated, selectCurrentUserStatus } from '../../features/users/usersSlice'
+import { fetchCurrentCart, selectCart, selectNeedsCheckoutRedirect, selectFetchCurrentCartStatus, needsCheckoutRedirectUpdated } from "../../features/cart/cartSlice"
+import { fetchCustomerOrders, selectFetchCustomerOrdersStatus } from "../../features/orders/ordersSlice"
 import apiAxios from '../../config/axiosConfig'
 
 const Register = () => {
@@ -16,7 +16,10 @@ const Register = () => {
       const password = useRef({})
       password.current = watch("password", "")
       const [errorMsg, setErrorMsg] = useState('')
-      
+      const [isLoginDone, setIsLoginDone] = useState(false)
+      const fetchCurrentCartStatus = useSelector(selectFetchCurrentCartStatus)
+      const fetchCustomerOrdersStatus = useSelector(selectFetchCustomerOrdersStatus)
+      const userStatus = useSelector(selectCurrentUserStatus)
       const handleRegisterUser = async data => {
         try {
           await apiAxios.post(
@@ -44,11 +47,7 @@ const Register = () => {
             dispatch(fetchCurrentUser())
             dispatch(fetchCurrentCart(cartContents))
             dispatch(fetchCustomerOrders())
-            if (needsCheckoutRedirect) {
-              history.push('/checkout')
-            } else {
-              history.push('/')
-            }
+            setIsLoginDone(true)
           }
         } catch (err) {
           if (err.response) {
@@ -60,6 +59,21 @@ const Register = () => {
           console.log('An error occured creating account and/or logging in.')
         }
       }}
+
+      //When login data is fetched, redirect to main site or checkout
+      useEffect(() => {
+        if (  userStatus === 'succeeded' &&
+              fetchCurrentCartStatus === 'succeeded' &&
+              fetchCustomerOrdersStatus === 'succeeded' &&
+              isLoginDone) {
+            //Check if we need to redirect back to checkout process
+            if (needsCheckoutRedirect) {
+              dispatch(needsCheckoutRedirectUpdated(false))
+              history.push('/checkout')
+            } else {
+              history.push('/')
+            }
+      }}, [userStatus, dispatch, history, needsCheckoutRedirect, fetchCurrentCartStatus, fetchCustomerOrdersStatus, isLoginDone])
 
       return (
         <div className="p-10 mx-auto max-w-lg mx-4">    
