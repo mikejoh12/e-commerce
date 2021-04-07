@@ -5,6 +5,8 @@ const compression = require('compression')
 const YAML = require('yamljs')
 const app = express()
 const cors = require('cors')
+//TODO: Secure cors settings
+app.use(cors())
 
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocument = YAML.load('./openapi.yaml')
@@ -20,8 +22,6 @@ app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-//TODO: Secure cors settings
-app.use(cors())
 
 app.use(cookieParser())
 app.use(morgan('dev'))
