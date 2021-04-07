@@ -7,8 +7,7 @@ import { useSelector } from 'react-redux'
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
 import { useEffect } from 'react'
 import { selectCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
-import { fetchAllProducts } from '../../features/products/productsSlice'
-
+import { fetchAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
 
 const GoogleLogin = () => {
       const user = useSelector(selectCurrentUser)
@@ -17,6 +16,7 @@ const GoogleLogin = () => {
       const dispatch = useDispatch()
       const cartContents = useSelector(selectCart)
       const history = useHistory()
+      const fetchAllProductsStatus = useSelector(selectFetchAllProductsStatus)
 
       //Get user data to redux store after signing in with Google
       useEffect(() => {
@@ -31,12 +31,11 @@ const GoogleLogin = () => {
       
       //Ask for address if not in the database, otherwise redirect to main site
       useEffect(() => {
-        if (userStatus === 'succeeded') {
+        if (userStatus === 'succeeded' && fetchAllProductsStatus === 'succeeded') {
           if (user.address1) {
             //Check if we need to redirect back to checkout process
             if (needsCheckoutRedirect) {
               dispatch(needsCheckoutRedirectUpdated(false))
-              console.log('Redirecting to checkout')
               history.push('/checkout')
             } else {
               console.log('value:', needsCheckoutRedirect)
@@ -46,7 +45,7 @@ const GoogleLogin = () => {
             history.push('/google-login/user-register')
           }
         }
-      }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect])
+      }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect, fetchAllProductsStatus])
 
       return (
         <div>   
