@@ -56,7 +56,6 @@ const loginUser = async (req, res, next) => {
             const body = { id: user.id, cart_id: user.cart_id, email: user.email, role: user.user_role};
             const token = jwt.sign({ user: body }, process.env.JWT_KEY);
             res.cookie('A_JWT', token, {
-              maxAge: 1000 * 60 * 60, // 1 hr
               httpOnly: true,
               secure: process.env.NODE_ENV === 'production'? true: false,
             })
@@ -71,7 +70,6 @@ const loginGoogle = async (req, res, next) => {
   const token = jwt.sign({ user: body }, process.env.JWT_KEY)
 
   res.cookie('A_JWT', token, {
-    maxAge: 1000 * 60 * 60, // 1 hr
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production'? true: false,
   })
