@@ -6,8 +6,12 @@ const YAML = require('yamljs')
 const app = express()
 const cors = require('cors')
 //TODO: Secure cors settings
-app.use(cors())
-app.options('*', cors())
+const origin = {
+  origin: 'https://606e138dfec34a32f59ae2c5--e-collectibles.netlify.app/'
+}
+
+app.use(cors(origin))
+app.options('*', cors(origin))
 
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocument = YAML.load('./openapi.yaml')
