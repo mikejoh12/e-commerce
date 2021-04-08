@@ -4,8 +4,7 @@ const apiAxios = axios.create({
     baseURL:
         process.env.NODE_ENV === 'production' ?
             process.env.REACT_APP_SERVER_URL :
-            '/api',
-    withCredentials: true
+            '/api'
 })
 
 export default apiAxios
