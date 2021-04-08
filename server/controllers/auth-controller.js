@@ -58,6 +58,7 @@ const loginUser = async (req, res, next) => {
             res.cookie('A_JWT', token, {
               maxAge: 1000 * 60 * 60 * 24 * 1000,
               httpOnly: true,
+              sameSite: 'none',
               secure: process.env.NODE_ENV === 'production'? true: false,
             })
             return res.status(200).send(`Login successful.`);
@@ -73,6 +74,7 @@ const loginGoogle = async (req, res, next) => {
   res.cookie('A_JWT', token, {
     maxAge: 1000 * 60 * 60 * 24 * 1000,
     httpOnly: true,
+    sameSite: 'none',
     secure: process.env.NODE_ENV === 'production'? true: false,
   })
   return res  .status(200)
