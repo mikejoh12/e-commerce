@@ -17,7 +17,7 @@ const Footer = () => {
             <span className="p-2">
               <FontAwesomeIcon icon={faCopyright} size="lg"/>
             </span>
-            <p className="inline text-xl font-mono">2021 E-Market</p>
+            <p className="inline text-xl font-mono">2021 TreasureSpace</p>
           </div>
       </div>
     )

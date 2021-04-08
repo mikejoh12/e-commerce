@@ -4,13 +4,12 @@ const helmet = require('helmet')
 const compression = require('compression')
 const YAML = require('yamljs')
 const app = express()
+
 const cors = require('cors')
-//TODO: Secure cors settings
 const origin = {
-  origin: 'https://606e6110906acf11085267e0--cool-items.netlify.app',
+  origin: 'https://treasurespace.netlify.app',
   credentials: true
 }
-
 app.use(cors(origin))
 app.options('*', cors(origin))
 
