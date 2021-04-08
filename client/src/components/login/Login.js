@@ -19,6 +19,10 @@ const Login = () => {
       const fetchCustomerOrdersStatus = useSelector(selectFetchCustomerOrdersStatus)
       const userStatus = useSelector(selectCurrentUserStatus)
 
+      const googleURL = process.env.NODE_ENV === 'production' ?
+                          process.env.REACT_APP_GOOGLE_URL :
+                          '/api/auth/google'
+
       const handleLogin = async data => {
         try {
           const response = await apiAxios.post(
@@ -100,7 +104,7 @@ const Login = () => {
             </div>
           </form>
 
-          <a href="/api/auth/google">
+          <a href={googleURL}>
             <button  className="m-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Login with Google
             </button>
