@@ -7,7 +7,7 @@ const app = express()
 const cors = require('cors')
 //TODO: Secure cors settings
 const origin = {
-  origin: 'https://606e138dfec34a32f59ae2c5--e-collectibles.netlify.app',
+  origin: 'https://606e6110906acf11085267e0--e-collectibles.netlify.app',
   credentials: true
 }
 
