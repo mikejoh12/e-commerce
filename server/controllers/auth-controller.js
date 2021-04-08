@@ -78,7 +78,7 @@ const loginGoogle = async (req, res, next) => {
     secure: process.env.NODE_ENV === 'production'? true: false,
   })
   return res  .status(200)
-              .redirect('http://localhost:3000/google-login')
+              .redirect('https://treasurespace.netlify.app/google-login')
 }
 
 const logoutUser = (req, res, next) => {

@@ -37,7 +37,7 @@ passport.use(
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "/api/auth/google/redirect",
+  callbackURL: "https://e-market-api.herokuapp.com/api/auth/google/redirect",
   },
   async (accessToken, refreshToken, profile, done) => {
     const googleUser = await fetchUserByGoogleId(profile.id)
