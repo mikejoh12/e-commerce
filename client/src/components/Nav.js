@@ -34,7 +34,7 @@ function Nav() {
         <div className="max-w-7xl mx-auto flex flex-row justify-around items-center p-2">
               <div className="m-2">
                 <Link to="/">
-                  <p className="text-2xl md:text-3xl lg:text-4xl text-blue-100 text-center font-mono whitespace-nowrap mx-2">E-Market</p>
+                  <p className="text-2xl md:text-3xl lg:text-4xl text-blue-100 text-center font-mono whitespace-nowrap mx-2">Cool-Items</p>
                 </Link>
               </div>
 
