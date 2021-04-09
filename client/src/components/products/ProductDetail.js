@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectProductById } from '../../features/products/productsSlice'
+import { selectProductById, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
 import { selectCart, addProductToCart, changeProductQuantity } from '../../features/cart/cartSlice'
 
 const ProductDetail = () => {
@@ -9,6 +9,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
   const product = useSelector(state => selectProductById(state, id))
   const cartContents = useSelector(selectCart)   
+  const productsStatus = useSelector(selectFetchAllProductsStatus)
 
   //Return true if product is already in cart
   const isProductInCart = () => cartContents.hasOwnProperty(product.id)
@@ -34,6 +35,7 @@ const ProductDetail = () => {
 
   return (
       <div className="flex-grow p-5">
+        { productsStatus === 'succeeded' &&
         <div className="p-10">  
             <div className="max-w-4xl mx-auto rounded overflow-hidden shadow-lg">
             <img className="w-full" src={product.image_url} alt={product.name} />
@@ -50,6 +52,7 @@ const ProductDetail = () => {
             </div>
             </div>
         </div>
+        }
       </div>
     )
   }

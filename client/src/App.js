@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Nav from './components/Nav'
 import Register from './components/login/Register'
 import Account from './components/account/Account'
@@ -16,17 +17,23 @@ import { BrowserRouter as Router,
   Redirect
 } from 'react-router-dom'
 import { selectIsLoggedIn } from './features/users/usersSlice'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import ProductDetail from './components/products/ProductDetail'
 import ProductList from './components/products/ProductList'
+import { fetchAllProducts } from './features/products/productsSlice'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 
 const promise = loadStripe('pk_test_51I904uBSQJkm3JDXKbckPcWBdvtxBy53ZWHJPlU802XUsXyP4cLr6bwOqhvwYu5itpHPwgkBmye8MkaVFil4c4lp00IDOUmarR');
 
 const App = () => {
-
+  const dispatch = useDispatch()
   const isLoggedIn = useSelector(selectIsLoggedIn)
+
+  useEffect(() => {
+    console.log('fetching products')
+    dispatch(fetchAllProducts())
+  }, [dispatch])
 
   return (
     <Elements stripe={promise}>

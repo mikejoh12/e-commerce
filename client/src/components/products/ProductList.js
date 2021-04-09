@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchAllProducts, selectAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
+import { useSelector } from 'react-redux'
+import {  selectAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
 import ReactPaginate from 'react-paginate'
 import './Pagination.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,17 +11,11 @@ const ProductList = () => {
   
   const products = useSelector(selectAllProducts)
   const productsStatus = useSelector(selectFetchAllProductsStatus)
-  const dispatch = useDispatch()
 
   const [offset, setOffset] = useState(0)
   const [data, setData] = useState([])
   const [perPage] = useState(6)
   const [pageCount, setPageCount] = useState(0)
-
-  useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_URL)
-    dispatch(fetchAllProducts())
-  }, [dispatch])
 
   useEffect(() => {
     const slice = Object.keys(products).slice(offset, offset + perPage)
