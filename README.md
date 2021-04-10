@@ -25,17 +25,17 @@ GOOGLE_CLIENT_SECRET (for Google OAuth)
 STRIPE_KEY (for Stripe payments)
 PORT (for example 5000)
 
-4. Create a .env file in the /client directory with the following variables (adjusted for your setup - dev environment or deployment). Change the deployed URL values to your local server URLs.
+4. Create a .env file in the /client directory with the following variables (adjusted for your setup - dev environment or deployment).
 
-REACT_APP_SERVER_URL=https://e-market-api.herokuapp.com/api
+REACT_APP_SERVER_URL=http://localhost:5000/api
 REACT_APP_DEV_URL=http://localhost:5000
-REACT_APP_GOOGLE_URL=https://e-market-api.herokuapp.com/api/auth/google
+REACT_APP_GOOGLE_URL=http://locahost:5000/api/auth/google
 
 5. Run yarn (or npm install) in the server-directory and client-directory
 
 The /api/auth/signup end-point signs up a user and creates a user entry in the database.
 The /api/auth/login end-point takes an email/password combo and issues a JWT in a http-only cookie which is needed to access the other end-points.
-The /api/auth/google end-point redirects to Google for OAuth login.
+The /api/auth/google end-point redirects to Google for OAuth login. You will need to create Stripe and Google Developer accounts in order to obtaint the credentials needed.
 
 6. If you have concurrently installed then in the client directory, enter "yarn run dev". As another option, start the server and client separately.
 
