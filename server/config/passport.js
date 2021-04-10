@@ -7,6 +7,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const { cartsService, usersService } = require('../services')
 const { fetchUserByGoogleId, fetchUserByEmail, createUser, addGoogleIdUser } = usersService
 const { createCart } = cartsService
+const isProduction = process.env.NODE_ENV === 'production'
 
 passport.use(
     'login',
@@ -37,7 +38,8 @@ passport.use(
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "https://e-market-api.herokuapp.com/api/auth/google/redirect",
+  callbackURL: isProduction ? process.env.GOOGLE_CALLBACK_URL :
+                              "/api/auth/google/redirect",
   },
   async (accessToken, refreshToken, profile, done) => {
     const googleUser = await fetchUserByGoogleId(profile.id)

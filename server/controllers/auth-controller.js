@@ -5,6 +5,7 @@ const { createCart } = cartsService
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const { validationResult } = require('express-validator')
+const isProduction = process.env.NODE_ENV === 'production'
 
 const signupUser = async (req, res, next) => {
 
@@ -58,8 +59,8 @@ const loginUser = async (req, res, next) => {
             res.cookie('A_JWT', token, {
               maxAge: 1000 * 60 * 60 * 24 * 1000,
               httpOnly: true,
-              sameSite: 'none',
-              secure: process.env.NODE_ENV === 'production'? true: false,
+              sameSite: isProduction ? 'none' : 'lax',
+              secure: isProduction ? true: false,
             })
             return res.status(200).send(`Login successful.`);
           }
@@ -74,11 +75,13 @@ const loginGoogle = async (req, res, next) => {
   res.cookie('A_JWT', token, {
     maxAge: 1000 * 60 * 60 * 24 * 1000,
     httpOnly: true,
-    sameSite: 'none',
-    secure: process.env.NODE_ENV === 'production'? true: false,
+    sameSite: isProduction ? 'none' : 'lax',
+    secure: isProduction === 'production'? true: false,
   })
   return res  .status(200)
-              .redirect('https://treasurespace.netlify.app/google-login')
+              .redirect(isProduction ? 
+              process.env.GOOGLE_FRONT_END_REDIRECT_URL : 
+              'http://localhost:3000/google-login')
 }
 
 const logoutUser = (req, res, next) => {

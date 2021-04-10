@@ -7,7 +7,7 @@ const app = express()
 
 const cors = require('cors')
 const origin = {
-  origin: 'https://treasurespace.netlify.app',
+  origin: process.env.CORS_ORIGIN,
   credentials: true
 }
 app.use(cors(origin))

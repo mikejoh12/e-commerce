@@ -12,20 +12,27 @@ Front-end uses React, Redux, React Router, and Tailwinds CSS.
 ### Installation instructions:
 1. Clone repo
 2. Create and start up a local postgres database and populate it with tables found in the following file: server/db/e-commerce.sql. You can use the file products.sql to add some products to the db.
-3. Create a .env file in the /server directory with the following variables set to the values applying to your setup:
+3. Create a .env file in the /server directory with the following variables set to the values applying to your setup. If you don't plan on deploying then you can disable the variables related to deployed URLs.
 
 DB_USER (your db username)
 DB_PASSWORD (your db password)
 DB_HOST=localhost
 DB_PORT (postgres port, such as 5432)
 DB_DATABASE (your database name)
-JWT_KEY (random string, secret key used to verify JWT)
-GOOGLE_CLIENT_ID (for Google OAuth)
-GOOGLE_CLIENT_SECRET (for Google OAuth)
-STRIPE_KEY (for Stripe payments)
-PORT (for example 5000)
 
-4. Create a .env file in the /client directory with the following variables (adjusted for your setup - dev environment or deployment). Change the deployed URL values to your local server URLs.
+JWT_KEY (random string, secret key used to verify JWT)
+
+GOOGLE_CLIENT_ID (for Google OAuth - obtain from Google)
+GOOGLE_CLIENT_SECRET (for Google OAuth - obtain from Google)
+GOOGLE_CALLBACK_URL (deployed Google OAuth redirect URL for server)
+GOOGLE_FRONT_END_REDIRECT_URL (deployed Google OAuth redirect URL for front-end)
+
+CORS_ORIGIN (deployed URL for front-end using https)
+
+STRIPE_KEY (for Stripe payments - obtain from Stripe)
+PORT (I set this to 5000)
+
+4. Create a .env file in the /client directory with the following variables (adjusted for your setup - dev environment or deployment). You can either remove the deployed URLs from the code or adjust them with your own deployed URL.
 
 REACT_APP_SERVER_URL=https://e-market-api.herokuapp.com/api
 REACT_APP_DEV_URL=http://localhost:5000
