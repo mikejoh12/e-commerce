@@ -44,7 +44,6 @@ const GoogleLogin = () => {
               dispatch(needsCheckoutRedirectUpdated(false))
               history.push('/checkout')
             } else {
-              console.log('value:', needsCheckoutRedirect)
               history.push('/')
             }
           } else {

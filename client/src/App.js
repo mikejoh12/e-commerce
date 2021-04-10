@@ -31,7 +31,6 @@ const App = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   useEffect(() => {
-    console.log('fetching products')
     dispatch(fetchAllProducts())
   }, [dispatch])
 

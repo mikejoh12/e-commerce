@@ -38,7 +38,7 @@ function Nav() {
                 </Link>
               </div>
 
-              <p className="hidden md:inline  max-w-md text-md lg:text-lg text-white text-center font-mono mx-2">A demo e-commerce app build with Postgres, Express, React and Node.js</p>
+              <p className="hidden md:inline  max-w-md text-md lg:text-lg text-white text-center font-mono mx-2">A demo e-commerce app built with Postgres, Express, React and Node.js</p>
               
               <div className="m-2">
                 <Link to="/cart">
