@@ -60,7 +60,7 @@ const loginUser = async (req, res, next) => {
               maxAge: 1000 * 60 * 60 * 24 * 1000,
               httpOnly: true,
               sameSite: isProduction ? 'none' : 'lax',
-              secure: isProduction ? true: false,
+              secure: isProduction ? true : false,
             })
             return res.status(200).send(`Login successful.`);
           }
@@ -76,7 +76,7 @@ const loginGoogle = async (req, res, next) => {
     maxAge: 1000 * 60 * 60 * 24 * 1000,
     httpOnly: true,
     sameSite: isProduction ? 'none' : 'lax',
-    secure: isProduction === 'production'? true: false,
+    secure: isProduction ? true : false,
   })
   return res  .status(200)
               .redirect(isProduction ? 
