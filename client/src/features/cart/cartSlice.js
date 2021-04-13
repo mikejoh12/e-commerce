@@ -63,7 +63,10 @@ export const cartSlice = createSlice({
         removeProductFromCartStatus: 'idle',
         changeProductQuantityStatus: 'idle',
         checkoutCartStatus: 'idle',
-        needsCheckoutRedirect: false
+        needsCheckoutRedirect: false,
+        productAddedMsg: 'Slice: Product Added',
+        showProductAddedMsg: false
+
     },
     reducers: {
         cartProductsUpdated(state, action) {
@@ -72,7 +75,15 @@ export const cartSlice = createSlice({
         //Used to determine if a user is logging in as part of the checkout-flow
         needsCheckoutRedirectUpdated(state, action) {
             state.needsCheckoutRedirect = action.payload
-        },   
+        },
+        //Used for msg showed on alert banner for adding products 
+        productAddedMsgUpdated(state, action) {
+            state.productAddedMsg = action.payload
+        },
+        //Used to show alert banner when adding product to cart
+        showProductAddedMsgUpdated(state, action) {
+            state.showProductAddedMsg = action.payload
+        },
     },    
     extraReducers: {
         //Reducers for fetching cart
@@ -132,8 +143,10 @@ export const cartSlice = createSlice({
     }
 })
 
-export const    { cartProductsUpdated, needsCheckoutRedirectUpdated } = cartSlice.actions
+export const    { cartProductsUpdated, needsCheckoutRedirectUpdated, productAddedMsgUpdated, showProductAddedMsgUpdated } = cartSlice.actions
 export const selectCart = state => state.cart.cartProducts
 export const selectNeedsCheckoutRedirect = state => state.cart.needsCheckoutRedirect
 export const selectFetchCurrentCartStatus = state => state.cart.fetchCurrentCartStatus
+export const selectProductAddedMsg = state => state.cart.productAddedMsg
+export const selectShowProductAddedMsg = state => state.cart.showProductAddedMsg
 export default cartSlice.reducer

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductToCart, changeProductQuantity, selectCart } from '../../features/cart/cartSlice'
+import { addProductToCart, changeProductQuantity, selectCart, productAddedMsgUpdated, showProductAddedMsgUpdated } from '../../features/cart/cartSlice'
 
 const ProductCard = ({product}) => {
     
@@ -24,6 +24,8 @@ const ProductCard = ({product}) => {
                     quantity: 1
                 })
             )}
+            dispatch(productAddedMsgUpdated(`Added ${product.name} to Cart`))
+            dispatch(showProductAddedMsgUpdated(true))
         } catch (err) {
             console.error('Failed to add to cart: ', err)
         }

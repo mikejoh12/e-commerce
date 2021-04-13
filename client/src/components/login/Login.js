@@ -5,6 +5,8 @@ import { fetchCurrentUser,  isLoggedInUpdated, selectCurrentUserStatus } from '.
 import { selectCart, fetchCurrentCart,  selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated, selectFetchCurrentCartStatus } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders, selectFetchCustomerOrdersStatus } from "../../features/orders/ordersSlice"
 import { useState, useEffect } from 'react'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import apiAxios from '../../config/axiosConfig'
 
 const Login = () => {
@@ -106,7 +108,8 @@ const Login = () => {
 
           <a href={googleURL}>
             <button  className="m-2 py-2 px-4 cursor-pointer border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Login with Google
+            <span className="mr-2"><FontAwesomeIcon icon={faGoogle} size="lg"/></span>
+            <span>Login with Google</span>
             </button>
           </a>
 

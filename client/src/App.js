@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Nav from './components/Nav'
+import ProductAddedAlert from './components/cart/ProductAddedAlert'
 import Register from './components/login/Register'
 import Account from './components/account/Account'
 import OrderDetail from './components/account/OrderDetail'
@@ -40,6 +41,7 @@ const App = () => {
         <div className="flex flex-col min-h-screen">
           <Nav />
           <div className="mt-24 flex flex-col flex-grow">
+            <ProductAddedAlert />
             <Switch>
               <Route path="/login" component={Login} />
               <Route exact path="/google-login" component={GoogleLogin} />
