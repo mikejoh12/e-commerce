@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectProductById, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
-import { selectCart, addProductToCart, changeProductQuantity } from '../../features/cart/cartSlice'
+import { selectCart, addProductToCart, changeProductQuantity, productAddedMsgUpdated, showProductAddedMsgUpdated } from '../../features/cart/cartSlice'
 
 const ProductDetail = () => {
  
@@ -28,6 +28,8 @@ const ProductDetail = () => {
                 quantity: 1
             })
         )}
+        dispatch(productAddedMsgUpdated(`Added ${product.name} to Cart`))
+        dispatch(showProductAddedMsgUpdated(true))
     } catch (err) {
         console.error('Failed to add to cart: ', err)
     }
