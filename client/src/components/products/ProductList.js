@@ -6,30 +6,32 @@ import ReactPaginate from 'react-paginate'
 import './Pagination.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { useHistory, useParams } from 'react-router-dom'
 
 const ProductList = () => {
   
   const products = useSelector(selectAllProducts)
   const productsStatus = useSelector(selectFetchAllProductsStatus)
 
-  const [offset, setOffset] = useState(0)
   const [data, setData] = useState([])
   const [perPage] = useState(6)
   const [pageCount, setPageCount] = useState(0)
+  const { productOffset = 0 }= useParams()
+  let history = useHistory()
 
   useEffect(() => {
-    const slice = Object.keys(products).slice(offset, offset + perPage)
+    const slice = Object.keys(products).slice(productOffset, productOffset + perPage)
     const postData = slice.map(keyName =>
             <ProductCard
               key={products[keyName].id}
               product={products[keyName]} />)
     setData(postData)
     setPageCount(Math.ceil(Object.keys(products).length / perPage))
-  }, [products, offset, perPage])
+  }, [products, productOffset, perPage])
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected
-    setOffset(Math.ceil(selectedPage * perPage))
+    history.push(`/${Math.ceil(selectedPage * perPage)}`)
   }
 
   return (

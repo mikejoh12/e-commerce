@@ -55,7 +55,7 @@ const App = () => {
                 {isLoggedIn ? <CheckOut /> : <Redirect to="/login" />}
               </Route>
               <ProtectedRoute path="/checkout-done/:id" isLoggedIn={isLoggedIn} component={CheckOutDone} />
-              <Route exact path="/" component={ProductList} />
+              <Route exact path="/:productOffset?" component={ProductList} />
             </Switch>
           </div>
           <Footer />
