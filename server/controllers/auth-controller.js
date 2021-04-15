@@ -64,7 +64,6 @@ const loginUser = async (req, res, next) => {
             })
             res.cookie('A_JWT_legacy', token, {
               maxAge: 1000 * 60 * 60 * 24 * 1000,
-              httpOnly: true,
               secure: isProduction ? true : false,
             })
             return res.status(200).send(`Login successful.`);
@@ -85,7 +84,6 @@ const loginGoogle = async (req, res, next) => {
   })
   res.cookie('A_JWT_legacy', token, {
     maxAge: 1000 * 60 * 60 * 24 * 1000,
-    httpOnly: true,
     secure: isProduction ? true : false,
   })
   return res  .status(200)
