@@ -62,6 +62,11 @@ const loginUser = async (req, res, next) => {
               sameSite: isProduction ? 'none' : 'lax',
               secure: isProduction ? true : false,
             })
+            res.cookie('A_JWT_legacy', token, {
+              maxAge: 1000 * 60 * 60 * 24 * 1000,
+              httpOnly: true,
+              secure: isProduction ? true : false,
+            })
             return res.status(200).send(`Login successful.`);
           }
         );
@@ -78,6 +83,11 @@ const loginGoogle = async (req, res, next) => {
     sameSite: isProduction ? 'none' : 'lax',
     secure: isProduction ? true : false,
   })
+  res.cookie('A_JWT_legacy', token, {
+    maxAge: 1000 * 60 * 60 * 24 * 1000,
+    httpOnly: true,
+    secure: isProduction ? true : false,
+  })
   return res  .status(200)
               .redirect(isProduction ? 
               process.env.GOOGLE_FRONT_END_REDIRECT_URL : 
@@ -86,6 +96,7 @@ const loginGoogle = async (req, res, next) => {
 
 const logoutUser = (req, res, next) => {
     res.clearCookie('A_JWT')
+    res.clearCookie('A_JWT_legacy')
     res.status(200).send()
     next()
 }
