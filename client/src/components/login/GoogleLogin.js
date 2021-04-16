@@ -5,7 +5,7 @@ import { selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated, selectFetchC
 import { selectCart, fetchCurrentCart } from "../../features/cart/cartSlice"
 import { useSelector } from 'react-redux'
 import { fetchCustomerOrders } from "../../features/orders/ordersSlice"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { selectCurrentUser, selectCurrentUserStatus } from '../../features/users/usersSlice'
 import { fetchAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
 import { selectFetchCustomerOrdersStatus } from '../../features/orders/ordersSlice'
@@ -20,6 +20,7 @@ const GoogleLogin = () => {
       const fetchAllProductsStatus = useSelector(selectFetchAllProductsStatus)
       const fetchCurrentCartStatus = useSelector(selectFetchCurrentCartStatus)
       const fetchCustomerOrdersStatus = useSelector(selectFetchCustomerOrdersStatus)
+      const [loginMsg, setLoginMsg] = useState('')
 
       //Get user data to redux store after signing in with Google
       useEffect(() => {
@@ -32,6 +33,12 @@ const GoogleLogin = () => {
         }
       }, [userStatus, dispatch, history, cartContents])
       
+      useEffect(() => {
+        if (  userStatus === 'failed') {
+            setLoginMsg('An error occurred logging in using Google.')
+        }
+      }, [userStatus])
+
       //Ask for address if not in the database, otherwise redirect to main site
       useEffect(() => {
         if (  userStatus === 'succeeded' &&
@@ -53,7 +60,10 @@ const GoogleLogin = () => {
       }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect, fetchAllProductsStatus, fetchCurrentCartStatus, fetchCustomerOrdersStatus])
 
       return (
-        <div>   
+        <div>
+          <p className="text-gray-700 font-medium text-base text-center">
+            {loginMsg}
+          </p>
         </div>
       )
     }
