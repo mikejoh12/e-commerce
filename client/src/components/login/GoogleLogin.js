@@ -25,7 +25,6 @@ const GoogleLogin = () => {
       //Get user data to redux store after signing in with Google
       useEffect(() => {
         if (userStatus === 'idle') {
-          dispatch(isLoggedInUpdated(true))
           dispatch(fetchCurrentUser())
           dispatch(fetchCurrentCart(cartContents))
           dispatch(fetchCustomerOrders())
@@ -45,7 +44,9 @@ const GoogleLogin = () => {
               fetchAllProductsStatus === 'succeeded' &&
               fetchCurrentCartStatus === 'succeeded' &&
               fetchCustomerOrdersStatus === 'succeeded') {
-          if (user.address1) {
+            //Set log-in status
+            dispatch(isLoggedInUpdated(true))
+            if (user.address1) {
             //Check if we need to redirect back to checkout process
             if (needsCheckoutRedirect) {
               dispatch(needsCheckoutRedirectUpdated(false))
