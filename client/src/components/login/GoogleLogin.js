@@ -48,16 +48,16 @@ const GoogleLogin = () => {
             dispatch(isLoggedInUpdated(true))
             if (user.address1) {
             //Check if we need to redirect back to checkout process
-            if (needsCheckoutRedirect) {
-              dispatch(needsCheckoutRedirectUpdated(false))
-              history.push('/checkout')
-            } else {
-              history.push('/')
+                if (needsCheckoutRedirect) {
+                  dispatch(needsCheckoutRedirectUpdated(false))
+                  history.push('/checkout')
+                } else {
+                  history.push('/')
+                }
+              } else {
+                history.push('/google-login/user-register')
+              }
             }
-          } else {
-            history.push('/google-login/user-register')
-          }
-        }
       }, [userStatus, user.address1, dispatch, history, needsCheckoutRedirect, fetchAllProductsStatus, fetchCurrentCartStatus, fetchCustomerOrdersStatus])
 
       return (
