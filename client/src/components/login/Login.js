@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser,  isLoggedInUpdated, selectCurrentUserStatus } from '../../features/users/usersSlice'
+import { fetchCurrentUser,  isLoggedInUpdated, selectIsLoggedIn, selectCurrentUserStatus } from '../../features/users/usersSlice'
 import { selectCart, fetchCurrentCart,  selectNeedsCheckoutRedirect, needsCheckoutRedirectUpdated, selectFetchCurrentCartStatus } from "../../features/cart/cartSlice"
 import { fetchCustomerOrders, selectFetchCustomerOrdersStatus } from "../../features/orders/ordersSlice"
 import { useState, useEffect } from 'react'
@@ -14,12 +14,12 @@ const Login = () => {
       const dispatch = useDispatch()
       const history = useHistory()
       const [loginMsg, setLoginMsg] = useState('')
-      const [isLoginDone, setIsLoginDone] = useState(false)
       const cartContents = useSelector(selectCart)
       const needsCheckoutRedirect = useSelector(selectNeedsCheckoutRedirect)
       const fetchCurrentCartStatus = useSelector(selectFetchCurrentCartStatus)
       const fetchCustomerOrdersStatus = useSelector(selectFetchCustomerOrdersStatus)
       const userStatus = useSelector(selectCurrentUserStatus)
+      const isLoggedIn = useSelector(selectIsLoggedIn)
 
       const googleURL = process.env.NODE_ENV === 'production' ?
                           process.env.REACT_APP_GOOGLE_URL :
@@ -35,11 +35,9 @@ const Login = () => {
               },
               {withCredentials: true})
           if (response.status === 200) {
-            dispatch(isLoggedInUpdated(true))
             dispatch(fetchCurrentUser())
             dispatch(fetchCurrentCart(cartContents))
             dispatch(fetchCustomerOrders())
-            setIsLoginDone(true)
           }
         } catch (error) {
           const errorMsg = error.response.data.error ? error.response.data.error.message : 'An error occurred.'
@@ -47,12 +45,21 @@ const Login = () => {
         }
       }
 
+      //When user data/cart/orders are fetched, update login status
+      useEffect(() => {
+        if (  userStatus === 'succeeded' &&
+              fetchCurrentCartStatus === 'succeeded' &&
+              fetchCustomerOrdersStatus === 'succeeded') {
+              dispatch(isLoggedInUpdated(true))
+            }
+      }, [userStatus, dispatch, fetchCurrentCartStatus, fetchCustomerOrdersStatus])
+
       //When login data is fetched, redirect to main site or checkout
       useEffect(() => {
         if (  userStatus === 'succeeded' &&
               fetchCurrentCartStatus === 'succeeded' &&
               fetchCustomerOrdersStatus === 'succeeded' &&
-              isLoginDone) {
+              isLoggedIn) {
             //Check if we need to redirect back to checkout process
             if (needsCheckoutRedirect) {
               dispatch(needsCheckoutRedirectUpdated(false))
@@ -60,12 +67,21 @@ const Login = () => {
             } else {
               history.push('/')
             }
-      }}, [userStatus, dispatch, history, needsCheckoutRedirect, fetchCurrentCartStatus, fetchCustomerOrdersStatus, isLoginDone])
+      }}, [userStatus, dispatch, history, needsCheckoutRedirect, fetchCurrentCartStatus, fetchCustomerOrdersStatus, isLoggedIn])
 
+      useEffect(() => {
+        if (  userStatus === 'failed') {
+          setLoginMsg('An error occurred connecting to the server.')
+        }
+      }, [userStatus])
 
       return (
         <div className="pt-16 mx-auto max-w-md px-4">    
           <form onSubmit={handleSubmit(handleLogin)}>
+
+            <p className="m-4 text-gray-700 text-lg text-base text-center">
+              Note: This site is under development and login currently does not work on iOS/macOS. 
+            </p>
 
             {needsCheckoutRedirect &&
             <p className="m-4 text-gray-700 text-lg text-base text-center"

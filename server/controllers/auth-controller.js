@@ -56,16 +56,14 @@ const loginUser = async (req, res, next) => {
 
             const body = { id: user.id, cart_id: user.cart_id, email: user.email, role: user.user_role};
             const token = jwt.sign({ user: body }, process.env.JWT_KEY);
+            
             res.cookie('A_JWT', token, {
               maxAge: 1000 * 60 * 60 * 24 * 1000,
               httpOnly: true,
               sameSite: isProduction ? 'none' : 'lax',
               secure: isProduction ? true : false,
             })
-            res.cookie('A_JWT_legacy', token, {
-              maxAge: 1000 * 60 * 60 * 24 * 1000,
-              secure: isProduction ? true : false,
-            })
+            
             return res.status(200).send(`Login successful.`);
           }
         );
@@ -82,10 +80,7 @@ const loginGoogle = async (req, res, next) => {
     sameSite: isProduction ? 'none' : 'lax',
     secure: isProduction ? true : false,
   })
-  res.cookie('A_JWT_legacy', token, {
-    maxAge: 1000 * 60 * 60 * 24 * 1000,
-    secure: isProduction ? true : false,
-  })
+
   return res  .status(200)
               .redirect(isProduction ? 
               process.env.GOOGLE_FRONT_END_REDIRECT_URL : 

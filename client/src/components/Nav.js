@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { selectIsLoggedIn } from '../features/users/usersSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { isLoggedInUpdated, currentUserUpdated } from '../features/users/usersSlice'
+import { isLoggedInUpdated, currentUserUpdated, currentUserStatusUpdated } from '../features/users/usersSlice'
 import { cartProductsUpdated, selectCart } from '../features/cart/cartSlice'
 import { customerOrdersUpdated } from '../features/orders/ordersSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,6 +23,7 @@ function Nav() {
         await dispatch(currentUserUpdated({})) //Clear current user info from session
         await dispatch(cartProductsUpdated({})) //Clear cart
         await dispatch(customerOrdersUpdated({})) //Clear orders
+        await dispatch(currentUserStatusUpdated('idle'))
         await apiAxios.post('/auth/logout')
       } catch(err) {
         console.log(err)

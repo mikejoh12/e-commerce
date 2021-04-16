@@ -82,11 +82,7 @@ passport.use(
             let token = null;
             if (req && req.cookies)
             {
-              if (req.cookies['A_JWT']) {
                 token = req.cookies['A_JWT']
-              } else if (req.cookies['A_JWT_legacy']) {
-                token = req.cookies['A_JWT_legacy']
-              }
             }
             return token;
         }])
@@ -112,11 +108,7 @@ passport.use(
             let token = null;
             if (req && req.cookies)
             {
-              if (req.cookies['A_JWT']) {
                 token = req.cookies['A_JWT']
-              } else if (req.cookies['A_JWT_legacy']) {
-                token = req.cookies['A_JWT_legacy']
-              }
             }
             return token;
         }])

@@ -20,6 +20,10 @@ export const usersSlice = createSlice({
         //Clear user info when logging out
         currentUserUpdated(state, action) {
             state.currentUser = action.payload
+        },
+        //Used to reset user status on logout
+        currentUserStatusUpdated(state, action) {
+            state.currentUserStatus = action.payload
         }     
     },
     extraReducers: {
@@ -38,7 +42,8 @@ export const usersSlice = createSlice({
 })
 
 export const    {   isLoggedInUpdated,
-                    currentUserUpdated
+                    currentUserUpdated,
+                    currentUserStatusUpdated
                 } = usersSlice.actions
 export const selectCurrentUserStatus = state => state.users.currentUserStatus
 export const selectCurrentUser = state => state.users.currentUser
