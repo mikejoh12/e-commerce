@@ -21,9 +21,7 @@ const Login = () => {
       const userStatus = useSelector(selectCurrentUserStatus)
       const isLoggedIn = useSelector(selectIsLoggedIn)
 
-      const googleURL = process.env.NODE_ENV === 'production' ?
-                          process.env.REACT_APP_GOOGLE_URL :
-                          '/api/auth/google'
+      const googleURL = '/api/auth/google'
 
       const handleLogin = async data => {
         try {
@@ -78,10 +76,6 @@ const Login = () => {
       return (
         <div className="pt-16 mx-auto max-w-md px-4">    
           <form onSubmit={handleSubmit(handleLogin)}>
-
-            <p className="m-4 text-gray-700 text-lg text-base text-center">
-              Note: This site is under development and login currently does not work on iOS/macOS. 
-            </p>
 
             {needsCheckoutRedirect &&
             <p className="m-4 text-gray-700 text-lg text-base text-center"
