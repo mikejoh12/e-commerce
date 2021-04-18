@@ -89,7 +89,6 @@ const loginGoogle = async (req, res, next) => {
 
 const logoutUser = (req, res, next) => {
     res.clearCookie('A_JWT')
-    res.clearCookie('A_JWT_legacy')
     res.status(200).send()
     next()
 }
