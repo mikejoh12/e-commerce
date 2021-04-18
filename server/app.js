@@ -1,4 +1,8 @@
-require ('newrelic')
+// Monitor app and report data with New Relic only in production
+if (process.env.NODE_ENV !== 'production') {
+  require ('newrelic')
+}
+
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
