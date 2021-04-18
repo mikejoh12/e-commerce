@@ -1,5 +1,5 @@
 // Monitor app and report data with New Relic only in production
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
   require ('newrelic')
 }
 
@@ -31,7 +31,6 @@ app.use(helmet())
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-
 
 app.use(cookieParser())
 app.use(morgan('dev'))
