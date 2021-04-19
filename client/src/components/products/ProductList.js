@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {  selectAllProducts, selectFetchAllProductsStatus } from '../../features/products/productsSlice'
+import { needsCheckoutRedirectUpdated } from '../../features/cart/cartSlice'
 import ReactPaginate from 'react-paginate'
 import './Pagination.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +19,11 @@ const ProductList = () => {
   const [pageCount, setPageCount] = useState(0)
   const { productOffset = 0 }= useParams()
   let history = useHistory()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(needsCheckoutRedirectUpdated(false))
+  }, [dispatch])
 
   useEffect(() => {
     const slice = Object.keys(products).slice(productOffset, productOffset + perPage)
@@ -31,6 +37,7 @@ const ProductList = () => {
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected
+    window.scrollTo(0, 0);
     history.push(`/${Math.ceil(selectedPage * perPage)}`)
   }
 
