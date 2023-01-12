@@ -2,7 +2,7 @@
 This project is developed as an assignment for the Codecademy Full Stack Engineering Path.
 
 ## Status
-This project is deployed at https://treasurespace.netlify.app
+This project is no longer deployed.
 
 ### Technologies used
 Back-end uses Postgres, Express, React and Node.js. Passport, jsonwebtoken, and bcrypt, are used for authentication/authorization.
