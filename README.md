@@ -1,5 +1,5 @@
 # A simple e-commerce web-app using the PERN stack (Postgres, Express, React, Node.js)
-This project is developed as an assignment for the Codecademy Full Stack Engineering Path.
+This project is now archived. It was developed as an assignment for the Codecademy Full Stack Engineering Path.
 
 ## Status
 This project is no longer deployed.
